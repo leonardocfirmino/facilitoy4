@@ -1,6 +1,6 @@
 export default function Carrinho() {
   return (
-    <div className="flex divide-x-2 w-48 justify-center">
+    <div className="flex divide-x-2 order-3 lg:order-4 lg:w-48 justify-center">
       <div className="flex items-center text-gray-300">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +8,7 @@ export default function Carrinho() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-10 h-10 mr-2"
+          className="w-8 h-8  mr-2"
         >
           <path
             strokeLinecap="round"
@@ -17,7 +17,7 @@ export default function Carrinho() {
           />
         </svg>
       </div>
-      <div className="pl-2">
+      <div className="pl-2 lg:block hidden">
         <h1 className="text-red-600 font-semibold">R$0,00</h1>
         <h2>0 items</h2>
       </div>

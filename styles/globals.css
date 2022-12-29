@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Skranji";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../public/Skranji-Bold.ttf");
+}
+.font-skranji {
+  font-family: "Skranji";
+}
+.swiper-pagination {
+  bottom: -2px !important;
+}
 .rc-pagination {
   margin: 0;
   padding: 0;

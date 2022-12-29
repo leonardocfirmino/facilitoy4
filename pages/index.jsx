@@ -1,12 +1,22 @@
-import LayoutBlog from "../components/LayoutBlog";
 import useSWR from "swr";
-import request from "graphql-request";
-import Pagination from "rc-pagination";
+
 import axios from "axios";
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
+import Layout from "../components/Layout";
+import HomeCarrousel2 from "../components/home/carrousel2";
+import HomeCarrousel1 from "../components/home/carrousel1";
+import Razoes from "../components/home/razoes";
+import Hero1 from "../components/home/hero1";
+import Sobre from "../components/home/sobre";
+import Duvidas from "../components/home/duvidas";
+import Testimonals from "../components/home/testimonals";
+import HomeCarrousel3 from "../components/home/carrousel3";
+import Steps from "../components/home/steps";
+
 const localeInfo = {
   // Options.jsx
   items_per_page: "/ page",
@@ -45,9 +55,116 @@ const Blog = ({ subdomain }) => {
     { query: subdomain, offset: actualPosts },
     fetcher
   );
-
+  const carrousel1 = [
+    {
+      image: "/carrousel-1/1.png",
+      name: "Jumperoo",
+    },
+    {
+      image: "/carrousel-1/2.png",
+      name: "Centro de atividades",
+    },
+    {
+      image: "/carrousel-1/3.png",
+      name: "Mamaroo",
+    },
+    {
+      image: "/carrousel-1/4.png",
+      name: "Tapete de atividades",
+    },
+    {
+      image: "/carrousel-1/5.png",
+      name: "Cercadinho",
+    },
+    {
+      image: "/carrousel-1/6.png",
+      name: "Mini veículo Elétrico",
+    },
+    {
+      image: "/carrousel-1/7.webp",
+      name: "Playground",
+    },
+    {
+      image: "/carrousel-1/8.webp",
+      name: "Cadeira bumbo",
+    },
+  ];
+  const carrousel2 = [
+    {
+      image: "/carrousel-2/1.jpeg",
+      name: "Torre de Carrinhos",
+      price: 89,
+      slug: "torre-de-carrinhos",
+    },
+    {
+      image: "/carrousel-2/2.png",
+      name: "Mesa Estação de Atividades (1)",
+      price: 89,
+      slug: "mega-estacao-de-carrinhos-1",
+    },
+    {
+      image: "/carrousel-2/3.jpeg",
+      name: "Play Urso (1)",
+      price: 119,
+      slug: "play-urso-1",
+    },
+    {
+      image: "/carrousel-2/4.jpg",
+      name: "Mega Estação Selva",
+      price: 89,
+      slug: "mega-estacao-selva",
+    },
+    {
+      image: "/carrousel-2/5.jpg",
+      name: "Cercadinho Playground Cinza (3)",
+      price: 109,
+      slug: "cercadinho-cinza",
+    },
+    {
+      image: "/carrousel-2/6.jpg",
+      name: "Escorrega de Plastico",
+      price: 79,
+      slug: "escorrega-plastico",
+    },
+    {
+      image: "/carrousel-2/7.jpg",
+      name: "Escorregador 2 degraus e gangorra",
+      price: 59,
+      slug: "escorregador-dois-degraus",
+    },
+    {
+      image: "/carrousel-2/8.jpg",
+      name: "Centro de atividades Summer Safari",
+      price: 89,
+      slug: "centro-safari",
+    },
+    {
+      image: "/carrousel-2/9.jpeg",
+      name: "Cama elastica colorida",
+      price: 160,
+      slug: "cama-elastica",
+    },
+    {
+      image: "/carrousel-2/10.jpg",
+      name: "Banheira dobravel azul",
+      price: 79,
+      slug: "banheira-dobravel",
+    },
+    {
+      image: "/carrousel-2/11.jpg",
+      name: "Caminhão Food Truck",
+      price: 129,
+      slug: "caminhao-food-truck",
+    },
+    {
+      image: "/carrousel-2/12.jpg",
+      name: "Moto Elétrica azul",
+      price: 79.0,
+      slug: "moto-eletrica",
+    },
+  ];
   return (
-    <LayoutBlog subdomain={subdomain}>
+    <Layout subdomain={subdomain}>
       {data && (
         <Head>
           <title>{data.data.user[0].blog_name}</title>
@@ -68,90 +185,48 @@ const Blog = ({ subdomain }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
       )}
-      <div className="flex w-full h-full justify-between ">
-        <div className="w-full relative">
-          <div className="absolute z-10 -bottom-1 -left-2 w-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1000 100"
-              fill="#fff"
-              preserveAspectRatio="none"
-              style={{ width: "calc(119% + 1.3px)" }}
-              className=" h-14 transform rotate-180"
-            >
-              <path
-                class="elementor-shape-fill"
-                d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
-	c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
-	c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
-              ></path>
-            </svg>
-          </div>
-
-          <div
-            style={{
-              backgroundImage: "url('/hero1.webp')",
-              backgroundPositon: "top right",
-            }}
-            className="w-full relative justify-center flex items-center h-[26rem] bg-cover "
-          >
-            <div className="max-w-sm">
-              <h1 className="font-bold text-3xl">
-                Os melhores brinquedos para quem quer:
-              </h1>
-              <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-2xl">
-                <span className="text-red-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={4}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 4.5v15m7.5-7.5h-15"
-                    />
-                  </svg>
-                </span>
-                <p>Diversão para os pequenos</p>
+      <div className="w-full h-full">
+        <Hero1 />
+        <HomeCarrousel1 data={carrousel1} />
+        <HomeCarrousel2 data={carrousel2} />
+        <Steps />
+        <HomeCarrousel3 data={carrousel2} />
+        <Razoes />
+        <Sobre />
+        <Duvidas />
+        <Testimonals />
+        <div className="w-full flex  justify-center items-center bg-gray-200 py-4 ">
+          <div className="text-center">
+            <h1 className="text-sm font-bold mb-4 text-gray-600">
+              Siga-nos em nossas redes
+            </h1>
+            <div className="flex justify-center gap-4 items-center">
+              <div className="px-3 hover:bg-blue-700 transition-all duration-300 cursor-pointer py-3 rounded-full bg-gray-400">
+                <img
+                  src="/icons/facebook.png"
+                  className="invert w-8 h-8"
+                  alt=""
+                />
               </div>
-              <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-2xl">
-                <span className="text-red-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={4}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 12h-15"
-                    />
-                  </svg>
-                </span>
-
-                <p>Gastos para os adultos</p>
+              <div className="px-3 hover:bg-rose-400 transition-all duration-300 cursor-pointer py-3 rounded-full bg-gray-400">
+                <img
+                  src="/icons/instagram.png"
+                  className="invert w-8 h-8"
+                  alt=""
+                />
               </div>
-              <p className="mt-6 font-semibold">
-                Você não precisa gastar muito dinheiro para proporcionar
-                experiências incríveis na vida do seu filho. Alugue nossos
-                brinquedos de forma fácil, rápida e acessível, pelo tempo certo
-                que ele irá usar.
-              </p>
-            </div>
-            <div className="flex items-end h-full">
-              <img src="/kid-hero-1.webp" alt="" />
+              <div className="px-3 hover:bg-red-700 transition-all duration-300 cursor-pointer py-3 rounded-full bg-gray-400">
+                <img
+                  src="/icons/youtube.png"
+                  className="invert w-8 h-8"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </LayoutBlog>
+    </Layout>
   );
 };
 export default Blog;
