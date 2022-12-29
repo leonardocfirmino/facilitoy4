@@ -4,6 +4,9 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
+import axios from "axios";
+import Script from "next/script";
+import { useMercadopago } from "react-sdk-mercadopago";
 const change = [
   {
     name: "Torre de Carrinhos",
@@ -180,12 +183,39 @@ function classNames(...classes) {
 export default function Example({ subdomain }) {
   const router = useRouter();
   const { brinquedo } = router.query;
+  const mercadopago = useMercadopago.v2(
+    "TEST-424dab6b-43c3-4826-bf8a-d4bc5d057c53",
+    {
+      locale: "pt-BR",
+    }
+  );
   const product = brinquedo == "torre-carrinhos" ? change[0] : change[1];
-  console.log(product);
-  const [selectedColor, setSelectedColor] = useState(product.precos[0]);
 
+  const [selectedColor, setSelectedColor] = useState(product.precos[0]);
+  console.log(selectedColor);
+  const createCheckout = async () => {
+    const response = await axios.post(
+      process.env.NEXT_PUBLIC_PREFIX +
+        (subdomain ? subdomain + "." : null) +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/create-checkout",
+      {
+        title: brinquedo == "torre-carrinhos" ? change[0].name : change[1].name,
+        price: selectedColor.price,
+      }
+    );
+
+    const checkout = mercadopago.checkout({
+      preference: {
+        id: response.data.body.id,
+      },
+    });
+    checkout.open();
+    console.log(response);
+  };
   return (
     <Layout subdomain={subdomain}>
+      <div className="pop-mercado"></div>
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-8 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
@@ -297,7 +327,8 @@ export default function Example({ subdomain }) {
 
                 <div className="sm:flex-col1 mt-10 flex">
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={() => createCheckout()}
                     className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-red-600 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                   >
                     Alugar

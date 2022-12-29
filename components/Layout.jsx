@@ -435,9 +435,9 @@ export default function Layout({ children, session, subdomain }) {
                   <path
                     d="M27.4993 47.0091C27.9839 47.2984 28.5622 47.3135 29.0612 47.0501C32.0877 45.452 42.7651 39.1716 43.006 29.9891L43.301 18.746C43.3207 17.9989 42.8748 17.318 42.1821 17.0373L29.8284 12.0312C29.4267 11.8684 28.9795 11.8567 28.5698 11.9982L15.9705 16.3495C15.2641 16.5935 14.7831 17.25 14.7635 17.9971L14.4685 29.2403C14.2275 38.4227 24.5608 45.2545 27.4993 47.0091Z"
                     stroke="white"
-                    stroke-width="1.79289"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="1.79289"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     fill-rule="evenodd"
@@ -448,8 +448,8 @@ export default function Layout({ children, session, subdomain }) {
                   <path
                     d="M161 0.75H4C2.20507 0.75 0.75 2.20507 0.75 4V55C0.75 56.7949 2.20507 58.25 4 58.25H161C162.795 58.25 164.25 56.7949 164.25 55V4C164.25 2.20507 162.795 0.75 161 0.75Z"
                     stroke="white"
-                    stroke-opacity="0.5"
-                    stroke-width="1.5"
+                    strokeOpacity="0.5"
+                    strokeWidth="1.5"
                   />
                 </svg>
               </div>
