@@ -284,7 +284,7 @@ export default function Example({ subdomain }) {
                     <RadioGroup.Label className="sr-only">
                       Escolha o período
                     </RadioGroup.Label>
-                    <span className="flex items-center space-x-3">
+                    <span className="flex items-center gap-3">
                       {product.precos.map((color) => (
                         <RadioGroup.Option
                           key={color.name}
@@ -296,7 +296,7 @@ export default function Example({ subdomain }) {
                                 ? "bg-red-500 text-white"
                                 : "text-red-500",
 
-                              "-m-0.5 relative p-0.5   rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
+                              "-m-0.5 relative p-0.5 flex-1 sm:flex-none rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
                             )
                           }
                         >
@@ -308,14 +308,14 @@ export default function Example({ subdomain }) {
                             className={classNames(
                               color.bgColor,
 
-                              "flex text-sm gap-1  text-center flex-col border px-6 py-2 border-red-500 border-opacity-90 rounded-xl"
+                              "flex text-xs md:text-sm gap-1  text-center flex-col border px-6 py-2 border-red-500 border-opacity-90 rounded-xl"
                             )}
                           >
                             <h1 className="font-bold">{color.tempo}</h1>
                             <h2>R$ {color.price},00</h2>
                           </span>
                           {color.desconto != 0 && (
-                            <span className="absolute text-xs bg-white text-red-500 px-2 py-0.5 border-red-500 border rounded-full -bottom-3">
+                            <span className="absolute text-xs bg-white text-red-500 px-2 py-0.5 text-center border-red-500 border rounded-full  -bottom-3">
                               Economize R${color.desconto}
                             </span>
                           )}

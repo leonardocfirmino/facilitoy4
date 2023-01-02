@@ -64,7 +64,7 @@ export default function SearchBar() {
               <Link key={index} href={"brinquedos/" + value.slug}>
                 <a className="flex hover:bg-gray-100 transition-all duration-300 max-h-[80px] py-2 border-[1px] gap-4 px-8">
                   <Image src={value.image} width={65} height={65} alt="" />
-                  <div className="space-y-2 flex flex-col justify-center items-start">
+                  <div className="space-y-2 flex flex-col text-xs lg:text-base justify-center items-start">
                     <h1 className="font-semibold">{value.name}</h1>
                     <h2 className="font-semibold text-red-500">
                       R${value.price},00

@@ -83,7 +83,7 @@ export default function Steps() {
               data-tooltip-html={value.tip}
               className="w-32 text-center gap-2 flex flex-col justify-center items-center"
             >
-              <ReactTooltip anchorId={index + 1} className="max-w-xs" />
+              <ReactTooltip anchorId={index + 1} className="max-w-[17rem]" />
 
               <img className="w-12 h-16" src={value.image} alt="" />
               <h1 className="font-bold font-skranji ">{value.text}</h1>

@@ -70,7 +70,7 @@ const IndexBrinquedo = ({ subdomain }) => {
         style={{ backgroundImage: "url('/bg-brinquedos.webp')" }}
         className="w-full flex justify-center items-center bg-cover"
       >
-        <div className="w-4/6 py-20">
+        <div className="lg:w-4/6 py-20">
           <h1 className="text-6xl text-gray-800 font-bold">Brinquedos</h1>
         </div>
       </div>

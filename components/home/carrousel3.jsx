@@ -44,7 +44,7 @@ export default function HomeCarrousel3({ data }) {
         {data.map((product, index) => (
           <SwiperSlide key={index}>
             <div className="relative flex  ">
-              <div className="relative h-28 w-full overflow-hidden rounded-lg">
+              <div className="relative h-56 w-full overflow-hidden rounded-lg">
                 <img
                   src={product.image}
                   className="h-full w-full object-contain object-center"

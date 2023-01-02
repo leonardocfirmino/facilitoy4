@@ -64,13 +64,13 @@ const SelectEstado = () => {
   };
   return (
     <div
-      className="w-full flex justify-center items-center flex-1 h-screen bg-cover"
+      className="w-full flex justify-center items-center px-4 flex-1 h-screen bg-cover"
       style={{
         backgroundImage: "url('/Banner-site.png')",
         backgroundPosition: "top right",
       }}
     >
-      <div className=" bg-faciRose px-6 min-w-[460px] py-4 rounded-2xl shadow-2xl">
+      <div className=" bg-faciRose px-6 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
         <div className="w-full flex justify-center">
           <img src="/logo.webp" className="w-52 h-28" alt="" />
         </div>
