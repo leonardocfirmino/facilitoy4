@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 const faqs = [
   {
@@ -43,22 +43,28 @@ export default function Example() {
   return (
     <div id="faq" className="">
       <div className="mx-auto max-w-7xl py-12 px-4 sm:py-14 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl divide-y-2 divide-gray-200">
+        <div className="mx-auto max-w-3xl  ">
           <h2 className="text-center text-2xl font-bold tracking-tight text-blue-400 sm:text-3xl">
-            Dúvidas Frequentes
+            UM BRINCAR DE OUTRO MUNDO
           </h2>
-          <dl className="mt-6 bg-[#ddeff7] px-4 space-y-3 pb-3 divide-y divide-gray-200">
+          <dl className="mt-6  px-4 space-y-3 gap-3 flex flex-col pb-3">
             {faqs.map((faq) => (
-              <Disclosure as="div" key={faq.question} className="pt-6 ">
+              <Disclosure
+                as="div"
+                key={faq.question}
+                className={classNames(
+                  "py-6 px-6 justify-between flex-col bg-[#ddeff7] gap-2 rounded-md flex items-center"
+                )}
+              >
                 {({ open }) => (
                   <>
-                    <dt className="text-md">
-                      <Disclosure.Button className="flex  w-full items-start justify-between text-left text-gray-400">
-                        <span className="font-medium text-gray-900">
+                    <dt className="text-md w-full">
+                      <Disclosure.Button className="flex  w-full items-center justify-between text-left text-gray-400">
+                        <span className="font-medium items-center flex text-gray-900">
                           {faq.question}
                         </span>
-                        <span className="ml-6 flex h-7 items-center">
-                          <ChevronDownIcon
+                        <span className="flex px-1 py-1 bg-white rounded-sm items-center">
+                          <PlusIcon
                             className={classNames(
                               open ? "-rotate-180" : "rotate-0",
                               "h-6 w-6 transform"
@@ -68,7 +74,7 @@ export default function Example() {
                         </span>
                       </Disclosure.Button>
                     </dt>
-                    <Disclosure.Panel as="dd" className="mt-2 pr-12">
+                    <Disclosure.Panel as="dd" className=" ">
                       <p className="text-base text-gray-500">{faq.answer}</p>
                     </Disclosure.Panel>
                   </>

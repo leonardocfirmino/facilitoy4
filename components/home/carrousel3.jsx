@@ -3,12 +3,12 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-export default function HomeCarrousel3({ data }) {
+export default function HomeCarrousel2({ data }) {
   return (
-    <div className="w-4/6 mx-auto py-12">
-      <div className="w-full flex justify-center items-center mb-6">
-        <h1 className="text-blue-400  text-xl px-4 lg:text-3xl text-center font-semibold w-fit pb-4 ">
-          Brinquedos da Facilitoy que você pode receber em casa:
+    <div className="w-full px-4 lg:w-4/6 mx-auto py-6">
+      <div className="border-b-2 mb-2">
+        <h1 className="text-red-600 -mb-[2px] text-3xl font-bold w-fit pb-4 border-red-600 border-b-2">
+          Recomendados para você!
         </h1>
       </div>
       <Swiper
@@ -16,10 +16,9 @@ export default function HomeCarrousel3({ data }) {
         navigation
         modules={[Navigation, Pagination]}
         slidesPerView={8}
-        pagination={true}
         breakpoints={{
           360: {
-            slidesPerView: 1,
+            slidesPerView: 2,
 
             spaceBetween: 10,
           },
@@ -39,25 +38,33 @@ export default function HomeCarrousel3({ data }) {
             spaceBetween: 20,
           },
         }}
-        className=" swiper-container "
+        className=" swiper-container  "
       >
         {data.map((product, index) => (
           <SwiperSlide key={index}>
-            <div className="relative flex  ">
-              <div className="relative h-56 w-full overflow-hidden rounded-lg">
+            <div className="relative">
+              <div className="relative h-72 w-full overflow-hidden rounded-lg">
                 <img
                   src={product.image}
-                  className="h-full w-full object-contain object-center"
+                  className="h-full w-full object-contain"
                 />
               </div>
-              <div className="relative text-center flex flex-col justify-center items-center">
-                <h3 className="text-sm font-medium text-gray-900">
+              <div className="relative text-center mt-4">
+                <h3 className="text-sm font-medium h-12 text-gray-900">
                   {product.name}
                 </h3>
                 <p className="mt-1 text-sm font-semibold text-red-600">
                   A partir de R${product.price},00
                 </p>
               </div>
+            </div>
+            <div className="mt-6">
+              <a
+                href={product.href}
+                className="relative cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-red-600 py-2 px-8 text-sm font-medium text-white hover:bg-red-500"
+              >
+                Alugar<span className="sr-only">, {product.name}</span>
+              </a>
             </div>
           </SwiperSlide>
         ))}

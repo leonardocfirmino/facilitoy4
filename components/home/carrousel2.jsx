@@ -5,10 +5,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 export default function HomeCarrousel2({ data }) {
   return (
-    <div className="w-4/6 mx-auto py-6">
+    <div className="w-full px-4 lg:w-4/6 mx-auto py-6">
       <div className="border-b-2 mb-2">
         <h1 className="text-red-600 -mb-[2px] text-3xl font-bold w-fit pb-4 border-red-600 border-b-2">
-          Os mais alugados:
+          Os mais alugados!
         </h1>
       </div>
       <Swiper
@@ -18,7 +18,7 @@ export default function HomeCarrousel2({ data }) {
         slidesPerView={8}
         breakpoints={{
           360: {
-            slidesPerView: 1,
+            slidesPerView: 2,
 
             spaceBetween: 10,
           },
@@ -46,11 +46,11 @@ export default function HomeCarrousel2({ data }) {
               <div className="relative h-72 w-full overflow-hidden rounded-lg">
                 <img
                   src={product.image}
-                  className="h-full w-full object-cover object-center"
+                  className="h-full w-full object-contain"
                 />
               </div>
               <div className="relative text-center mt-4">
-                <h3 className="text-sm font-medium text-gray-900">
+                <h3 className="text-sm font-medium h-12 text-gray-900">
                   {product.name}
                 </h3>
                 <p className="mt-1 text-sm font-semibold text-red-600">

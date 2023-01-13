@@ -3,29 +3,29 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 export default function Steps() {
   const steps = [
     {
-      text: "Você escolhe os brinquedos",
+      text: "Escolha os brinquedos",
       image: "/steps/1.webp",
-      tip: "Escolha os brinquedos e acessórios <br> que você quer em nosso site ou fale <br> com uma das nossas consultoras",
+      tip: "Escolha os brinquedos que deseja em nosso site ou fale com uma de nossas consultoras",
     },
     {
-      text: "Você define o período de locação",
+      text: "Defina o período de locação",
       image: "/steps/2.webp",
-      tip: "Quando você decidir o que deseja alugar  conosco, <br> é só definir por quanto tempo você quer ficar com o brinquedo na sua <br> casa: 7, 14, 28 dias ou mais.",
+      tip: "7, 14 ou 28 dias, você é quem escolhe!",
     },
     {
-      text: "Carrinho",
+      text: "Finalize a compra",
       image: "/steps/3.webp",
-      tip: "Acrescente no carrinho os brinquedos e acessórios infantis <br> que você escolheu para alugar e finalize o pagamento com 100% de segurança.",
+      tip: "Realize seu pagamento com segurança, de forma rápida e simples. Usamos a tecnologia do Mercado Pago.",
     },
     {
-      text: "Agora é com a Facilitoy",
+      text: "Receba em casa",
       image: "/steps/4.webp",
-      tip: "Higienizamos e preparamos tudo com carinho <br> e cuidado para você e seu filho. <br> Cuidamos da entrega para o seu conforto e comodidade.",
+      tip: "Pronto, já iniciamos o processo de higienização e desinfecção, e nossa consultora entrará em contato para alinhar a entrega!",
     },
     {
-      text: "Você recebe o melhor do desenvolvimento para o seu filho em casa",
+      text: "Devolva ou troque por outro brinquedo",
       image: "/steps/5.webp",
-      tip: "Em pouco tempo, o astronauta da Facilitoy <br> vai entregar tudo na sua casa em perfeitas condições <br> para você e seu filho criarem novos momentos felizes juntos!",
+      tip: "Buscamos os brinquedos em sua casa, ou trocamos por uma nova e inesquecível diversão!",
     },
     {
       text: "Sem preocupações",
@@ -49,7 +49,7 @@ export default function Steps() {
           className=" h-14 transform "
         >
           <path
-            class="elementor-shape-fill"
+            className="elementor-shape-fill"
             d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
 	c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
 	c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
@@ -66,7 +66,7 @@ export default function Steps() {
           className=" h-14 transform rotate-180 "
         >
           <path
-            class="elementor-shape-fill"
+            className="elementor-shape-fill"
             d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
 	c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
 	c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
@@ -74,7 +74,7 @@ export default function Steps() {
         </svg>
       </div>
 
-      <div className="flex flex-wrap justify-around w-4/6 py-48">
+      <div className="flex flex-wrap justify-around w-4/6 py-56">
         {steps.map((value, index) => {
           return (
             <div

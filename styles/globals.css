@@ -293,3 +293,18 @@
     display: none;
   }
 }
+
+.swiper-button-next {
+  color: #666 !important;
+}
+.swiper-button-prev {
+  color: #666 !important;
+}
+.noArrow::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.noArrow {
+  -moz-appearance: textfield;
+}

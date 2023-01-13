@@ -5,9 +5,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 export default function Testimonals() {
   return (
-    <div className="w-4/6 mx-auto pb-8">
+    <div className="w-full lg:w-3/6 mx-auto pb-8">
       <div className="w-full flex justify-center text-center items-center text-xl px-4 lg:text-3xl text-blue-400 font-semibold pb-10">
-        <h1>O que nossos astrolovers estão falando</h1>
+        <h1>Nossos astrolovers!</h1>
       </div>
       <Swiper
         spaceBetween={10}
@@ -35,6 +35,9 @@ export default function Testimonals() {
       >
         <SwiperSlide>
           <div className="flex gap-4 flex-col text-center justify-center items-center">
+            <div className="w-full justify-center flex items-center">
+              <img src="/testimonial/1.jpeg" className="rounded-full" alt="" />
+            </div>
             <div className="flex gap-0.5 text-yellow-400">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,6 +123,9 @@ export default function Testimonals() {
         </SwiperSlide>
         <SwiperSlide>
           <div className="flex gap-4 text-center flex-col justify-center items-center">
+            <div className="w-full justify-center flex items-center">
+              <img src="/testimonial/2.webp" className="rounded-full" alt="" />
+            </div>
             <div className="flex gap-0.5 text-yellow-400">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -208,6 +214,9 @@ export default function Testimonals() {
         </SwiperSlide>
         <SwiperSlide>
           <div className="flex gap-4 flex-col text-center justify-center items-center">
+            <div className="w-full justify-center flex items-center">
+              <img src="/testimonial/3.webp" className="rounded-full" alt="" />
+            </div>
             <div className="flex gap-0.5 text-yellow-400">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

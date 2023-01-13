@@ -5,15 +5,18 @@ mercadopago.configure({
 });
 
 export default async function handler(req, res) {
+  const items = req.body.products.map((value) => {
+    return {
+      title: value.product.name,
+      quantity: value.quantity,
+      currency_id: "BRL",
+
+      unit_price: value.time.price,
+    };
+  });
+  console.log(items);
   var preference = {
-    items: [
-      {
-        title: req.body.title,
-        quantity: 1,
-        currency_id: "BRL",
-        unit_price: req.body.price,
-      },
-    ],
+    items: items,
   };
   const response = await mercadopago.preferences.create(preference);
   res.status(200).json(response);
