@@ -75,6 +75,41 @@ const IndexBrinquedo = ({ subdomain }) => {
         </div>
       </div>
       <div className="py-8">
+        <div className="flex flex-wrap w-full justify-center gap-4 items-center">
+          <button className="rounded-full bg-blue-400 px-4 py-4 w-32 h-32 hover:bg-blue-500 duration-300">
+            <h1 className="uppercase font-bold text-xl text-white">
+              0 a 3 meses
+            </h1>
+          </button>
+          <button className="rounded-full bg-blue-400 px-4 py-4 w-32 h-32 hover:bg-blue-500 duration-300">
+            <h1 className="uppercase font-bold text-xl text-white">
+              3 a 6 meses
+            </h1>
+          </button>
+          <button className="rounded-full bg-blue-400 px-4 py-4 w-32 h-32 hover:bg-blue-500 duration-300">
+            <h1 className="uppercase font-bold text-xl text-white">
+              6 a 9 meses
+            </h1>
+          </button>
+          <button className="rounded-full bg-blue-400 px-4 py-4 w-32 h-32 hover:bg-blue-500 duration-300">
+            <h1 className="uppercase font-bold text-xl text-white">
+              9 a 12 meses
+            </h1>
+          </button>
+          <button className="rounded-full bg-blue-400 px-4 py-4 w-32 h-32 hover:bg-blue-500 duration-300">
+            <h1 className="uppercase font-bold text-xl text-white">
+              1 a 2 anos
+            </h1>
+          </button>
+          <button className="rounded-full bg-blue-400 px-4 py-4 w-32 h-32 hover:bg-blue-500 duration-300">
+            <h1 className="uppercase font-bold text-xl text-white">
+              2 a 3 anos
+            </h1>
+          </button>
+          <button className="rounded-full bg-blue-400 px-4 py-4 w-32 h-32 hover:bg-blue-500 duration-300">
+            <h1 className="uppercase font-bold text-xl text-white">3 anos +</h1>
+          </button>
+        </div>
         {/*  <Disclosure
           as="section"
           aria-labelledby="filter-heading"

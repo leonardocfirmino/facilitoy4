@@ -38,6 +38,7 @@ const Home = ({ sessions }) => {
     setActualPosts((page - 1) / 1);
     setPagination(page);
   };
+  console.log(user);
   const fetcher = async (query) =>
     request(
       process.env.NEXT_PUBLIC_PREFIX +
@@ -49,13 +50,19 @@ const Home = ({ sessions }) => {
     );
   const { data, mutate } = useSWR(
     `{
-      banner(offset:${actualPosts}, limit: 5, order_by: {created_at: desc}) {
-        created_at
+      product(offset:${actualPosts}, limit: 5, order_by: {created_at: desc}) {
+        category {
+          name
+        }
         name
-        image_url
+        product_images {
+          src
+        }
         id
+        slug
       }
-      banner_aggregate {
+    
+      product_aggregate {
         aggregate {
           count
         }
@@ -73,16 +80,16 @@ const Home = ({ sessions }) => {
               <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                   <h1 className="text-xl font-semibold text-gray-900">
-                    Banners
+                    Produtos
                   </h1>
                   <p className="mt-2 text-sm text-gray-700">
-                    Uma listagem de todos os banners do seu site
+                    Uma listagem de todos os produtos de seu site
                   </p>
                 </div>
                 <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                  <Link href="adm/banner/create">
+                  <Link href="/adm/product/create">
                     <a className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-                      Adicionar Banner
+                      Adicionar Produto
                     </a>
                   </Link>
                 </div>
@@ -102,6 +109,12 @@ const Home = ({ sessions }) => {
                             </th>
                             <th
                               scope="col"
+                              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                            >
+                              Categoria
+                            </th>
+                            <th
+                              scope="col"
                               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                             >
                               Imagem
@@ -116,24 +129,27 @@ const Home = ({ sessions }) => {
                         </thead>
                         {data && (
                           <tbody className="divide-y divide-gray-200 bg-white">
-                            {data.banner.map((value, index) => {
+                            {data.product.map((value, index) => {
                               return (
                                 <tr key={index}>
                                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {value.name}
                                   </td>
+                                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                    {value.category.name}
+                                  </td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     <img
-                                      className="w-2/4 h-[100px]"
+                                      className="w-32  h-40"
                                       src={
-                                        "https://space-primeblog.nyc3.cdn.digitaloceanspaces.com/" +
-                                        value.image_url
+                                        "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                                        value.product_images[0].src
                                       }
                                       alt=""
                                     />
                                   </td>
                                   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <Link href={"/adm/banner/" + value.id}>
+                                    <Link href={"/adm/product/" + value.id}>
                                       <a className="text-indigo-600 hover:text-indigo-900">
                                         Editar
                                       </a>
@@ -145,7 +161,7 @@ const Home = ({ sessions }) => {
                           </tbody>
                         )}
                       </table>
-                      {data.banner.length == 0 && <Empty />}
+                      {data.product.length == 0 && <Empty />}
                     </div>
                   </div>
                 </div>
@@ -161,7 +177,7 @@ const Home = ({ sessions }) => {
                       hideOnSinglePage={true}
                       current={pagination}
                       pageSize={5}
-                      total={data.banner_aggregate.aggregate.count}
+                      total={data.product_aggregate.aggregate.count}
                     />
                   )}
                 </div>

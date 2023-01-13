@@ -7,11 +7,13 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MoonLoader } from "react-spinners";
+import MultipleImages from "../../../components/MultipleImages";
 export default function CreateBanner({ sessions }) {
   const user = JSON.parse(sessions);
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [loading, setLoading] = useState(false);
+  const images = useRef();
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
@@ -37,15 +39,23 @@ export default function CreateBanner({ sessions }) {
   const sendBanner = async (form) => {
     form.preventDefault();
     setLoading(true);
+
     const formData = new FormData();
-    formData.append("image", form.target.image.files[0]);
+    for (let i = 0; i < form.target.images.files.length; i++) {
+      formData.append("image[]", form.target.images.files[i]);
+      console.log(form.target.images.files[i]);
+    }
+
     formData.append("name", form.target.name.value);
     formData.append("link", form.target.link.value);
-    try {
+    formData.append("desc", form.target.desc.value);
+    formData.append("details", form.target.details.value);
+    console.log(formData.entries());
+    /* try {
       await axios.post(
         process.env.NEXT_PUBLIC_PREFIX +
           process.env.NEXT_PUBLIC_SITE_URL +
-          "/api/createBanner",
+          "/api/createProduto",
 
         formData,
 
@@ -76,7 +86,7 @@ export default function CreateBanner({ sessions }) {
         progress: undefined,
       });
     }
-    setLoading(false);
+    setLoading(false); */
   };
 
   return (
@@ -92,10 +102,10 @@ export default function CreateBanner({ sessions }) {
         draggable
         pauseOnHover
       />
-      <div className="w-full h-screen flex justify-center items-center">
-        <div className="flex flex-col w-2/5 h-1/2 ">
+      <div className="w-full h-screen flex justify-center overflow-auto  items-center">
+        <div className="flex flex-col  w-2/5 ">
           <div className="w-full text-3xl font-bold flex justify-center pb-4">
-            <h1>Novo Banner</h1>
+            <h1>Novo Produto</h1>
           </div>
           <form
             onSubmit={(form) => sendBanner(form)}
@@ -121,11 +131,34 @@ export default function CreateBanner({ sessions }) {
                 />
               </div>
             </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">Descrição</h1>
+                <textarea
+                  className="border-2 rounded-md px-2 h-32 py-1 border-gray-300"
+                  type="text"
+                  name="desc"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">Detalhes</h1>
+                <textarea
+                  className="border-2 rounded-md px-2 py-1 h-32 border-gray-300"
+                  type="text"
+                  name="details"
+                />
+              </div>
+            </div>
             <div className="w-full ">
               <div className="w-full pb-2 justify-start px-1 flex text-xl font-semibold">
-                <h1>Imagem</h1>
+                <h1>Imagens</h1>
               </div>
-              <div className="w-full mx-auto lg:mx-0 flex flex-col justify-center ">
+              <div>
+                <MultipleImages ref={images} />
+              </div>
+              {/* <div className="w-full mx-auto lg:mx-0 flex flex-col justify-center ">
                 <div
                   onClick={() => input.current.click()}
                   className={
@@ -176,9 +209,9 @@ export default function CreateBanner({ sessions }) {
                     </svg>
                   </span>
                 )}
-              </div>
+              </div> */}
             </div>
-            <div className="w-full mt-4 justify-end flex">
+            <div className="w-full mt-4 justify-end flex pb-10">
               <button
                 disabled={loading}
                 className={
@@ -189,7 +222,7 @@ export default function CreateBanner({ sessions }) {
               >
                 <MoonLoader size={20} color="#fff" loading={loading} />
                 <span className={loading ? "pl-2" : "pl-0"}>
-                  {loading ? "Cadastrando" : "Criar banner"}
+                  {loading ? "Cadastrando" : "Criar produto"}
                 </span>
               </button>
             </div>

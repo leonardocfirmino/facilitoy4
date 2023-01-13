@@ -25,12 +25,15 @@ export default function EditBanner({ sessions }) {
     );
   const { data, mutate } = useSWR(
     `{
-      banner(where: {id: {_eq: ${router.query.edit}}}) {
+      product(where: {id: {_eq: "${router.query.edit}"}}) {
         created_at
         name
-        link
-        image_url
+        slug
+        product_images {
+          src
+        }
         id
+        
       }
       
     }`,
@@ -146,9 +149,8 @@ export default function EditBanner({ sessions }) {
   };
   if (data) {
     if (preview == undefined) {
-      console.log(data.banner[0].image_url);
       setPreview(
-        `https://space-primeblog.nyc3.cdn.digitaloceanspaces.com/${data.banner[0].image_url}`
+        `https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/${data.product[0].product_images[0].src}`
       );
     }
   }
@@ -168,7 +170,7 @@ export default function EditBanner({ sessions }) {
       <div className="w-full h-screen flex justify-center items-center">
         <div className="flex flex-col w-2/5 h-1/2 ">
           <div className="w-full text-3xl font-bold flex justify-center pb-4">
-            <h1>Novo Banner</h1>
+            <h1>Editar produto</h1>
           </div>
           {data && (
             <form
@@ -181,7 +183,7 @@ export default function EditBanner({ sessions }) {
                   <input
                     className="border-2 rounded-md px-2 py-1 border-gray-300"
                     type="text"
-                    defaultValue={data.banner[0].name}
+                    defaultValue={data.product[0].name}
                     name="name"
                   />
                 </div>
@@ -192,7 +194,7 @@ export default function EditBanner({ sessions }) {
                   <input
                     className="border-2 rounded-md px-2 py-1 border-gray-300"
                     type="text"
-                    defaultValue={data.banner[0].link}
+                    defaultValue={data.product[0].slug}
                     name="link"
                   />
                 </div>
@@ -257,13 +259,13 @@ export default function EditBanner({ sessions }) {
               <div className="w-full mt-4 space-x-4 justify-end flex">
                 <button
                   type="button"
-                  onClick={() => deleteBanner(data.banner[0].id)}
+                  onClick={() => deleteBanner(data.product[0].id)}
                   className="px-4 py-2 bg-red-600 text-xl hover:bg-red-700  font-bold text-white rounded-lg"
                 >
-                  Excluir banner
+                  Excluir produto
                 </button>
                 <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-xl font-bold text-white rounded-lg">
-                  Editar banner
+                  Editar produto
                 </button>
               </div>
             </form>

@@ -89,6 +89,14 @@ const SelectEstado = () => {
           className="mt-2 border-black text-black"
           formatGroupLabel={formatGroupLabel}
         />
+        <div className="w-full text-sm pt-2 flex justify-center items-center">
+          <h2>
+            Não encontrou sua cidade? Seja um{" "}
+            <a href="" className="text-blue-400 underline">
+              franqueado Facilitoy!
+            </a>
+          </h2>
+        </div>
         <button
           onClick={() => sendToSite()}
           className="hover:bg-[#1b7c80] transition-all duration-300 mt-4 bg-[#08b6bd] w-full rounded-full py-2 text-white font-bold"

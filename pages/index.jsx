@@ -16,6 +16,7 @@ import Duvidas from "../components/home/duvidas";
 import Testimonals from "../components/home/testimonals";
 import HomeCarrousel3 from "../components/home/carrousel3";
 import Steps from "../components/home/steps";
+import EmpresasCarrousel from "../components/home/empresas";
 
 const localeInfo = {
   // Options.jsx
@@ -43,7 +44,7 @@ const Blog = ({ subdomain }) => {
     setActualPosts((page - 1) / 1);
     setPagination(page);
   };
-  const fetcher = async (query) =>
+  /* const fetcher = async (query) =>
     axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
         (subdomain ? subdomain + "." : null) +
@@ -54,7 +55,7 @@ const Blog = ({ subdomain }) => {
   const { data, mutate } = useSWR(
     { query: subdomain, offset: actualPosts },
     fetcher
-  );
+  ); */
   const carrousel1 = [
     {
       image: "/carrousel-1/1.png",
@@ -151,7 +152,7 @@ const Blog = ({ subdomain }) => {
       slug: "banheira-dobravel",
     },
     {
-      image: "/carrousel-2/11.jpg",
+      image: "/carrousel-2/11.webp",
       name: "Caminhão Food Truck",
       price: 129,
       slug: "caminhao-food-truck",
@@ -163,28 +164,54 @@ const Blog = ({ subdomain }) => {
       slug: "moto-eletrica",
     },
   ];
+  const empresas = [
+    {
+      image: "/empresas/4moms.jpg",
+      name: "4 Moms",
+    },
+    {
+      image: "/empresas/chicco.png",
+      name: "Chicco",
+    },
+    {
+      image: "/empresas/cosco.png",
+      name: "Cosco",
+    },
+    {
+      image: "/empresas/safety.jpg",
+      name: "Safety",
+    },
+    {
+      image: "/empresas/fisher.png",
+      name: "Fisher-Price",
+    },
+    {
+      image: "/empresas/girotondo.png",
+      name: "Girotondo",
+    },
+    {
+      image: "/empresas/infantino.png",
+      name: "Infantino",
+    },
+    {
+      image: "/empresas/ingenuity.png",
+      name: "Ingenuity",
+    },
+    {
+      image: "/empresas/skip hop.png",
+      name: "Skip Hop",
+    },
+    {
+      image: "/empresas/melissa e doug.png",
+      name: "Melissa & Doug",
+    },
+    {
+      image: "/empresas/vtech.png",
+      name: "Vtech",
+    },
+  ];
   return (
     <Layout subdomain={subdomain}>
-      {data && (
-        <Head>
-          <title>{data.data.user[0].blog_name}</title>
-          <meta
-            name="description"
-            content={`Blog ${data.data.user[0].blog_name}`}
-          />
-          <meta property="og:title" content={data.data.user[0].blog_name} />
-          <meta
-            property="og:description"
-            content={`Blog ${data.data.user[0].blog_name}`}
-          />
-          <meta
-            property="og:url"
-            content={`https://${data.data.user[0].blog_slug}.primeblog.online`}
-          />
-          <meta property="og:type" content="website" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-      )}
       <div className="w-full h-full">
         <Hero1 />
         <HomeCarrousel1 data={carrousel1} />
@@ -193,38 +220,9 @@ const Blog = ({ subdomain }) => {
         <HomeCarrousel3 data={carrousel2} />
         <Razoes />
         <Sobre />
+        <EmpresasCarrousel data={empresas} />
         <Duvidas />
         <Testimonals />
-        <div className="w-full flex  justify-center items-center bg-gray-200 py-4 ">
-          <div className="text-center">
-            <h1 className="text-sm font-bold mb-4 text-gray-600">
-              Siga-nos em nossas redes
-            </h1>
-            <div className="flex justify-center gap-4 items-center">
-              <div className="px-3 hover:bg-blue-700 transition-all duration-300 cursor-pointer py-3 rounded-full bg-gray-400">
-                <img
-                  src="/icons/facebook.png"
-                  className="invert w-8 h-8"
-                  alt=""
-                />
-              </div>
-              <div className="px-3 hover:bg-rose-400 transition-all duration-300 cursor-pointer py-3 rounded-full bg-gray-400">
-                <img
-                  src="/icons/instagram.png"
-                  className="invert w-8 h-8"
-                  alt=""
-                />
-              </div>
-              <div className="px-3 hover:bg-red-700 transition-all duration-300 cursor-pointer py-3 rounded-full bg-gray-400">
-                <img
-                  src="/icons/youtube.png"
-                  className="invert w-8 h-8"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </Layout>
   );

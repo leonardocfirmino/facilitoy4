@@ -6,9 +6,14 @@ import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import axios from "axios";
 import Script from "next/script";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/features/cartSlice";
 import { useMercadopago } from "react-sdk-mercadopago";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const change = [
   {
+    id: 1,
     name: "Torre de Carrinhos",
     slug: "torre-carrinhos",
     images: [
@@ -70,6 +75,7 @@ const change = [
     ],
   },
   {
+    id: 2,
     name: "Mesa Estação de Atividades",
     slug: "mesa-estacao-atividades",
     images: [
@@ -182,6 +188,19 @@ function classNames(...classes) {
 
 export default function Example({ subdomain }) {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const addCart = (product) => {
+    dispatch(addToCart(product));
+    toast.success("Brinquedo adicionado ao carrinho", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
   const { brinquedo } = router.query;
   const mercadopago = useMercadopago.v2(
     "TEST-424dab6b-43c3-4826-bf8a-d4bc5d057c53",
@@ -191,8 +210,8 @@ export default function Example({ subdomain }) {
   );
   const product = brinquedo == "torre-carrinhos" ? change[0] : change[1];
 
-  const [selectedColor, setSelectedColor] = useState(product.precos[0]);
-  console.log(selectedColor);
+  const [selectedTime, setSelectedTime] = useState(product.precos[0]);
+
   const createCheckout = async () => {
     const response = await axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
@@ -201,7 +220,7 @@ export default function Example({ subdomain }) {
         "/api/create-checkout",
       {
         title: brinquedo == "torre-carrinhos" ? change[0].name : change[1].name,
-        price: selectedColor.price,
+        price: selectedTime.price,
       }
     );
 
@@ -211,10 +230,20 @@ export default function Example({ subdomain }) {
       },
     });
     checkout.open();
-    console.log(response);
   };
   return (
     <Layout subdomain={subdomain}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="pop-mercado"></div>
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-8 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -277,8 +306,9 @@ export default function Example({ subdomain }) {
                   <h3 className="text-sm text-gray-600">Escolha o período</h3>
 
                   <RadioGroup
-                    value={selectedColor}
-                    onChange={setSelectedColor}
+                    value={selectedTime}
+                    defaultChecked={selectedTime}
+                    onChange={setSelectedTime}
                     className="mt-2"
                   >
                     <RadioGroup.Label className="sr-only">
@@ -291,7 +321,7 @@ export default function Example({ subdomain }) {
                           value={color}
                           className={({ active, checked }) =>
                             classNames(
-                              color.selectedColor,
+                              color.selectedTime,
                               checked
                                 ? "bg-red-500 text-white"
                                 : "text-red-500",
@@ -325,13 +355,26 @@ export default function Example({ subdomain }) {
                   </RadioGroup>
                 </div>
 
-                <div className="sm:flex-col1 mt-10 flex">
+                <div className="sm:flex-row flex-col gap-4 mt-10 flex">
                   <button
                     type="button"
                     onClick={() => createCheckout()}
                     className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-red-600 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                   >
                     Alugar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      addCart({
+                        id: product.id,
+                        product: product,
+                        time: selectedTime,
+                      })
+                    }
+                    className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-[#12bcc6]  py-3 px-8 text-base font-medium text-white hover:bg-[#0e858b]  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                  >
+                    Adicionar ao carrinho
                   </button>
                 </div>
               </form>
