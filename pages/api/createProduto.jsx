@@ -22,72 +22,49 @@ export default async function handler(req, res) {
     },
   });
 
-  upload.single("image")(req, {}, async (err) => {
-    if (req.file != undefined) {
-      const imageName = randomName();
-      const params = {
-        Bucket: process.env.BUCKET_NAME,
-        Key: `${imageName}.${req.file.originalname.split(".")[1]}`,
-        Body: req.file.buffer,
-        ACL: "public-read",
-        ContentType: req.file.mimetype,
-      };
+  upload.array("images")(req, {}, async (err) => {
+    if (req.files != undefined) {
+      let imageNames = "[";
+      req.files.map(async (fileMap) => {
+        const imageName = randomName();
+        const params = {
+          Bucket: process.env.BUCKET_NAME,
+          Key: `${imageName}.${fileMap.originalname.split(".")[1]}`,
+          Body: fileMap.buffer,
+          ACL: "public-read",
+          ContentType: fileMap.mimetype,
+        };
 
-      const data = await s3Client.send(new PutObjectCommand(params));
-      if (data.$metadata.httpStatusCode == 200) {
-        if (req.method == "POST") {
-          const result = await axios.post(
-            `${process.env.HASURA_URL}`,
-            {
-              query: `mutation {
-                insert_banner_one(object: {
-                  image_url: "${imageName}.${
-                req.file.originalname.split(".")[1]
-              }",
-                  link: "${req.body.link}",
-                  name: "${req.body.name}"}) {
-                    id
-                  }
-              }`,
-            },
-            {
-              headers: {
-                authorization: req.headers.authorization,
-              },
-            }
-          );
-          console.log(result.data);
-          if (result.data.errors != undefined) {
-            return res.status(500).json(req.body.nome);
-          }
-          return res.status(200).json(result.data.data);
-        }
-        if (req.method == "PUT") {
-          const result = await axios.post(
-            `${process.env.HASURA_URL}`,
-            {
-              query: `
-          mutation{
-            update_banner(where: {id: {_eq:${req.body.id}}}, _set: {name: "${
-                req.body.name
-              }", link: "${req.body.link}", image_url: "${imageName}.${
-                req.file.originalname.split(".")[1]
-              }"}) {
-              affected_rows
-            }
+        imageNames += `{src: "${imageName}.${
+          fileMap.originalname.split(".")[1]
+        }"},`;
+
+        const data = await s3Client.send(new PutObjectCommand(params));
+      });
+      imageNames += "]";
+      console.log(imageNames);
+      if (req.method == "POST") {
+        const result = await axios.post(
+          `${process.env.HASURA_URL}`,
+          {
+            query: `mutation {
+              insert_product_one(object: {product_images: {data: ${imageNames}}, description: "${req.body.desc}", 
+              details: "${req.body.details}", slug: "${req.body.link}",name: "${req.body.name}", category_id: "${req.body.category}"}) {
+                id
+              }
           }`,
+          },
+          {
+            headers: {
+              authorization: req.headers.authorization,
             },
-            {
-              headers: {
-                authorization: req.headers.authorization,
-              },
-            }
-          );
-          if (result.data.errors != undefined) {
-            return res.status(500).json(result.data.errors);
           }
-          return res.status(200).json(req.body.name);
+        );
+        console.log(result.data);
+        if (result.data.errors != undefined) {
+          return res.status(500).json(req.body.name);
         }
+        return res.status(200).json(result.data.data);
       }
     }
     if (req.file == undefined) {
@@ -96,9 +73,10 @@ export default async function handler(req, res) {
         {
           query: `
       mutation{
-        update_banner(where: {id: {_eq:${req.body.id}}}, _set: {name: "${req.body.name}", link: "${req.body.link}"}) {
-          affected_rows
-        }
+        insert_product_one(object: { description: "${req.body.desc}", 
+              details: "${req.body.details}", slug: "${req.body.link}",name: "${req.body.name}", category_id: "${req.body.category}"}) {
+                id
+              }
       }`,
         },
         {

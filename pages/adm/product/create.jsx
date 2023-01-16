@@ -7,13 +7,40 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MoonLoader } from "react-spinners";
+import Select from "react-select";
 import MultipleImages from "../../../components/MultipleImages";
+import useSWR from "swr";
+import request from "graphql-request";
 export default function CreateBanner({ sessions }) {
   const user = JSON.parse(sessions);
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
+
   const [loading, setLoading] = useState(false);
   const images = useRef();
+  const fetcher = async (query) =>
+    request(
+      process.env.NEXT_PUBLIC_PREFIX +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/userQuery",
+      query,
+      {},
+      { authorization: `Bearer ${user.token}` }
+    );
+  const { data, mutate } = useSWR(
+    `{
+      
+        category {
+          name
+          image_src
+          id
+        }
+        
+
+      
+    }`,
+    fetcher
+  );
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
@@ -42,16 +69,16 @@ export default function CreateBanner({ sessions }) {
 
     const formData = new FormData();
     for (let i = 0; i < form.target.images.files.length; i++) {
-      formData.append("image[]", form.target.images.files[i]);
-      console.log(form.target.images.files[i]);
+      formData.append("images", form.target.images.files[i]);
     }
 
     formData.append("name", form.target.name.value);
     formData.append("link", form.target.link.value);
     formData.append("desc", form.target.desc.value);
+    formData.append("category", form.target.categoria.value);
     formData.append("details", form.target.details.value);
-    console.log(formData.entries());
-    /* try {
+
+    try {
       await axios.post(
         process.env.NEXT_PUBLIC_PREFIX +
           process.env.NEXT_PUBLIC_SITE_URL +
@@ -86,7 +113,7 @@ export default function CreateBanner({ sessions }) {
         progress: undefined,
       });
     }
-    setLoading(false); */
+    setLoading(false);
   };
 
   return (
@@ -103,8 +130,8 @@ export default function CreateBanner({ sessions }) {
         pauseOnHover
       />
       <div className="w-full h-screen flex justify-center overflow-auto  items-center">
-        <div className="flex flex-col  w-2/5 ">
-          <div className="w-full text-3xl font-bold flex justify-center pb-4">
+        <div className="flex flex-col w-2/5 ">
+          <div className="w-full text-3xl font-bold mt-6 flex justify-center pb-4">
             <h1>Novo Produto</h1>
           </div>
           <form
@@ -117,7 +144,22 @@ export default function CreateBanner({ sessions }) {
                 <input
                   className="border-2 rounded-md px-2 py-1 border-gray-300"
                   type="text"
+                  required
+                  placeholder="Defina o nome do produto"
                   name="name"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">Categoria</h1>
+                <Select
+                  placeholder="Selecione uma categoria"
+                  name="categoria"
+                  required
+                  options={data?.category.map((value) => {
+                    return { label: value.name, value: value.id };
+                  })}
                 />
               </div>
             </div>
@@ -127,6 +169,8 @@ export default function CreateBanner({ sessions }) {
                 <input
                   className="border-2 rounded-md px-2 py-1 border-gray-300"
                   type="text"
+                  placeholder="Escreva o link do produto"
+                  required
                   name="link"
                 />
               </div>
@@ -137,6 +181,8 @@ export default function CreateBanner({ sessions }) {
                 <textarea
                   className="border-2 rounded-md px-2 h-32 py-1 border-gray-300"
                   type="text"
+                  required
+                  placeholder="Descreva o produto"
                   name="desc"
                 />
               </div>
@@ -147,6 +193,8 @@ export default function CreateBanner({ sessions }) {
                 <textarea
                   className="border-2 rounded-md px-2 py-1 h-32 border-gray-300"
                   type="text"
+                  required
+                  placeholder="Liste os detalhes do produto"
                   name="details"
                 />
               </div>
