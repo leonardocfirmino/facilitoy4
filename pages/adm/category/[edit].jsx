@@ -25,35 +25,20 @@ export default function EditBanner({ sessions }) {
     );
   const { data, mutate } = useSWR(
     `{
-      product(where: {id: {_eq: "${router.query.edit}"}}) {
-        created_at
+      category(where: {id: {_eq: "${router.query.edit}"}}) {
+        image_src
         name
-        slug
-        description
-        details
-        category_id
-        product_images {
-          id
-          src
-        }
-        category{
-          id
-          name
-        }
+
         id
         
       }
-      category {
-        name
-        image_src
-        id
-      }
+    
     }`,
     fetcher
   );
   const [selectedFile, setSelectedFile] = useState("edit");
   const [preview, setPreview] = useState(undefined);
-
+  const input = useRef();
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
@@ -77,10 +62,9 @@ export default function EditBanner({ sessions }) {
     setSelectedFile(e.target.files[0]);
   };
 
-  const multipleImage = useRef();
   const deleteBanner = (id) => {
     Swal.fire({
-      title: "Deseja excluir este brinquedo?",
+      title: "Deseja excluir esta categoria?",
       showCancelButton: true,
       cancelButtonText: "Manter",
       confirmButtonText: "Excluir",
@@ -93,7 +77,7 @@ export default function EditBanner({ sessions }) {
             `/api/userQuery`,
           {
             query: `mutation{
-              delete_product_by_pk(id: "${id}") {
+              delete_category_by_pk(id: "${id}") {
                 id
               }
             }`,
@@ -104,13 +88,13 @@ export default function EditBanner({ sessions }) {
         );
         Swal.fire(
           "Excluido com sucesso",
-          "O produto foi excluido com sucesso",
+          "A categoria foi excluida com sucesso",
           "success"
         ).then(() => {
           router.push(
             process.env.NEXT_PUBLIC_PREFIX +
               process.env.NEXT_PUBLIC_SITE_URL +
-              "/adm"
+              "/adm/category"
           );
         });
       }
@@ -122,25 +106,14 @@ export default function EditBanner({ sessions }) {
 
     formData.append("name", form.target.name.value);
     formData.append("id", router.query.edit);
-    console.log(router.query.edit);
-    console.log(form.target.categoria.value);
-    formData.append("link", form.target.link.value);
-    formData.append("desc", form.target.desc.value);
-    formData.append("category", form.target.categoria.value);
-    formData.append("details", form.target.details.value);
-    multipleImage.current.sendFiles()?.map((value) => {
-      formData.append("images", value);
-    });
-
-    multipleImage.current.sendFilesToRemove()?.map((value) => {
-      formData.append("imagesToRemove", value);
-    });
+    if (form.target?.image?.files[0] != undefined)
+      formData.append("image", form.target?.image?.files[0]);
 
     try {
-      await axios.put(
+      await axios.post(
         process.env.NEXT_PUBLIC_PREFIX +
           process.env.NEXT_PUBLIC_SITE_URL +
-          "/api/editProduto",
+          "/api/edit-category",
 
         formData,
 
@@ -175,7 +148,7 @@ export default function EditBanner({ sessions }) {
   if (data) {
     if (preview == undefined) {
       setPreview(
-        `https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/${data.product[0]?.product_images[0]?.src}`
+        `https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/${data.category[0].image_src}`
       );
     }
   }
@@ -208,86 +181,80 @@ export default function EditBanner({ sessions }) {
                 <input
                   className="border-2 rounded-md px-2 py-1 border-gray-300"
                   type="text"
-                  defaultValue={data.product[0].name}
+                  defaultValue={data.category[0].name}
                   name="name"
                 />
               </div>
             </div>
-            <div className="w-full  items-start">
-              <div className="w-full   flex flex-col justify-center pb-4">
-                <h1 className="text-xl font-semibold px-1 pb-2">Categoria</h1>
-                <Select
-                  placeholder="Selecione uma categoria"
-                  name="categoria"
-                  required
-                  defaultValue={{
-                    value: data?.category[0].id,
-                    label: data?.category[0].name,
-                  }}
-                  options={data?.category.map((value) => {
-                    return { label: value.name, value: value.id };
-                  })}
-                />
-              </div>
-            </div>
-            <div className="w-full  items-start">
-              <div className="w-full   flex flex-col justify-center pb-4">
-                <h1 className="text-xl font-semibold px-1 pb-2">Link</h1>
-                <input
-                  className="border-2 rounded-md px-2 py-1 border-gray-300"
-                  type="text"
-                  defaultValue={data.product[0].slug}
-                  name="link"
-                />
-              </div>
-            </div>
-            <div className="w-full  items-start">
-              <div className="w-full   flex flex-col justify-center pb-4">
-                <h1 className="text-xl font-semibold px-1 pb-2">Descrição</h1>
-                <textarea
-                  className="border-2 rounded-md px-2 h-32 py-1 border-gray-300"
-                  type="text"
-                  required
-                  defaultValue={data.product[0].description}
-                  placeholder="Descreva o produto"
-                  name="desc"
-                />
-              </div>
-            </div>
-            <div className="w-full  items-start">
-              <div className="w-full   flex flex-col justify-center pb-4">
-                <h1 className="text-xl font-semibold px-1 pb-2">Detalhes</h1>
-                <textarea
-                  className="border-2 rounded-md px-2 h-32 py-1 border-gray-300"
-                  type="text"
-                  required
-                  defaultValue={data.product[0].details}
-                  placeholder="Descreva os detalhes"
-                  name="details"
-                />
-              </div>
-            </div>
+
             <div className="w-full ">
               <div className="w-full pb-2 justify-start px-1 flex text-xl font-semibold">
-                <h1>Imagens</h1>
+                <h1>Imagem</h1>
               </div>
-              <div>
-                <MultipleImages
-                  ref={multipleImage}
-                  editImages={data?.product[0].product_images}
-                />
+
+              <div className="w-full mx-auto lg:mx-0 flex flex-col justify-center ">
+                <div
+                  onClick={() => input.current.click()}
+                  className={
+                    selectedFile
+                      ? "flex mx-auto cursor-pointer hover:bg-opacity-10 transition-all duration-300 flex-col justify-center items-center w-[200px] h-[200px] bg-gray-200"
+                      : "flex mx-auto cursor-pointer hover:bg-opacity-10 transition-all duration-300 flex-col justify-center items-center w-[200px] h-[200px] bg-gray-200 border-dashed border-gray-600 bg-opacity-40 border-2"
+                  }
+                >
+                  {selectedFile && (
+                    <img
+                      className="h-full w-full"
+                      alt="preview"
+                      src={preview}
+                    />
+                  )}
+                  <input
+                    ref={input}
+                    onChange={onSelectFile}
+                    type="file"
+                    className="hidden"
+                    name="image"
+                  />
+                  {!selectedFile && (
+                    <h2 className="text-gray-400 w-32 text-center">
+                      Clique para adicionar uma imagem
+                    </h2>
+                  )}
+                </div>
+                {selectedFile && (
+                  <span className=" pt-2 flex justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-8 hover:text-gray-300 cursor-pointer w-8 "
+                      fill="none"
+                      onClick={() => {
+                        input.current.value = "";
+                        setSelectedFile(undefined);
+                      }}
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </span>
+                )}
               </div>
             </div>
             <div className="w-full mt-4 space-x-4 justify-end flex">
               <button
                 type="button"
-                onClick={() => deleteBanner(data.product[0].id)}
+                onClick={() => deleteBanner(data.category[0].id)}
                 className="px-4 py-2 bg-red-600 text-xl hover:bg-red-700  font-bold text-white rounded-lg"
               >
-                Excluir produto
+                Excluir categoria
               </button>
               <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-xl font-bold text-white rounded-lg">
-                Editar produto
+                Editar categoria
               </button>
             </div>
           </form>

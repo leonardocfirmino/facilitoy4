@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import LayoutAdm from "../../components/LayoutAdm";
+import LayoutAdm from "../../../components/LayoutAdm";
 import useSWR from "swr";
 import request from "graphql-request";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { authOptions } from "../../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
 
 import Link from "next/link";
@@ -12,7 +12,7 @@ import Moment from "react-moment";
 import Switch from "react-switch";
 import "moment/locale/pt-br";
 import { useState } from "react";
-import Empty from "../../components/Empty";
+import Empty from "../../../components/Empty";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,20 +53,16 @@ const Home = ({ sessions }) => {
     );
   const { data, mutate } = useSWR(
     `{
-      product(offset:${actualPosts}, limit: 5, order_by: {created_at: desc}) {
-        category {
+      category(offset:${actualPosts}, limit: 5, order_by: {created_at: desc}) {
+        image_src
+        name
+        products {
           name
         }
-        is_active
-        name
-        product_images {
-          src
-        }
         id
-        slug
       }
     
-      product_aggregate {
+      category_aggregate {
         aggregate {
           count
         }
@@ -138,16 +134,16 @@ const Home = ({ sessions }) => {
               <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                   <h1 className="text-xl font-semibold text-gray-900">
-                    Produtos
+                    Categorias
                   </h1>
                   <p className="mt-2 text-sm text-gray-700">
-                    Uma listagem de todos os produtos de seu site
+                    Uma listagem de todas as categorias
                   </p>
                 </div>
                 <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                  <Link href="/adm/product/create">
+                  <Link href="/adm/category/create">
                     <a className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-                      Adicionar Produto
+                      Adicionar Categoria
                     </a>
                   </Link>
                 </div>
@@ -169,7 +165,7 @@ const Home = ({ sessions }) => {
                               scope="col"
                               className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                             >
-                              Categoria
+                              Produtos
                             </th>
                             <th
                               scope="col"
@@ -177,12 +173,7 @@ const Home = ({ sessions }) => {
                             >
                               Imagem
                             </th>
-                            <th
-                              scope="col"
-                              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                            >
-                              Ativo
-                            </th>
+
                             <th
                               scope="col"
                               className="relative py-3.5 pl-3 pr-4 sm:pr-6"
@@ -193,37 +184,36 @@ const Home = ({ sessions }) => {
                         </thead>
                         {data && (
                           <tbody className="divide-y divide-gray-200 bg-white">
-                            {data.product.map((value, index) => {
+                            {data.category.map((value, index) => {
                               return (
                                 <tr key={index}>
                                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {value.name}
                                   </td>
-                                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                    {value.category.name}
+                                  <td className="whitespace-nowrap flex flex-col justify-center overflow-y-auto h-32 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                    {value.products.map((value, index) => {
+                                      return (
+                                        <span key={index} className="">
+                                          {value.name}
+                                        </span>
+                                      );
+                                    })}
                                   </td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                     <img
-                                      className="w-32  h-40"
+                                      className="w-32  h-32"
                                       src={
-                                        value.product_images[0] != undefined
+                                        value.image_src != undefined
                                           ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                                            value.product_images[0]?.src
+                                            value.image_src
                                           : "/logo.webp"
                                       }
                                       alt=""
                                     />
                                   </td>
-                                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                    <Switch
-                                      onChange={() =>
-                                        changeActive(value.id, value.is_active)
-                                      }
-                                      checked={value.is_active}
-                                    />
-                                  </td>
+
                                   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <Link href={"/adm/product/" + value.id}>
+                                    <Link href={"/adm/category/" + value.id}>
                                       <a className="text-indigo-600 hover:text-indigo-900">
                                         Editar
                                       </a>
@@ -235,7 +225,7 @@ const Home = ({ sessions }) => {
                           </tbody>
                         )}
                       </table>
-                      {data.product.length == 0 && <Empty />}
+                      {data.category.length == 0 && <Empty />}
                     </div>
                   </div>
                 </div>
@@ -251,7 +241,7 @@ const Home = ({ sessions }) => {
                       hideOnSinglePage={true}
                       current={pagination}
                       pageSize={5}
-                      total={data.product_aggregate.aggregate.count}
+                      total={data.category_aggregate.aggregate.count}
                     />
                   )}
                 </div>

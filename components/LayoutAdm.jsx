@@ -79,7 +79,40 @@ export default function LayoutAdm({ children, session }) {
                           d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                         />
                       </svg>{" "}
-                      Meus Banners
+                      Meus Produtos
+                    </a>
+                  </Link>
+                  <Link href="/adm/category">
+                    <a
+                      onClick={() => {
+                        setActualMenu("/adm/category");
+                      }}
+                      className={
+                        actualMenu == "/adm/category"
+                          ? "bg-gray-900 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      }
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-6 mr-3 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 6h.008v.008H6V6z"
+                        />
+                      </svg>
+                      Minhas categorias
                     </a>
                   </Link>
                 </nav>
@@ -143,6 +176,39 @@ export default function LayoutAdm({ children, session }) {
                     />
                   </svg>{" "}
                   Meus Produtos
+                </a>
+              </Link>
+              <Link href="/adm/category">
+                <a
+                  onClick={() => {
+                    setActualMenu("/adm/category");
+                  }}
+                  className={
+                    actualMenu == "/adm/category"
+                      ? "bg-gray-900 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                  }
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-6 mr-3 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 6h.008v.008H6V6z"
+                    />
+                  </svg>
+                  Minhas categorias
                 </a>
               </Link>
             </nav>
