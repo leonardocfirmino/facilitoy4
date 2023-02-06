@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-
+import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import jwt, { sign } from "jsonwebtoken";
@@ -26,11 +26,11 @@ export const authOptions = {
           process.env.HASURA_URL,
           {
             query: `{
-            user(where: {email: {_eq: "${credentials.email}"}, password: {_eq: "${credentials.password}"}}) {
+            user(where: {email: {_eq: "${credentials.email}"}}) {
               role
               email
               name
-           
+              password
               id
             }
           }`,
@@ -43,7 +43,15 @@ export const authOptions = {
         );
 
         // If no error and we have user data, return it
-        if (res.data.data.user.length > 0) {
+        if (res.data.data.user.length == 0) {
+          return null;
+        }
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          res.data.data.user[0].password
+        );
+
+        if (isValid) {
           return res.data.data.user[0];
         }
         // Return null if user data could not be retrieved
@@ -54,6 +62,7 @@ export const authOptions = {
   debug: true,
   pages: {
     signIn: "/login",
+    signUp: "/cadastrar",
   },
   jwt: {
     async encode({ secret, token, maxAge }) {
@@ -65,9 +74,9 @@ export const authOptions = {
         iat: Date.now() / 1000,
         exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
         "https://hasura.io/jwt/claims": {
-          "x-hasura-allowed-roles": ["user"],
-          "x-hasura-default-role": "user",
-          "x-hasura-role": "user",
+          "x-hasura-allowed-roles": [token.role],
+          "x-hasura-default-role": token.role,
+          "x-hasura-role": token.role,
           "x-hasura-user-id": String(token.sub),
         },
       };

@@ -21,7 +21,10 @@ export default function SingleProductCart({ product }) {
     <li key={product.product.id} className="flex py-6 sm:py-10">
       <div className="flex-shrink-0">
         <img
-          src={product.product.images[0].src}
+          src={
+            "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+            product.product.product_images[0].src
+          }
           className="h-24 w-24 rounded-lg object-cover object-center sm:h-32 sm:w-32"
         />
       </div>

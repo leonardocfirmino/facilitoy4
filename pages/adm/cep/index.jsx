@@ -1,17 +1,21 @@
-import Layout from "../../components/Layout";
+/* eslint-disable @next/next/no-img-element */
+import LayoutAdm from "../../../components/LayoutAdm";
 import useSWR from "swr";
 import request from "graphql-request";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { authOptions } from "../../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
-import Empty from "../../components/Empty";
+
 import Link from "next/link";
-import "moment/locale/pt-br";
-import axios from "axios";
+
 import Pagination from "rc-pagination";
 import Moment from "react-moment";
-import Swal from "sweetalert2";
+import Switch from "react-switch";
+import "moment/locale/pt-br";
 import { useState } from "react";
-
+import Empty from "../../../components/Empty";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const localeInfo = {
   // Options.jsx
   items_per_page: "/ page",
@@ -37,6 +41,7 @@ const Home = ({ sessions }) => {
     setActualPosts((page - 1) / 1);
     setPagination(page);
   };
+  console.log(user);
   const fetcher = async (query) =>
     request(
       process.env.NEXT_PUBLIC_PREFIX +
@@ -44,21 +49,17 @@ const Home = ({ sessions }) => {
         "/api/userQuery",
       query,
       {},
-      { authorization: `Bearer ${await user.token}` }
+      { authorization: `Bearer ${user.token}` }
     );
   const { data, mutate } = useSWR(
     `{
-      post(offset:${actualPosts}, limit: 5, order_by: {created_at: desc}) {
-        created_at
-        slug
-        title
-        description
+      cep_user {
         id
+        cidade
+        bairro
+        valor
       }
-      user{
-        blog_slug
-      }
-      post_aggregate {
+      cep_user_aggregate {
         aggregate {
           count
         }
@@ -66,77 +67,78 @@ const Home = ({ sessions }) => {
     }`,
     fetcher
   );
-  if (data) {
-    if (data.user[0].blog_slug == null) {
-      Swal.fire({
-        title: "Defina o nome de seu BLOG",
-        input: "text",
-        inputAttributes: {
-          autocapitalize: "off",
-        },
-        showCancelButton: false,
-        allowOutsideClick: false,
-        confirmButtonText: "Salvar",
-        showLoaderOnConfirm: true,
-        preConfirm: async (slug) => {
-          return axios
-            .post(
-              process.env.NEXT_PUBLIC_PREFIX +
-                process.env.NEXT_PUBLIC_SITE_URL +
-                `/api/userQuery`,
-              {
-                query: `mutation{
-              update_user(where: {email: {_eq: "${user.user.email}"}}, _set: {blog_slug: "${slug}"}) {
-                affected_rows
-              }
-            }`,
-              },
-              {
-                headers: { authorization: `Bearer ${user.token}` },
-              }
-            )
-            .then(() => {
-              return true;
-            })
-            .catch(() => {
-              Swal.showValidationMessage(`Este nome já está em uso`);
-            });
-        },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: `Concluido`,
-            confirmButtonText: "Ok",
-            icon: "success",
-            text: "O nome de seu blog foi definido com sucesso",
-          });
+  const changeActive = async (id, actual) => {
+    try {
+      await axios.post(
+        process.env.NEXT_PUBLIC_PREFIX +
+          process.env.NEXT_PUBLIC_SITE_URL +
+          "/api/userQuery",
+
+        {
+          query: `mutation {
+            update_product_by_pk(pk_columns: {id: "${id}"}, _set: {is_active: ${!actual}}) {
+          id
         }
+      }`,
+        },
+
+        {
+          headers: {
+            authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      toast.success("Alterado com sucesso", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      mutate();
+    } catch {
+      toast.error("Ocorreu um erro", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     }
-  }
+  };
   return (
-    <Layout session={user}>
+    <LayoutAdm session={user}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       {data && (
         <div className="py-6">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* <h1 class="text-2xl font-semibold text-gray-900">Minhas postagens</h1> */}
-          </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
             {/* This example requires Tailwind CSS v2.0+ */}
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                  <h1 className="text-xl font-semibold text-gray-900">
-                    Postagens
-                  </h1>
+                  <h1 className="text-xl font-semibold text-gray-900">CEPs</h1>
                   <p className="mt-2 text-sm text-gray-700">
-                    Uma listagem de todas as postagens do seu site
+                    Uma listagem de todas os CEPs
                   </p>
                 </div>
                 <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                  <Link href="user/post/create">
+                  <Link href="/adm/cep/create">
                     <a className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-                      Adicionar Postagem
+                      Adicionar CEP
                     </a>
                   </Link>
                 </div>
@@ -152,46 +154,46 @@ const Home = ({ sessions }) => {
                               scope="col"
                               className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                             >
-                              Título
+                              Cidade
                             </th>
                             <th
                               scope="col"
                               className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                             >
-                              Descrição
+                              Bairro
                             </th>
                             <th
                               scope="col"
                               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                             >
-                              Criado em
+                              Valor
                             </th>
+
                             <th
                               scope="col"
                               className="relative py-3.5 pl-3 pr-4 sm:pr-6"
                             >
-                              <span className="sr-only">Editar</span>
+                              <span className="">Editar</span>
                             </th>
                           </tr>
                         </thead>
                         {data && (
                           <tbody className="divide-y divide-gray-200 bg-white">
-                            {data.post.map((value, index) => {
+                            {data.cep_user.map((value, index) => {
                               return (
                                 <tr key={index}>
                                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                    {value.title}
+                                    {value.cidade}
                                   </td>
-                                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-600 sm:pl-6">
-                                    {value.description}
+                                  <td className="whitespace-nowrap flex flex-col justify-center overflow-y-auto h-32 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                    {value.bairro}
                                   </td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    <Moment locale="pt-br" fromNow>
-                                      {value.created_at}
-                                    </Moment>
+                                    R$ {value.valor}
                                   </td>
+
                                   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <Link href={"/user/post/" + value.id}>
+                                    <Link href={"/adm/cep/" + value.id}>
                                       <a className="text-indigo-600 hover:text-indigo-900">
                                         Editar
                                       </a>
@@ -203,7 +205,7 @@ const Home = ({ sessions }) => {
                           </tbody>
                         )}
                       </table>
-                      {data.post.length == 0 && <Empty />}
+                      {data.cep_user.length == 0 && <Empty />}
                     </div>
                   </div>
                 </div>
@@ -219,7 +221,7 @@ const Home = ({ sessions }) => {
                       hideOnSinglePage={true}
                       current={pagination}
                       pageSize={5}
-                      total={data.post_aggregate.aggregate.count}
+                      total={data.cep_user_aggregate.aggregate.count}
                     />
                   )}
                 </div>
@@ -228,7 +230,7 @@ const Home = ({ sessions }) => {
           </div>
         </div>
       )}
-    </Layout>
+    </LayoutAdm>
   );
 };
 export default Home;
@@ -247,10 +249,10 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  if (session?.user?.role == "admin") {
+  if (session?.user?.role == "user") {
     return {
       redirect: {
-        destination: `/adm/`,
+        destination: `/perfil`,
         permanent: false,
       },
     };

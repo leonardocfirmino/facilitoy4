@@ -115,6 +115,39 @@ export default function LayoutAdm({ children, session }) {
                       Minhas categorias
                     </a>
                   </Link>
+                  <Link href="/adm/cep">
+                    <a
+                      onClick={() => {
+                        setActualMenu("/adm/cep");
+                      }}
+                      className={
+                        actualMenu == "/adm/cep"
+                          ? "bg-gray-900 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      }
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 mr-3 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                        />
+                      </svg>
+                      Cep
+                    </a>
+                  </Link>
                 </nav>
               </div>
               <div className="flex-shrink-0 flex bg-gray-700 p-4">
@@ -211,6 +244,39 @@ export default function LayoutAdm({ children, session }) {
                   Minhas categorias
                 </a>
               </Link>
+              <Link href="/adm/cep">
+                <a
+                  onClick={() => {
+                    setActualMenu("/adm/cep");
+                  }}
+                  className={
+                    actualMenu == "/adm/cep"
+                      ? "bg-gray-900 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                  }
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 mr-3 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                    />
+                  </svg>
+                  Cep
+                </a>
+              </Link>
             </nav>
           </div>
           <div className="flex-shrink-0 flex bg-gray-700 p-4">
@@ -221,7 +287,7 @@ export default function LayoutAdm({ children, session }) {
                     {session.user.name}
                   </p>
                   <button
-                    onClick={() => signOut({ callbackUrl: "/" })}
+                    onClick={async () => await signOut({ callbackUrl: "/" })}
                     className="text-xs font-medium text-gray-300 group-hover:text-gray-200"
                   >
                     Sair

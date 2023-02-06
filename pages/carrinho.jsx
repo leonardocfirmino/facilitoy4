@@ -4,48 +4,41 @@ import Layout from "../components/Layout";
 import SingleProductCart from "../components/singleProductCart";
 import { useMercadopago } from "react-sdk-mercadopago";
 import axios from "axios";
-const products = [
-  {
-    id: 1,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$35.00",
-    color: "White",
-    inStock: true,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-03.jpg",
-    imageAlt: "Insulated bottle with white base and black snap lid.",
-  },
-  {
-    id: 2,
-    name: "Basic Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Sienna",
-    inStock: true,
-    size: "Large",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in sienna.",
-  },
-  // More products...
-];
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import CepChecker from "../components/CepChecker";
 const CarrinhoPage = ({ subdomain }) => {
+  const session = useSession();
+  const router = useRouter();
+
   const products = useSelector((state) => state.cart);
+  const cep = useSelector((state) => state.cep);
+  console.log(cep);
   const mercadopago = useMercadopago.v2(
     "TEST-424dab6b-43c3-4826-bf8a-d4bc5d057c53",
     {
       locale: "pt-BR",
     }
   );
+  console.log(products);
   const getTotalPrice = () => {
-    return products.reduce(
+    const productValues = products.reduce(
       (accumulator, item) => accumulator + item.quantity * item.time.price,
       0
     );
+
+    return productValues + cep.value;
   };
   const createCheckout = async () => {
+    if (session.status == "unauthenticated")
+      return router.push(
+        "/login?callbackUrl=" +
+          process.env.NEXT_PUBLIC_PREFIX +
+          subdomain +
+          "." +
+          process.env.NEXT_PUBLIC_SITE_URL +
+          "/carrinho"
+      );
     const response = await axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
         (subdomain ? subdomain + "." : null) +
@@ -53,6 +46,7 @@ const CarrinhoPage = ({ subdomain }) => {
         "/api/create-checkout",
       {
         products: products,
+        cep: cep,
       }
     );
 
@@ -61,6 +55,36 @@ const CarrinhoPage = ({ subdomain }) => {
         id: response.data.body.id,
       },
     });
+    let finalProducts = "[";
+    products.map((value) => {
+      finalProducts += `{product_id:"${value.id}", preco:"${value.time.price}", tempo:"${value.time.tempo}", quantity: "${value.quantity}"},`;
+    });
+    finalProducts += "]";
+    const saveTransaction = await axios.post(
+      process.env.NEXT_PUBLIC_PREFIX +
+        (subdomain ? subdomain + "." : null) +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/userQuery",
+
+      {
+        query: `mutation MyMutation2 {
+          insert_user_carrinho_one(object: {total: "${getTotalPrice()}", 
+          status: "Aguardando pagamento", 
+          mercado_order_id: "${response.data.body.id}", 
+          frete_value: "${cep.value}", 
+          cep: "${cep.cep}", 
+          carrinho_produtos: {data: ${finalProducts}}}) {
+            id
+          }
+      }`,
+      },
+
+      {
+        headers: {
+          authorization: `Bearer ${session.data.token}`,
+        },
+      }
+    );
     checkout.open();
   };
   return (
@@ -95,7 +119,9 @@ const CarrinhoPage = ({ subdomain }) => {
                 </div>
               )}
             </div>
-
+            <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
+              <CepChecker carrinho={true} subdomain={subdomain} />
+            </div>
             {/* Order summary */}
             <div className="mt-10 sm:ml-32 sm:pl-6">
               <div className="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">

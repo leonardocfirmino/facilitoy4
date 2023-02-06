@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import SearchBar from "./SearchBar";
 
@@ -9,12 +9,22 @@ import Carrinho from "./Carrinho";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+
 import { useSelector } from "react-redux";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-export default function Layout({ children, session, subdomain }) {
+export default function Layout({ children, subdomain }) {
   const router = useRouter();
+  const session = useSession();
+
+  const callback =
+    process.env.NEXT_PUBLIC_PREFIX +
+    subdomain +
+    "." +
+    process.env.NEXT_PUBLIC_SITE_URL +
+    "/carrinho";
+
   const items = useSelector((state) => state.cart);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [actualMenu, setActualMenu] = useState(router.pathname);
@@ -322,8 +332,8 @@ export default function Layout({ children, session, subdomain }) {
       )}
       {/* Static sidebar for desktop */}
 
-      <div className="flex flex-col flex-1">
-        <div className=" top-0 z-10 ">
+      <div className="flex flex-col flex-1 ">
+        <div className=" top-0 z-10 border-b-2 border-gray-300/40">
           <div className="bg-[#12bcc6] gap-2 lg:gap-4 w-full py-1 px-2 flex items-center lg:flex-row flex-col justify-center lg:justify-around">
             <div className="bg-white rounded-full pr-2">
               <button className="bg-red-600 font-semibold uppercase text-white px-4 py-2 rounded-full text-xs">
@@ -351,13 +361,34 @@ export default function Layout({ children, session, subdomain }) {
             </div>
             <div className="flex lg:order-3 order-2 items-center gap-2">
               <div className=" font-semibold  text-lg">
-                <Link href="/login">
-                  <a className="flex w-48 justify-center">
-                    <span className="hidden lg:block">
-                      Entrar / Cadastrar-se
-                    </span>
-                  </a>
-                </Link>
+                {session.data != undefined ? (
+                  <Link href="/perfil">
+                    <a className="flex w-48 justify-center text-gray-400">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-12 h-12"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    </a>
+                  </Link>
+                ) : (
+                  <Link href={"/login?callbackUrl=" + callback}>
+                    <a className="flex w-48 justify-center">
+                      <span className="hidden lg:block">
+                        Entrar / Cadastrar-se
+                      </span>
+                    </a>
+                  </Link>
+                )}
               </div>
 
               <Carrinho products={items} />
@@ -403,11 +434,14 @@ export default function Layout({ children, session, subdomain }) {
               </div>
               <div className="flex xl:order-3 order-2 items-center gap-2">
                 <div className=" font-semibold  text-lg">
-                  <Link href="/login">
+                  <Link
+                    href={
+                      session.data != undefined
+                        ? "/perfil"
+                        : "/login?callbackUrl=" + callback
+                    }
+                  >
                     <a className="flex lg:w-48 justify-center">
-                      <span className="hidden lg:block">
-                        Entrar / Cadastrar-se
-                      </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

@@ -272,7 +272,7 @@ export async function getServerSideProps(context) {
   if (session?.user?.role == "user") {
     return {
       redirect: {
-        destination: `/user/`,
+        destination: `/perfil`,
         permanent: false,
       },
     };

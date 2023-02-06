@@ -17,6 +17,11 @@ export default async function handler(req, res) {
   console.log(items);
   var preference = {
     items: items,
+    shipments: {
+      cost: req.body.cep.value,
+      mode: "not_specified",
+      receiver_address: { zip_code: req.body.cep.cep },
+    },
   };
   const response = await mercadopago.preferences.create(preference);
   res.status(200).json(response);
