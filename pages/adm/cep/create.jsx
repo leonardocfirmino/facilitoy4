@@ -7,6 +7,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MoonLoader } from "react-spinners";
+import Autocomplete from "react-google-autocomplete";
 import Select from "react-select";
 
 export default function CreateBanner({ sessions }) {
@@ -34,7 +35,7 @@ export default function CreateBanner({ sessions }) {
       label: "Centro, Osasco",
     },
   ];
-  const [stateCep, setStateCep] = useState(ceps[0]);
+  const [stateCep, setStateCep] = useState();
 
   const sendBanner = async (form) => {
     form.preventDefault();
@@ -48,7 +49,7 @@ export default function CreateBanner({ sessions }) {
 
         {
           query: `mutation MyMutation2 {
-          insert_cep_user_one(object: {cidade: "${stateCep.value.cidade}", bairro: "${stateCep.value.bairro}", valor: "${form.target.valor.value}"}) {
+          insert_cep_user_one(object: {cidade: "${stateCep.cidade}", bairro: "${stateCep.bairro}", valor: "${form.target.valor.value}"}) {
             id
           }
         }`,
@@ -69,7 +70,8 @@ export default function CreateBanner({ sessions }) {
         draggable: true,
         progress: undefined,
       });
-    } catch {
+    } catch (err) {
+      console.log(err);
       toast.error("Ocorreu um erro", {
         position: "top-right",
         autoClose: 5000,
@@ -107,15 +109,23 @@ export default function CreateBanner({ sessions }) {
           >
             <div className="w-full  items-start">
               <div className="w-full   flex flex-col justify-center pb-4">
-                <h1 className="text-xl font-semibold px-1 pb-2">CEP</h1>
-                <Select
-                  placeholder="Selecione um CEP"
-                  name="cep"
-                  isSearchable
-                  required
-                  value={stateCep}
-                  onChange={setStateCep}
-                  options={ceps}
+                <h1 className="text-xl font-semibold px-1 pb-2">
+                  CEP (Apenas bairros)
+                </h1>
+                <Autocomplete
+                  apiKey={"AIzaSyCLodMWPB7zeP4Xk2WJnZN5gfuQ7CpO5hk"}
+                  onPlaceSelected={(place) => {
+                    setStateCep({
+                      bairro: place.address_components[0].long_name,
+                      cidade: place.address_components[1].long_name,
+                    });
+                  }}
+                  className="border-2 rounded-md px-2 form-input py-1 border-gray-300"
+                  language="pt-BR"
+                  options={{
+                    types: ["sublocality"],
+                    componentRestrictions: { country: "br" },
+                  }}
                 />
               </div>
             </div>

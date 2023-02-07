@@ -823,6 +823,12 @@ export default function Layout({ children, subdomain }) {
           </div>
         </footer>
       </div>
+      <a
+        href="https://web.whatsapp.com/"
+        className="fixed bottom-5 right-5 duration-300 hover:scale-110"
+      >
+        <img src="/pngwing.com.png" className="w-16 h-16 " alt="" />
+      </a>
     </div>
   );
 }

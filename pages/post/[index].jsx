@@ -70,12 +70,21 @@ export default function Post({ subdomain }) {
 export async function getServerSideProps(ctx) {
   const subdomain =
     ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"];
-  if (subdomain.split(".")[1] == undefined)
-    return {
-      redirect: {
-        destination: `/login`,
-        permanent: false,
-      },
-    };
+  if (process.env.NEXT_PUBLIC_PREFIX == "http://")
+    if (subdomain.split(".")[1] == undefined)
+      return {
+        redirect: {
+          destination: `/selecionar-estado`,
+          permanent: false,
+        },
+      };
+  if (process.env.NEXT_PUBLIC_PREFIX != "http://")
+    if (subdomain.split(".")[2] == undefined)
+      return {
+        redirect: {
+          destination: `/selecionar-estado`,
+          permanent: false,
+        },
+      };
   return { props: { subdomain: subdomain.split(".")[0] } };
 }

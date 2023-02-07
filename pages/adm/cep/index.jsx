@@ -16,6 +16,7 @@ import Empty from "../../../components/Empty";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import groupByCidade from "../../../helpers/groupByCidade";
 const localeInfo = {
   // Options.jsx
   items_per_page: "/ page",
@@ -67,49 +68,8 @@ const Home = ({ sessions }) => {
     }`,
     fetcher
   );
-  const changeActive = async (id, actual) => {
-    try {
-      await axios.post(
-        process.env.NEXT_PUBLIC_PREFIX +
-          process.env.NEXT_PUBLIC_SITE_URL +
-          "/api/userQuery",
-
-        {
-          query: `mutation {
-            update_product_by_pk(pk_columns: {id: "${id}"}, _set: {is_active: ${!actual}}) {
-          id
-        }
-      }`,
-        },
-
-        {
-          headers: {
-            authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      toast.success("Alterado com sucesso", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      mutate();
-    } catch {
-      toast.error("Ocorreu um erro", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  };
+  const ceps = groupByCidade(data?.cep_user);
+  console.log(ceps);
   return (
     <LayoutAdm session={user}>
       <ToastContainer
@@ -143,19 +103,73 @@ const Home = ({ sessions }) => {
                   </Link>
                 </div>
               </div>
-              <div className="mt-8 flex flex-col">
+              <div className="flex gap-4 mt-10 justify-start  flex-wrap w-full">
+                {ceps.map((value, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="grow pt-2 border-2  border-gray-200 rounded-lg"
+                    >
+                      <h1 className="font-bold flex gap-2 justify-start items-center text-xl text-gray-700 py-4 px-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                          />
+                        </svg>
+                        {value.cidade}
+                      </h1>
+                      <ul role="list" className="">
+                        {value.bairros.map((bairro) => (
+                          <li
+                            key={bairro.nome}
+                            className="py-4 px-6 border-t border-gray-200"
+                          >
+                            <div className="flex items-center space-x-4">
+                              <div className="flex-shrink-0"></div>
+                              <div className="min-w-0 flex-1">
+                                <p className="truncate text-md font-medium text-gray-900">
+                                  {bairro.nome}
+                                </p>
+                                <p className="truncate text-md font-semibold text-blue-500">
+                                  R$ {bairro.valor}
+                                </p>
+                              </div>
+                              <div>
+                                <Link href={"/adm/cep/" + bairro.id}>
+                                  <a className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50">
+                                    Editar
+                                  </a>
+                                </Link>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* <div className="mt-8 flex flex-col">
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                     <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                       <table className="min-w-full divide-y divide-gray-300">
                         <thead className="bg-gray-50">
                           <tr>
-                            <th
-                              scope="col"
-                              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                            >
-                              Cidade
-                            </th>
                             <th
                               scope="col"
                               className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
@@ -182,9 +196,6 @@ const Home = ({ sessions }) => {
                             {data.cep_user.map((value, index) => {
                               return (
                                 <tr key={index}>
-                                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                    {value.cidade}
-                                  </td>
                                   <td className="whitespace-nowrap flex flex-col justify-center overflow-y-auto h-32 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {value.bairro}
                                   </td>
@@ -209,7 +220,7 @@ const Home = ({ sessions }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-end px-4">
