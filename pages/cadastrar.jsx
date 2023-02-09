@@ -190,7 +190,7 @@ export async function getServerSideProps(context) {
     authOptions
   );
   const subdomain =
-    ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"];
+    context.req.headers["x-forwarded-host"] || context.req.headers["host"];
   if (process.env.NEXT_PUBLIC_PREFIX == "http://")
     if (subdomain.split(".")[1] == undefined)
       return {
