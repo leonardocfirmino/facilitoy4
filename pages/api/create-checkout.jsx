@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   var preference = {
     items: items,
     shipments: {
-      cost: req.body.cep.value,
+      cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",
       receiver_address: { zip_code: req.body.cep.cep },
     },

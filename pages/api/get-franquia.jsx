@@ -5,17 +5,10 @@ export default async function handler(req, res) {
     process.env.HASURA_URL,
     {
       query: `{
-        product(where: {slug: {_eq: "${req.body.slug}"}, _and: {is_active: {_eq: true}}}) {
-          details
-          description
-          created_at
-          id
+        franquia(where: {subdomain: {_eq: "${req.body.subdomain}"}}) {
           name
-          price
-          product_images {
-            src
-          }
-      
+          cep
+          take_in_local
         }
        
       }`,

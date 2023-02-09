@@ -162,48 +162,55 @@ export default function Example({ subdomain }) {
   let product = {};
   let setPrice = null;
   if (data) {
-    if (setPrice == null) {
-      setPrice = data.data.product[0];
-      setPrice = {
-        ...setPrice,
-        precos: [
-          {
-            tempo: "7 Dias",
-            price: setPrice.price,
-            desconto: 0,
-          },
-          {
-            tempo: "14 Dias",
-            price: setPrice.price + 15,
-            desconto: 74,
-          },
-          {
-            tempo: "28 Dias",
-            price: setPrice.price + 35,
-            desconto: 217,
-          },
-        ],
-      };
+    if (data.data.product.length == 0) {
+      router.push("/");
     }
-    product = setPrice;
-    if (selectedTime == null) setSelectedTime(setPrice.precos[0]);
+    if (data.data.product.length != 0) {
+      if (setPrice == null) {
+        setPrice = data.data.product[0];
+        setPrice = {
+          ...setPrice,
+          precos: [
+            {
+              tempo: "7 Dias",
+              price: setPrice.price,
+              desconto: 0,
+            },
+            {
+              tempo: "14 Dias",
+              price: setPrice.price + 15,
+              desconto: 74,
+            },
+            {
+              tempo: "28 Dias",
+              price: setPrice.price + 35,
+              desconto: 217,
+            },
+          ],
+        };
+      }
+      product = setPrice;
+      if (selectedTime == null) setSelectedTime(setPrice.precos[0]);
+    }
   }
 
   return (
-    <Layout subdomain={subdomain}>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <div className="pop-mercado"></div>
-      {data && (
+    data &&
+    data.data.product.length != 0 && (
+      <Layout subdomain={subdomain}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <div className="pop-mercado"></div>
+
         <div className="bg-white">
           <div className="mx-auto max-w-2xl py-8 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
@@ -411,8 +418,8 @@ export default function Example({ subdomain }) {
             </div>
           </div>
         </div>
-      )}
-    </Layout>
+      </Layout>
+    )
   );
 }
 export async function getServerSideProps(ctx) {
