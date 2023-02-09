@@ -68,8 +68,8 @@ const Home = ({ sessions }) => {
     }`,
     fetcher
   );
-  const ceps = groupByCidade(data?.cep_user);
-  console.log(ceps);
+  let ceps = [];
+  if (data) ceps = groupByCidade(data?.cep_user);
   return (
     <LayoutAdm session={user}>
       <ToastContainer

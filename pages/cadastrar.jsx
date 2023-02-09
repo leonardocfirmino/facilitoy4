@@ -7,13 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 import formatPhoneNumber from "../helpers/formatPhoneNumber";
 import axios from "axios";
 import { useState } from "react";
-export default function Login() {
+export default function Login({ subdomain }) {
   const router = useRouter();
   const [tel, setTel] = useState("");
   const LoginMethod = async (form) => {
     form.preventDefault();
     const res = await axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
+        (subdomain ? subdomain + "." : null) +
         process.env.NEXT_PUBLIC_SITE_URL +
         "/api/user-register",
 
@@ -188,7 +189,24 @@ export async function getServerSideProps(context) {
     context.res,
     authOptions
   );
-
+  const subdomain =
+    ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"];
+  if (process.env.NEXT_PUBLIC_PREFIX == "http://")
+    if (subdomain.split(".")[1] == undefined)
+      return {
+        redirect: {
+          destination: `/selecionar-estado`,
+          permanent: false,
+        },
+      };
+  if (process.env.NEXT_PUBLIC_PREFIX != "http://")
+    if (subdomain.split(".")[2] == undefined)
+      return {
+        redirect: {
+          destination: `/selecionar-estado`,
+          permanent: false,
+        },
+      };
   if (session) {
     if (session?.user?.role == "franquiado") {
       return {
@@ -211,7 +229,5 @@ export async function getServerSideProps(context) {
       };
     }
   }
-  return {
-    props: {},
-  };
+  return { props: { subdomain: subdomain.split(".")[0] } };
 }
