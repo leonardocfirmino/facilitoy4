@@ -86,7 +86,7 @@ export default function Example({ subdomain }) {
     fetcher
   );
   return (
-    <Layout>
+    <Layout subdomain={subdomain}>
       <div className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl sm:px-2 lg:px-8">
           <div className="mx-auto flex justify-between max-w-2xl px-4 lg:max-w-4xl lg:px-0">
