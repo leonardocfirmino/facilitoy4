@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import CepChecker from "../components/CepChecker";
+import Recomendados from "../components/Recomendados";
 const CarrinhoPage = ({ subdomain }) => {
   const session = useSession();
   const router = useRouter();
@@ -164,6 +165,7 @@ const CarrinhoPage = ({ subdomain }) => {
             </div>
           </form>
         </div>
+        <Recomendados />
       </div>
     </Layout>
   );

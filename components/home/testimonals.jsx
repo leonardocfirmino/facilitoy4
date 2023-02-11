@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 export default function Testimonals() {
   return (
     <div className="w-full lg:w-3/6 mx-auto pb-8">
-      <div className="w-full flex justify-center text-center items-center text-xl px-4 lg:text-3xl text-blue-400 font-semibold pb-10">
+      <div className="w-full flex  uppercase  justify-center text-center items-center text-xl px-4 lg:text-3xl text-blue-400 font-semibold pb-10">
         <h1>Nossos astrolovers!</h1>
       </div>
       <Swiper

@@ -8,7 +8,7 @@ export default function HomeCarrousel2({ data }) {
     <div className="w-full px-4 lg:w-4/6 mx-auto py-6">
       <div className="border-b-2 mb-2">
         <h1 className="text-red-600 -mb-[2px] text-3xl font-bold w-fit pb-4 border-red-600 border-b-2">
-          Os mais alugados!
+          BRINQUEDOS MAIS ALUGADOS!
         </h1>
       </div>
       <Swiper

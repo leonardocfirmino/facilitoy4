@@ -103,11 +103,9 @@ const SelectEstado = () => {
         >
           Ir para o site
         </button>
-        <div className="flex flex-col font-semibold pt-4 pb-2 justify-center w-full items-center text-center">
-          <p className="text-[#d72b3e]">
-            Alugamos brinquedos que oferecem a melhor
-          </p>
-          <p className="text-[#02d0da]">experiência do brincar ao seu filho</p>
+        <div className="flex gap-1 font-semibold pt-4 pb-2 justify-center w-full items-center text-center">
+          <p className="text-[#d72b3e]">Aluguel de brinquedos</p>
+          <p className="text-[#02d0da]">e acessórios infantis</p>
         </div>
       </div>
     </div>

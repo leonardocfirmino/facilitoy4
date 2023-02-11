@@ -22,7 +22,7 @@ export default function Sobre() {
         </svg>
       </div>
       <div className="pt-14 w-full flex justify-center items-center">
-        <h1 className="text-[#41a1c9] text-xl px-4 lg:text-3xl font-semibold">
+        <h1 className="text-[#41a1c9]  uppercase  text-xl px-4 lg:text-3xl font-semibold">
           Quem somos
         </h1>
       </div>

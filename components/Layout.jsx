@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import SearchBar from "./SearchBar";
-
+import CookieConsent, { Cookies } from "react-cookie-consent";
 import Carrinho from "./Carrinho";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
@@ -31,6 +31,30 @@ export default function Layout({ children, subdomain }) {
 
   return (
     <div>
+      <CookieConsent
+        location="bottom"
+        buttonText="Permitir cookies"
+        cookieName="cookiepermission"
+        style={{ background: "#3582a3" }}
+        buttonStyle={{
+          backgroundColor: "#12bcc6",
+          fontSize: "1.1rem",
+          color: "white",
+          fontWeight: "bold",
+          paddingRight: "16px",
+          paddingLeft: "16px",
+          paddingTop: "8px",
+          paddingBottom: "8px",
+          borderRadius: "5px",
+        }}
+        expires={150}
+      >
+        Este site utiliza cookies para garantir que você obtenha a melhor
+        experiência em nosso site
+        <a href="#" className="ml-3 text-sm underline">
+          Politica de privacidade
+        </a>
+      </CookieConsent>
       {mobileMenu && (
         <div
           id="mobilemenu"
@@ -334,7 +358,7 @@ export default function Layout({ children, subdomain }) {
 
       <div className="flex flex-col flex-1 ">
         <div className=" top-0 z-10 border-b-2 border-gray-300/40">
-          <div className="bg-[#12bcc6] gap-2 lg:gap-4 w-full py-1 px-2 flex items-center lg:flex-row flex-col justify-center lg:justify-around">
+          <div className="bg-[#12bcc6] gap-2 lg:gap-4 w-full py-1 px-2 flex  items-center lg:flex-row flex-col justify-center lg:justify-around">
             <div className="bg-white rounded-full pr-2">
               <button className="bg-red-600 font-semibold uppercase text-white px-4 py-2 rounded-full text-xs">
                 Brinquedos disponíveis para
@@ -627,10 +651,7 @@ export default function Layout({ children, subdomain }) {
           </div>
         </div>
         <main className="flex-1">{children}</main>
-        <footer
-          style={{ backgroundImage: "url('/bg-footer.jpg')" }}
-          className="px-4 divide-y bg-contain dark:bg-gray-800 dark:text-gray-100"
-        >
+        <footer className=" divide-y bg-contain bg-[#12bcc6] text-gray-100">
           <div className="container flex flex-col justify-center py-10 mx-auto gap-4 space-y-8 lg:flex-row lg:space-y-0">
             <div className="lg:w-1/4">
               <a
@@ -643,8 +664,9 @@ export default function Layout({ children, subdomain }) {
                 </span>
               </a>
             </div>
-            <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/4 ">
-              <div className="w-full flex flex-col gap-4 justify-start items-start  ">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-center text-sm gap-x-3 gap-y-8 lg:w-2/4 ">
+              <div className="w-full flex gap-4 justify-center md:justify-start items-start  ">
                 <div className="space-y-3">
                   <h3 className="tracking-wide uppercase font-bold dark:text-gray-50">
                     Empresa
@@ -672,19 +694,21 @@ export default function Layout({ children, subdomain }) {
                     </li>
                   </ul>
                 </div>
-                <div className="flex gap-4 w-full">
-                  <img
-                    src="/selo_ffc.png"
-                    className="w-20 h-20 lg:w-32 lg:h-32"
-                    alt=""
-                  />
-                  <img
-                    src="/eu-reciclo-trans.png"
-                    className=" w-20 h-20 lg:w-32 lg:h-32"
-                    alt=""
-                  />
+                <div className="flex flex-col gap-4 ">
+                  <div className="flex gap-4">
+                    <img src="/selo_ffc.png" className="w-20 h-20" alt="" />
+                    <img
+                      src="/eu-reciclo-trans.png"
+                      className=" w-20 h-20 "
+                      alt=""
+                    />
+                  </div>
+                  <div className="w-full flex justify-center">
+                    <img src="/icons-pagamento.svg" className="w-40" alt="" />
+                  </div>
                 </div>
               </div>
+
               <div className="flex flex-col gap-4">
                 <div className="w-full flex flex-col lg:flex-row items-center lg:items-start gap-4 justify-center   ">
                   <div className="text-center">
@@ -714,66 +738,21 @@ export default function Layout({ children, subdomain }) {
                         />
                       </div>
                     </div>
-                    <h1 className="text-xs font-bold mt-2 text-white">
-                      Se alguma foto de sua autoria estiver em nosso site e você
-                      desejar sua remoção ou registrar sua autoria, por favor
-                      envie um email para{" "}
-                      <a className="text-blue-600 underline">
-                        contato@facilitoy.com.br
-                      </a>{" "}
-                      que prontamente lhe atenderemos
-                    </h1>
-                  </div>
-                  <img src="/icons-pagamento.svg" className="w-40" alt="" />
-                </div>
-                <div className=" shadow-xl hidden lg:flex rounded-xl gap-10 bg-white px-6 py-6 text-xl ">
-                  <img src="/logo.webp" className="w-32 h-20" alt="" />
-                  <div className="space-y-2">
-                    <h1 className="font-bold text-red-500 mb-2">Facilitoy</h1>
-                    <h2 className="font-semibold text-red-500 flex text-sm items-center justify-start gap-1">
-                      Facilitoy Locação de Brinquedos Ltda
-                    </h2>
-                    <h2 className="font-semibold text-red-500 flex text-sm items-center justify-start gap-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-6 h-6 "
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                        />
-                      </svg>
-                      <span className="w-3/4">
-                        Cep 04.016-032 – Vila Mariana – São Paulo – SP
-                      </span>
-                    </h2>
-                    <h2 className="font-semibold text-red-500 flex text-sm items-center justify-start gap-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path d="M 12.011719 2 C 6.5057187 2 2.0234844 6.478375 2.0214844 11.984375 C 2.0204844 13.744375 2.4814687 15.462563 3.3554688 16.976562 L 2 22 L 7.2324219 20.763672 C 8.6914219 21.559672 10.333859 21.977516 12.005859 21.978516 L 12.009766 21.978516 C 17.514766 21.978516 21.995047 17.499141 21.998047 11.994141 C 22.000047 9.3251406 20.962172 6.8157344 19.076172 4.9277344 C 17.190172 3.0407344 14.683719 2.001 12.011719 2 z M 12.009766 4 C 14.145766 4.001 16.153109 4.8337969 17.662109 6.3417969 C 19.171109 7.8517969 20.000047 9.8581875 19.998047 11.992188 C 19.996047 16.396187 16.413812 19.978516 12.007812 19.978516 C 10.674812 19.977516 9.3544062 19.642812 8.1914062 19.007812 L 7.5175781 18.640625 L 6.7734375 18.816406 L 4.8046875 19.28125 L 5.2851562 17.496094 L 5.5019531 16.695312 L 5.0878906 15.976562 C 4.3898906 14.768562 4.0204844 13.387375 4.0214844 11.984375 C 4.0234844 7.582375 7.6067656 4 12.009766 4 z M 8.4765625 7.375 C 8.3095625 7.375 8.0395469 7.4375 7.8105469 7.6875 C 7.5815469 7.9365 6.9355469 8.5395781 6.9355469 9.7675781 C 6.9355469 10.995578 7.8300781 12.182609 7.9550781 12.349609 C 8.0790781 12.515609 9.68175 15.115234 12.21875 16.115234 C 14.32675 16.946234 14.754891 16.782234 15.212891 16.740234 C 15.670891 16.699234 16.690438 16.137687 16.898438 15.554688 C 17.106437 14.971687 17.106922 14.470187 17.044922 14.367188 C 16.982922 14.263188 16.816406 14.201172 16.566406 14.076172 C 16.317406 13.951172 15.090328 13.348625 14.861328 13.265625 C 14.632328 13.182625 14.464828 13.140625 14.298828 13.390625 C 14.132828 13.640625 13.655766 14.201187 13.509766 14.367188 C 13.363766 14.534188 13.21875 14.556641 12.96875 14.431641 C 12.71875 14.305641 11.914938 14.041406 10.960938 13.191406 C 10.218937 12.530406 9.7182656 11.714844 9.5722656 11.464844 C 9.4272656 11.215844 9.5585938 11.079078 9.6835938 10.955078 C 9.7955938 10.843078 9.9316406 10.663578 10.056641 10.517578 C 10.180641 10.371578 10.223641 10.267562 10.306641 10.101562 C 10.389641 9.9355625 10.347156 9.7890625 10.285156 9.6640625 C 10.223156 9.5390625 9.737625 8.3065 9.515625 7.8125 C 9.328625 7.3975 9.131125 7.3878594 8.953125 7.3808594 C 8.808125 7.3748594 8.6425625 7.375 8.4765625 7.375 z" />
-                      </svg>
-                      <span>(11) 91602-1020</span>
-                    </h2>
                   </div>
                 </div>
+
+                <h1 className="text-xs text-center font-bold mt-2 text-white">
+                  Se alguma foto de sua autoria estiver em nosso site e você
+                  desejar sua remoção ou registrar sua autoria, por favor envie
+                  um email para{" "}
+                  <a className="text-blue-600 underline">
+                    contato@facilitoy.com.br
+                  </a>{" "}
+                  que prontamente lhe atenderemos
+                </h1>
               </div>
             </div>
-            <div className="lg:hidden shadow-xl flex rounded-xl gap-10 bg-white px-6 py-6 text-xl ">
-              <img src="/logo.webp" className="w-32 h-20" alt="" />
+            <div className=" shadow-xl flex rounded-xl  bg-white px-6 py-6 text-xl ">
               <div className="space-y-2">
                 <h1 className="font-bold text-red-500 mb-2">Facilitoy</h1>
                 <h2 className="font-semibold text-red-500 flex text-sm items-center justify-start gap-1">
@@ -817,7 +796,7 @@ export default function Layout({ children, subdomain }) {
               </div>
             </div>
           </div>
-          <div className="py-6 text-sm text-center text-white">
+          <div className="py-6 bg-gray-100 w-full text-sm text-center text-black">
             © Copyright 2022 Facilitoy - Todos os direitos reservados - CNPJ
             26.369.719/0001-98
           </div>

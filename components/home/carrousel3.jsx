@@ -7,7 +7,7 @@ export default function HomeCarrousel2({ data }) {
   return (
     <div className="w-full px-4 lg:w-4/6 mx-auto py-6">
       <div className="border-b-2 mb-2">
-        <h1 className="text-red-600 -mb-[2px] text-3xl font-bold w-fit pb-4 border-red-600 border-b-2">
+        <h1 className="text-red-600 uppercase -mb-[2px] text-3xl font-bold w-fit pb-4 border-red-600 border-b-2">
           Recomendados para você!
         </h1>
       </div>

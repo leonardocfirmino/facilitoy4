@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCep, setTakeInLocal } from "../redux/features/cepSlice";
 import useSWR from "swr";
 
@@ -13,6 +13,7 @@ import { RadioGroup } from "@headlessui/react";
 export default function CepChecker({ subdomain, carrinho, take_in_local }) {
   const session = useSession();
   const router = useRouter();
+  const storeCep = useSelector((state) => state.cep);
   const fetcher = async (query) =>
     axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
@@ -28,10 +29,13 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
-  const [cep, setCep] = useState("");
+  const [cep, setCep] = useState(storeCep.cep);
   const dispatch = useDispatch();
-  const [isTakeInLocal, setIsTakeInLocal] = useState(false);
-  const [showValor, setShowValor] = useState(false);
+
+  const [isTakeInLocal, setIsTakeInLocal] = useState(storeCep.take_in_local);
+  const [showValor, setShowValor] = useState(
+    storeCep.cep != null ? storeCep : false
+  );
   const calcCep = async () => {
     const response = await axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
@@ -42,12 +46,19 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
         cep: cep.replace("-", ""),
       }
     );
-    setShowValor(response.data);
-    if (carrinho && !response.data.isNull) {
+
+    if (!response.data.isNull) {
       dispatch(
-        addCep({ cep: cep.replace("-", ""), value: response.data.cep.valor })
+        addCep({
+          cep: cep.replace("-", ""),
+          value: response.data.cep.valor,
+          cidade: response.data.cep.cidade,
+          bairro: response.data.cep.bairro,
+        })
       );
+      setShowValor(storeCep);
     }
+    if (response.data.isNull) setShowValor({ isNull: true });
   };
   const handleIsLocal = (value) => {
     setIsTakeInLocal(value);
@@ -138,10 +149,7 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
                             "block text-sm font-medium"
                           )}
                         >
-                          {showValor?.cep?.bairro +
-                            "," +
-                            " " +
-                            showValor?.cep?.cidade}
+                          {showValor?.bairro + "," + " " + showValor?.cidade}
                         </RadioGroup.Label>
                         <RadioGroup.Description
                           as="span"
@@ -150,7 +158,7 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
                             "block text-sm"
                           )}
                         >
-                          R$ {showValor?.cep?.valor}
+                          R$ {showValor?.value}
                         </RadioGroup.Description>
                       </span>
                     </>
