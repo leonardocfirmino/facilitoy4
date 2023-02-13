@@ -56,7 +56,12 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
           bairro: response.data.cep.bairro,
         })
       );
-      setShowValor(storeCep);
+      setShowValor({
+        cep: cep.replace("-", ""),
+        value: response.data.cep.valor,
+        cidade: response.data.cep.cidade,
+        bairro: response.data.cep.bairro,
+      });
     }
     if (response.data.isNull) setShowValor({ isNull: true });
   };
