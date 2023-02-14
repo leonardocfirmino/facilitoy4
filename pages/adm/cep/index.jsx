@@ -255,7 +255,9 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: `/login?callbackUrl=${process.env.VERCEL_URL}/adm/`,
+        destination: `/login?callbackUrl=${
+          process.env.NEXT_PUBLIC_PREFIX + process.env.NEXT_PUBLIC_SITE_URL
+        }/adm/`,
         permanent: false,
       },
     };
