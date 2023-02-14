@@ -267,7 +267,7 @@ export default function Example({ subdomain }) {
                             <div className="flex items-center">
                               <CheckCircleIcon
                                 className={classNames(
-                                  order.status == "Aguardando pagamento"
+                                  order.status == "pending"
                                     ? "text-gray-400"
                                     : "text-green-500",
                                   "h-5 w-5 "
@@ -275,7 +275,11 @@ export default function Example({ subdomain }) {
                                 aria-hidden="true"
                               />
                               <p className="ml-2 text-sm font-medium text-gray-500">
-                                {order.status}
+                                {order.status == "pending"
+                                  ? "Aguardando pagamento"
+                                  : order.status == "approved"
+                                  ? "Pagamento aprovado"
+                                  : "Pagamento recusado"}
                               </p>
                             </div>
 

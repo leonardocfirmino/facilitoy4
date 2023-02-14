@@ -47,6 +47,7 @@ const CarrinhoPage = ({ subdomain }) => {
         "/api/create-checkout",
       {
         products: products,
+        subdomain: subdomain,
         cep: cep,
       }
     );

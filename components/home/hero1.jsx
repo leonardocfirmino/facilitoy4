@@ -47,7 +47,7 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
 
                 <h1 className="  ">e acessórios infantis</h1>
               </div>
-              <div className="flex items-end h-full">
+              <div className="flex items-end h-3/4 sm:h-full">
                 <img src="/meme mamaro.png" className="h-full" alt="" />
               </div>
               <Link href="/brinquedos">
@@ -66,10 +66,10 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
               className="w-full relative  gap-4 justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[85vh] md:h-[26rem] bg-cover "
             >
               <div className="max-w-sm px-4">
-                <h1 className="font-bold text-3xl">
+                <h1 className="font-bold text-xl md:text-3xl">
                   Os melhores brinquedos para quem quer:
                 </h1>
-                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-2xl">
+                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-lg sm:text-2xl">
                   <span className="text-red-500">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +88,7 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
                   </span>
                   <p>Diversão para os pequenos</p>
                 </div>
-                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-2xl">
+                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-lg sm:text-2xl">
                   <span className="text-red-500">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -108,14 +108,14 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
 
                   <p>Gastos para os adultos</p>
                 </div>
-                <p className="mt-6 font-semibold">
+                <p className="mt-6 font-semibold text-sm md:text-base">
                   Você não precisa gastar muito dinheiro para proporcionar
                   experiências incríveis na vida do seu filho. Alugue nossos
                   brinquedos de forma fácil, rápida e acessível, pelo tempo
                   certo que ele irá usar.
                 </p>
               </div>
-              <div className="flex items-end h-full">
+              <div className="flex items-end h-2/4 sm:h-full">
                 <img src="/Jumper.png" className="h-full" alt="" />
               </div>
               <Link href="/brinquedos">
@@ -137,16 +137,16 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
                 <h1 className="font-semibold uppercase text-xl">
                   Alugue e economize até
                 </h1>
-                <div className=" gap-2 flex items-center justify-start text-8xl ">
+                <div className=" gap-2 flex items-center justify-start text-4xl md:text-8xl ">
                   <span className=" font-bold ">90</span>
-                  <p className="text-4xl font-semibold">%</p>
+                  <p className="text-xl md:text-4xl font-semibold">%</p>
                   <span className="  font-[50]">OFF</span>
                 </div>
-                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-2xl">
+                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-xl">
                   <p>em relação ao valor de compra!</p>
                 </div>
               </div>
-              <div className="flex items-end h-full">
+              <div className="flex items-end h-3/4 sm:h-full">
                 <img src="/banner_1 new.png" className="h-full" alt="" />
               </div>
               <Link href="/brinquedos">

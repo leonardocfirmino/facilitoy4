@@ -1,10 +1,26 @@
+import axios from "axios";
 var mercadopago = require("mercadopago");
-mercadopago.configure({
-  access_token:
-    "TEST-2534047183811832-122909-0e80680111a630ed1415d0028609d8d8-533323668",
-});
 
 export default async function handler(req, res) {
+  const franquia = await axios.post(
+    process.env.HASURA_URL,
+    {
+      query: `{
+        franquia(where: {subdomain: {_eq: "${req.body.subdomain}"}}) {
+          mpago_key
+        }
+       
+      }`,
+    },
+    {
+      headers: {
+        "x-hasura-admin-secret": process.env.HASURA_ADMIN,
+      },
+    }
+  );
+  mercadopago.configure({
+    access_token: franquia.data.data.franquia[0].mpago_key,
+  });
   const items = req.body.products.map((value) => {
     return {
       title: value.product.name,
@@ -14,9 +30,13 @@ export default async function handler(req, res) {
       unit_price: value.time.price,
     };
   });
-  console.log(items);
+
   var preference = {
     items: items,
+    notification_url:
+      process.env.NEXT_PUBLIC_PREFIX +
+      process.env.NEXT_PUBLIC_SITE_URL +
+      "/api/mpago-webhook",
     shipments: {
       cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",

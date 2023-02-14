@@ -203,7 +203,6 @@ export default function Steps() {
             startAnchor="left"
             endAnchor="right"
             dashness
-            _cpy1Offset={-25}
             _cpy2Offset={25}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"

@@ -1,8 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Navigation, Pagination, Grid, Scrollbar, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/grid";
 export default function HomeCarrousel2({ data }) {
   return (
     <div className="w-full px-4 lg:w-4/6 mx-auto py-6">
@@ -14,7 +15,7 @@ export default function HomeCarrousel2({ data }) {
       <Swiper
         spaceBetween={10}
         navigation
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Grid]}
         slidesPerView={8}
         breakpoints={{
           360: {
@@ -38,6 +39,7 @@ export default function HomeCarrousel2({ data }) {
             spaceBetween: 20,
           },
         }}
+        grid={{ rows: 2, fill: "row" }}
         className=" swiper-container  "
       >
         {data.map((product, index) => (
