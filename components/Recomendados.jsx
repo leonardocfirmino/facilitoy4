@@ -106,7 +106,7 @@ export default function Recomendados({ data }) {
             spaceBetween: 10,
           },
           1025: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             width: 900,
             spaceBetween: 20,
           },

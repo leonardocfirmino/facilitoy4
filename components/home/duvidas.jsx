@@ -42,8 +42,8 @@ function classNames(...classes) {
 export default function Example() {
   return (
     <div id="faq" className="">
-      <div className="mx-auto max-w-7xl py-12 px-4 sm:py-14 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl  ">
+      <div className="mx-auto w-3/5 py-12 px-4 sm:py-14 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full  ">
           <h2 className="text-center text-2xl font-bold tracking-tight text-blue-400 sm:text-3xl">
             UM BRINCAR DE OUTRO MUNDO
           </h2>

@@ -88,6 +88,32 @@ export default function Steps() {
           COMO FUNCIONA
         </h1>
       </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 place-items-center pt-10 py-28 w-4/6 ">
+        {steps.map((value, index) => {
+          return (
+            <div
+              key={index}
+              id={index + 1}
+              data-tooltip-html={value.tip}
+              className="w-32 text-center gap-2 flex flex-col justify-center relative items-center"
+            >
+              <ReactTooltip
+                anchorId={index + 1}
+                className="max-w-[17rem] z-20"
+              />
+
+              <img
+                ref={listBoxes[index]}
+                className={index == 4 ? "w-20 h-28 z-20" : "w-24 h-28 z-20"}
+                src={value.image}
+                alt=""
+              />
+              <h1 className="font-bold font-skranji z-20">{value.text}</h1>
+            </div>
+          );
+        })}
+      </div>
       <div>
         <div className="hidden lg:flex">
           <Xarrow
@@ -211,31 +237,6 @@ export default function Steps() {
             end={box6} //or an id
           />
         </div>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 place-items-center pt-10 py-28 w-4/6 ">
-        {steps.map((value, index) => {
-          return (
-            <div
-              key={index}
-              id={index + 1}
-              data-tooltip-html={value.tip}
-              className="w-32 text-center gap-2 flex flex-col justify-center relative items-center"
-            >
-              <ReactTooltip
-                anchorId={index + 1}
-                className="max-w-[17rem] z-20"
-              />
-
-              <img
-                ref={listBoxes[index]}
-                className={index == 4 ? "w-20 h-28 z-20" : "w-24 h-28 z-20"}
-                src={value.image}
-                alt=""
-              />
-              <h1 className="font-bold font-skranji z-20">{value.text}</h1>
-            </div>
-          );
-        })}
       </div>
       <Link href="/brinquedos">
         <a className="absolute bottom-20 duration-300 hover:scale-125 hover:bg-[#3582a3] text-white px-14 py-4 bg-[#41a1c9] rounded-md font-bold">

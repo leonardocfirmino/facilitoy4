@@ -24,7 +24,7 @@ export default function Razoes() {
           COMPRAR!
         </h1>
       </div>
-      <div className="flex w-5/6 flex-wrap mx-auto gap-2 justify-center items-center">
+      <div className="flex w-full flex-wrap mx-auto gap-2 justify-center items-center">
         <div className="border-[#ff92c2] space-y-2 h-72 rounded-xl  py-2  border-2 px-4 text-center">
           <span className="text-blue-300 text-center w-full flex justify-center">
             <svg

@@ -21,7 +21,7 @@ export default function Testimonals() {
             spaceBetween: 10,
           },
           768: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             width: 600,
             spaceBetween: 10,
           },

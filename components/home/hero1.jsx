@@ -40,15 +40,19 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
                 backgroundImage: "url('/banner padrao.jpg')",
                 backgroundPositon: "center",
               }}
-              className="w-full relative gap-4 justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[85vh] md:h-[26rem] bg-cover "
+              className="w-full relative gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[80vh] md:h-[26rem] bg-cover "
             >
-              <div className="text-4xl text-gray-700 font-bold px-4 text-center lg:text-left ">
+              <div className="text-4xl h-1/2 flex flex-col justify-center text-gray-700 font-bold px-4 text-center lg:text-left ">
                 <h1 className="  ">Aluguel de brinquedos</h1>
 
                 <h1 className="  ">e acessórios infantis</h1>
               </div>
-              <div className="flex items-end h-3/4 sm:h-full">
-                <img src="/meme mamaro.png" className="h-full" alt="" />
+              <div className="flex items-end h-1/2 sm:h-full">
+                <img
+                  src="/meme mamaro.png"
+                  className=" h-auto sm:h-full"
+                  alt=""
+                />
               </div>
               <Link href="/brinquedos">
                 <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
@@ -63,9 +67,9 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
                 backgroundImage: "url('/hero1.webp')",
                 backgroundPositon: "top right",
               }}
-              className="w-full relative  gap-4 justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[85vh] md:h-[26rem] bg-cover "
+              className="w-full relative  gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[80vh] md:h-[26rem] bg-cover "
             >
-              <div className="max-w-sm px-4">
+              <div className="max-w-sm h-1/2 flex flex-col justify-center px-4">
                 <h1 className="font-bold text-xl md:text-3xl">
                   Os melhores brinquedos para quem quer:
                 </h1>
@@ -115,8 +119,8 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
                   certo que ele irá usar.
                 </p>
               </div>
-              <div className="flex items-end h-2/4 sm:h-full">
-                <img src="/Jumper.png" className="h-full" alt="" />
+              <div className="flex items-end h-1/2 sm:h-full">
+                <img src="/Jumper.png" className="h-auto sm:h-full" alt="" />
               </div>
               <Link href="/brinquedos">
                 <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
@@ -131,9 +135,9 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
                 backgroundImage: "url('/banner3.jpg')",
                 backgroundPositon: "bottom right",
               }}
-              className="w-full relative md:gap-4 bg-[#12bdc64b] justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center h-[85vh] md:h-[26rem] bg-cover "
+              className="w-full relative md:gap-4 bg-[#12bdc64b] justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center h-[80vh] md:h-[26rem] bg-cover "
             >
-              <div className=" px-4 text-white">
+              <div className="flex flex-col justify-center h-1/2 px-4 text-white">
                 <h1 className="font-semibold uppercase text-xl">
                   Alugue e economize até
                 </h1>
@@ -146,8 +150,12 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
                   <p>em relação ao valor de compra!</p>
                 </div>
               </div>
-              <div className="flex items-end h-3/4 sm:h-full">
-                <img src="/banner_1 new.png" className="h-full" alt="" />
+              <div className="flex items-end h-1/2 sm:h-full">
+                <img
+                  src="/banner_1 new.png"
+                  className="h-auto sm:h-full"
+                  alt=""
+                />
               </div>
               <Link href="/brinquedos">
                 <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
