@@ -19,10 +19,10 @@ export default function Razoes() {
         </svg>
       </div>
       <div className="z-20 w-full pb-6 pt-14 justify-center flex items-center text-xl px-4 lg:text-3xl">
-        <h1 className="text-[#41a1c9] text-center">
+        <h2 className="text-center text-2xl font-bold tracking-tight text-blue-400 sm:text-3xl">
           <span className="font-bold">5 RAZÕES </span>PRA VOCÊ ALUGAR E NÃO
           COMPRAR!
-        </h1>
+        </h2>
       </div>
       <div className="flex w-full flex-wrap mx-auto gap-2 justify-center items-center">
         <div className="border-[#ff92c2] space-y-2 h-72 rounded-xl  py-2  border-2 px-4 text-center">

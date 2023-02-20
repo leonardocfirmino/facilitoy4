@@ -5,9 +5,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 export default function Testimonals() {
   return (
-    <div className="w-full lg:w-3/6 mx-auto pb-8">
+    <div className="w-full lg:w-4/5 mx-auto pb-8 flex flex-col justify-center">
       <div className="w-full flex  uppercase  justify-center text-center items-center text-xl px-4 lg:text-3xl text-blue-400 font-semibold pb-10">
-        <h1>Nossos astrolovers!</h1>
+        <h2 className="text-center text-2xl font-bold tracking-tight text-blue-400 sm:text-3xl">
+          CONFIRA A OPINIÃO DE QUEM ALUGA
+        </h2>
       </div>
       <Swiper
         spaceBetween={10}
@@ -28,6 +30,11 @@ export default function Testimonals() {
           1025: {
             slidesPerView: 3,
             width: 900,
+            spaceBetween: 20,
+          },
+          1300: {
+            slidesPerView: 4,
+            width: 1100,
             spaceBetween: 20,
           },
         }}

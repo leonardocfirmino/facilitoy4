@@ -17,6 +17,7 @@ import Testimonals from "../components/home/testimonals";
 import HomeCarrousel3 from "../components/home/carrousel3";
 import Steps from "../components/home/steps";
 import EmpresasCarrousel from "../components/home/empresas";
+import Astrolovers from "../components/home/astrolovers";
 
 const localeInfo = {
   // Options.jsx
@@ -222,6 +223,7 @@ const Blog = ({ subdomain }) => {
         <Sobre />
         <EmpresasCarrousel data={empresas} />
         <Duvidas />
+        <Astrolovers />
         <Testimonals />
       </div>
     </Layout>

@@ -129,7 +129,7 @@ export default function CreateBanner({ sessions }) {
         draggable
         pauseOnHover
       />
-      <div className="w-full h-screen flex justify-center overflow-auto  items-center">
+      <div className="w-full flex justify-center overflow-auto  items-center">
         <div className="flex flex-col w-2/5 ">
           <div className="w-full text-3xl font-bold mt-6 flex justify-center pb-4">
             <h1>Novo Produto</h1>

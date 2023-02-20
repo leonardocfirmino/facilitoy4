@@ -7,7 +7,7 @@ export default function EmpresasCarrousel({ data }) {
   return (
     <div className="w-full lg:w-4/6 mx-auto py-10">
       <div className="w-full flex justify-center mb-2">
-        <h1 className="text-blue-400 text-3xl font-bold w-fit pb-4">
+        <h1 className="text-blue-400 text-center text-3xl font-bold w-fit pb-4">
           AS MELHORES MARCAS ESTÃO NA FACILITOY!
         </h1>
       </div>

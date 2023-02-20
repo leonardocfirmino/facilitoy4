@@ -37,7 +37,7 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
           <SwiperSlide>
             <div
               style={{
-                backgroundImage: "url('/banner padrao.jpg')",
+                backgroundImage: "url('/hero-1/banner1.jpg')",
                 backgroundPositon: "center",
               }}
               className="w-full relative gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[80vh] md:h-[26rem] bg-cover "
@@ -49,7 +49,7 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
               </div>
               <div className="flex items-end h-1/2 sm:h-full">
                 <img
-                  src="/meme mamaro.png"
+                  src="/hero-1/mamaro.png"
                   className=" h-auto sm:h-full"
                   alt=""
                 />
@@ -64,8 +64,8 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
           <SwiperSlide>
             <div
               style={{
-                backgroundImage: "url('/hero1.webp')",
-                backgroundPositon: "top right",
+                backgroundImage: "url('/hero-1/banner2.jpg')",
+                backgroundPositon: "bottom",
               }}
               className="w-full relative  gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[80vh] md:h-[26rem] bg-cover "
             >
@@ -132,19 +132,17 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
           <SwiperSlide>
             <div
               style={{
-                backgroundImage: "url('/banner3.jpg')",
-                backgroundPositon: "bottom right",
+                backgroundImage: "url('/hero-1/banner3.jpg')",
               }}
               className="w-full relative md:gap-4 bg-[#12bdc64b] justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center h-[80vh] md:h-[26rem] bg-cover "
             >
-              <div className="flex flex-col justify-center h-1/2 px-4 text-white">
+              <div className="flex flex-col justify-center h-1/2 px-4 text-gray-700">
                 <h1 className="font-semibold uppercase text-xl">
                   Alugue e economize até
                 </h1>
                 <div className=" gap-2 flex items-center justify-start text-4xl md:text-8xl ">
                   <span className=" font-bold ">90</span>
                   <p className="text-xl md:text-4xl font-semibold">%</p>
-                  <span className="  font-[50]">OFF</span>
                 </div>
                 <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-xl">
                   <p>em relação ao valor de compra!</p>

@@ -8,6 +8,8 @@ module.exports = {
     extend: {
       colors: {
         faciRose: "#ffeff4",
+        faciRed: "#ff2336",
+        faciBlue: "#00d6de",
       },
     },
   },

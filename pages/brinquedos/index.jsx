@@ -67,8 +67,11 @@ const IndexBrinquedo = ({ subdomain }) => {
   return (
     <Layout subdomain={subdomain}>
       <div
-        style={{ backgroundImage: "url('/bg-brinquedos.webp')" }}
-        className="w-full flex justify-center items-center bg-cover"
+        style={{
+          backgroundImage: "url('/ROSA-aviao.jpg')",
+          backgroundPosition: "top",
+        }}
+        className="w-full py-20 flex justify-center items-center bg-cover"
       >
         <div className="lg:w-4/6 py-20">
           <h1 className="text-6xl text-gray-800 font-bold">Brinquedos</h1>

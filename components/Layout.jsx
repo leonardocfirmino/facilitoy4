@@ -489,7 +489,7 @@ export default function Layout({ children, subdomain }) {
             </div>
             <SearchBar />
           </div>
-          <div className="xl:flex divide-gray-300 hidden w-full border-t justify-center items-center font-semibold uppercase text-sm divide-x-2">
+          <div className="xl:flex divide-gray-300 hidden bg-gray-100 w-full border-t justify-center items-center font-semibold uppercase text-sm divide-x-2">
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="inline-flex w-full justify-center    px-4 py-2 text-sm font-medium  hover:text-gray-400 duration-300 ">
@@ -638,14 +638,9 @@ export default function Layout({ children, subdomain }) {
                 DÚVIDAS FREQUENTES
               </a>
             </Link>
-            <Link href="/#como-funciona">
-              <a className="py-3 hover:text-gray-400 duration-300 px-4">
-                faciliclub
-              </a>
-            </Link>
             <Link href="/#razoes">
               <a className="py-3 hover:text-gray-400 duration-300 px-4">
-                vale presente
+                Por que alugar?
               </a>
             </Link>
           </div>

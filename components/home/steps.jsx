@@ -45,9 +45,9 @@ export default function Steps() {
   const listBoxes = [box1, box2, box3, box4, box5, box6];
   return (
     <div
-      style={{ backgroundImage: "url('/steps/bg.webp')" }}
+      style={{ backgroundImage: "url('/como-funciona.jpg')" }}
       id="como-funciona"
-      className="w-full relative flex gap-10 py-28 flex-col justify-center  items-center "
+      className="w-full relative bg-cover flex gap-10  flex-col justify-center  items-center "
     >
       <div className="absolute z-10  -top-1 left-0 right-0 w-full">
         <svg
@@ -83,13 +83,13 @@ export default function Steps() {
           ></path>
         </svg>
       </div>
-      <div className="w-full flex justify-center items-center">
-        <h1 className="text-[#41a1c9]  text-3xl font-bold w-fit  ">
+      <div className="w-full flex pt-10 justify-center items-center">
+        <h2 className="text-center text-2xl font-bold tracking-tight text-faciRed sm:text-3xl">
           COMO FUNCIONA
-        </h1>
+        </h2>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 place-items-center pt-10 py-28 w-4/6 ">
+      <div className="flex flex-wrap gap-8 justify-center place-items-center pt-0 py-28 w-full lg:w-4/6 ">
         {steps.map((value, index) => {
           return (
             <div
@@ -100,7 +100,7 @@ export default function Steps() {
             >
               <ReactTooltip
                 anchorId={index + 1}
-                className="max-w-[17rem] z-20"
+                className="max-w-[17rem] z-20 absolute"
               />
 
               <img
@@ -113,6 +113,7 @@ export default function Steps() {
             </div>
           );
         })}
+        {/*       grid grid-cols-1 lg:grid-cols-6 */}
       </div>
       <div>
         <div className="hidden lg:flex">
@@ -175,65 +176,60 @@ export default function Steps() {
         <div className="flex lg:hidden">
           <Xarrow
             start={box1} //can be react ref
-            startAnchor="left"
-            endAnchor="right"
+            startAnchor="right"
+            endAnchor="left"
             _cpy2Offset={25}
             dashness
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4.3}
             end={box2} //or an id
           />
           <Xarrow
             start={box2} //can be react ref
-            startAnchor="left"
-            endAnchor="right"
+            startAnchor="bottom"
+            endAnchor="top"
             dashness
             _cpy1Offset={-25}
             _cpy2Offset={25}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4.3}
             end={box3} //or an id
           />
           <Xarrow
             start={box3} //can be react ref
-            startAnchor="left"
-            endAnchor="right"
+            startAnchor="right"
+            endAnchor="left"
             dashness
             _cpy1Offset={-25}
             _cpy2Offset={25}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4}
             end={box4} //or an id
           />
           <Xarrow
             start={box4} //can be react ref
-            startAnchor="left"
-            endAnchor="right"
+            startAnchor="bottom"
+            endAnchor="top"
             dashness
             _cpy1Offset={-25}
             _cpy2Offset={25}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4}
             end={box5} //or an id
           />
           <Xarrow
             start={box5} //can be react ref
-            startAnchor="left"
-            endAnchor="right"
+            startAnchor="right"
+            endAnchor="left"
             dashness
             _cpy2Offset={25}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4}
             end={box6} //or an id
           />
         </div>

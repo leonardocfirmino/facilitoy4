@@ -2,6 +2,11 @@
 import Select from "react-select";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 const SelectEstado = () => {
   const router = useRouter();
   const [estado, setEstado] = useState();
@@ -62,15 +67,27 @@ const SelectEstado = () => {
       `${process.env.NEXT_PUBLIC_PREFIX}${estado.value}.${process.env.NEXT_PUBLIC_SITE_URL}`
     );
   };
+  const images = [
+    "/footer-estado/1.jpg",
+    "/footer-estado/2.jpg",
+    "/footer-estado/3.jpg",
+    "/footer-estado/4.jpg",
+    "/footer-estado/5.jpg",
+    "/footer-estado/6.jpg",
+    "/footer-estado/7.jpeg",
+    "/footer-estado/8.jpeg",
+    "/footer-estado/9.jpeg",
+    "/footer-estado/10.jpeg",
+  ];
   return (
     <div
-      className="w-full flex justify-center items-center px-4 flex-1 h-screen bg-cover"
+      className="w-full flex flex-col justify-center items-center  flex-1 h-screen bg-cover"
       style={{
-        backgroundImage: "url('/Banner-site.png')",
-        backgroundPosition: "top right",
+        backgroundImage: "url('/fundo-estado.jpg')",
+        backgroundPosition: "center",
       }}
     >
-      <div className=" bg-faciRose px-6 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
+      <div className=" bg-faciRose px-6 mb-20 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
         <div className="w-full flex justify-center">
           <img src="/logo.webp" className="w-52 h-28" alt="" />
         </div>
@@ -107,6 +124,43 @@ const SelectEstado = () => {
           <p className="text-[#d72b3e]">Aluguel de brinquedos</p>
           <p className="text-[#02d0da]">e acessórios infantis</p>
         </div>
+      </div>
+      <div className="w-full bg-[#f2f2f2] py-2  absolute bottom-0">
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={8}
+          modules={[Navigation]}
+          navigation
+          breakpoints={{
+            360: {
+              slidesPerView: 3,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+            1025: {
+              slidesPerView: 4,
+            },
+            1400: {
+              slidesPerView: 7,
+            },
+          }}
+          className=" swiper-container  "
+        >
+          {images.map((value, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <a className="relative text-center  flex flex-col items-center justify-start  text-gray-600">
+                  <img
+                    src={value}
+                    className="w-64 h-64 rounded-md object-cover"
+                    alt=""
+                  />
+                </a>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </div>
     </div>
   );

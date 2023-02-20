@@ -22,28 +22,29 @@ export default function Sobre() {
         </svg>
       </div>
       <div className="pt-14 w-full flex justify-center items-center">
-        <h1 className="text-[#41a1c9]  uppercase  text-xl px-4 lg:text-3xl font-semibold">
-          Quem somos
-        </h1>
+        <h2 className="text-center text-2xl font-bold tracking-tight text-blue-400 sm:text-3xl">
+          QUEM SOMOS
+        </h2>
       </div>
-      <div className="w-full flex justify-center pt-6 gap-6 items-center pb-4">
-        <div className="hidden lg:flex w-[380px] h-[480px]">
+      <div className="w-full flex flex-col lg:flex-row items-center justify-center px-2 gap-2 lg:gap-6 items-center pb-4">
+        <div className="h-[400px] lg:h-[500px]">
           <img src="/QUEM_SOMOS new.png" className="w-full h-full" alt="" />
         </div>
-        <div className="bg-white w-[480px] px-8 py-8 text-sm lg:text-md rounded-xl  text-gray-500 flex flex-col gap-10 justify-center items-center">
+        <div className="bg-white lg:w-[480px] px-8 py-8 text-sm lg:text-md rounded-xl  text-gray-500 flex flex-col gap-10 justify-center items-center">
           <p>
             Queremos transformar e facilitar a vida das mães, fazendo com que o
             brincar seja a estrela para o melhor desenvolvimento de quem mais
             amamos.
           </p>
-          <p>
-            Oferecemos as melhores experiências com aluguel de brinquedos para
-            mamães, papais e crianças desde 2020.
-          </p>
-          <p>
+
+          <p className="font-bold">
             Nosso maior compromisso é com a segurança e o aprendizado dos
             pequenos, de maneira acessível e sustentável, economizando até 90%,
             com mais variedade e ocupando menos espaço.
+          </p>
+          <p>
+            Oferecemos as melhores experiências com aluguel de brinquedos para
+            mamães, papais e crianças desde 2020.
           </p>
         </div>
       </div>
