@@ -54,13 +54,14 @@ const CarrinhoPage = ({ subdomain }) => {
 
     const checkout = mercadopago.checkout({
       preference: {
-        id: response.data.body.id,
+        id: response.data.mpago.body.id,
       },
     });
     let finalProducts = "[";
     products.map((value) => {
       finalProducts += `{product_id:"${value.id}", preco:"${value.time.price}", tempo:"${value.time.tempo}", quantity: "${value.quantity}"},`;
     });
+    console.log(response.data);
     finalProducts += "]";
     const saveTransaction = await axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
@@ -71,10 +72,11 @@ const CarrinhoPage = ({ subdomain }) => {
       {
         query: `mutation MyMutation2 {
           insert_user_carrinho_one(object: {total: "${getTotalPrice()}", 
-          status: "Aguardando pagamento", 
-          mercado_order_id: "${response.data.body.id}", 
+          status: "pending", 
+          mercado_order_id: "${response.data.mpago.body.id}", 
           frete_value: "${cep.value}", 
           cep: "${cep.cep}", 
+          franquia_id: "${response.data.franquia_id}",
           carrinho_produtos: {data: ${finalProducts}}}) {
             id
           }

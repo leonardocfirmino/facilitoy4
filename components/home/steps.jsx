@@ -89,7 +89,7 @@ export default function Steps() {
         </h2>
       </div>
 
-      <div className="flex flex-wrap gap-8 justify-center place-items-center pt-0 py-28 w-full lg:w-4/6 ">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 justify-center place-items-center pt-0 py-28  lg:w-4/6 ">
         {steps.map((value, index) => {
           return (
             <div
@@ -100,7 +100,7 @@ export default function Steps() {
             >
               <ReactTooltip
                 anchorId={index + 1}
-                className="max-w-[17rem] z-20 absolute"
+                className="max-w-[15rem] sm:max-w-[17rem] z-20 absolute"
               />
 
               <img
@@ -113,7 +113,6 @@ export default function Steps() {
             </div>
           );
         })}
-        {/*       grid grid-cols-1 lg:grid-cols-6 */}
       </div>
       <div>
         <div className="hidden lg:flex">

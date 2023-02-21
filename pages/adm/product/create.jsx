@@ -73,7 +73,7 @@ export default function CreateBanner({ sessions }) {
     }
 
     formData.append("name", form.target.name.value);
-    formData.append("link", form.target.link.value);
+
     formData.append("desc", form.target.desc.value);
     formData.append("category", form.target.categoria.value);
     formData.append("details", form.target.details.value);
@@ -163,18 +163,7 @@ export default function CreateBanner({ sessions }) {
                 />
               </div>
             </div>
-            <div className="w-full  items-start">
-              <div className="w-full   flex flex-col justify-center pb-4">
-                <h1 className="text-xl font-semibold px-1 pb-2">Link</h1>
-                <input
-                  className="border-2 rounded-md px-2 py-1 border-gray-300"
-                  type="text"
-                  placeholder="Escreva o link do produto"
-                  required
-                  name="link"
-                />
-              </div>
-            </div>
+
             <div className="w-full  items-start">
               <div className="w-full   flex flex-col justify-center pb-4">
                 <h1 className="text-xl font-semibold px-1 pb-2">Descrição</h1>

@@ -14,17 +14,17 @@ export default function HomeCarrousel1({ data }) {
             slidesPerView: 3.5,
           },
           768: {
-            slidesPerView: 3,
+            slidesPerView: 7,
             width: 600,
             spaceBetween: 10,
           },
           1025: {
-            slidesPerView: 4,
+            slidesPerView: 7,
             width: 900,
             spaceBetween: 20,
           },
           1400: {
-            slidesPerView: 8,
+            slidesPerView: 7,
             width: 1200,
             spaceBetween: 20,
           },

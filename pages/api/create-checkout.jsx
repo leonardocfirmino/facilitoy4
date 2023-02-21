@@ -8,6 +8,7 @@ export default async function handler(req, res) {
       query: `{
         franquia(where: {subdomain: {_eq: "${req.body.subdomain}"}}) {
           mpago_key
+          id
         }
        
       }`,
@@ -44,5 +45,7 @@ export default async function handler(req, res) {
     },
   };
   const response = await mercadopago.preferences.create(preference);
-  res.status(200).json(response);
+  res
+    .status(200)
+    .json({ mpago: response, franquia_id: franquia.data.data.franquia[0].id });
 }
