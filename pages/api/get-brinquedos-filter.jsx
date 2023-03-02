@@ -45,6 +45,6 @@ export default async function handler(req, res) {
   if (response.data.errors != undefined) {
     return res.status(500).json(response.data.errors);
   }
-  console.log(response.config);
+
   return res.status(200).json(response.data.data);
 }

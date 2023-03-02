@@ -10,25 +10,8 @@ function classOrganizer(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 import { RadioGroup } from "@headlessui/react";
-export default function CepChecker({ subdomain, carrinho, take_in_local }) {
-  const session = useSession();
-  const router = useRouter();
+export default function CepChecker({ subdomain }) {
   const storeCep = useSelector((state) => state.cep);
-  const fetcher = async (query) =>
-    axios.post(
-      process.env.NEXT_PUBLIC_PREFIX +
-        subdomain +
-        "." +
-        process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/get-franquia",
-      query
-    );
-
-  const { data, mutate } = useSWR({ subdomain }, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
   const [cep, setCep] = useState(storeCep.cep);
   const dispatch = useDispatch();
 
@@ -36,6 +19,21 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
   const [showValor, setShowValor] = useState(
     storeCep.cep != null ? storeCep : false
   );
+  const fetcher = async (query) =>
+    axios.post(
+      process.env.NEXT_PUBLIC_PREFIX +
+        (subdomain ? subdomain + "." : null) +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/get-franquia",
+      query
+    );
+
+  const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
   const calcCep = async () => {
     const response = await axios.post(
       process.env.NEXT_PUBLIC_PREFIX +

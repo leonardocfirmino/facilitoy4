@@ -101,7 +101,7 @@ export default function Example({ subdomain }) {
             <button
               className="flex justify-center items-center gap-2 font-bold text-white px-4 py-2 rounded-md bg-red-500"
               type="button"
-              onClick={() => signOut({ callbackUrl: "/login" })}
+              onClick={async () => await signOut({ callbackUrl: "/login" })}
             >
               Sair
               <svg

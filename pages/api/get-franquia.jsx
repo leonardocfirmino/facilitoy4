@@ -1,6 +1,5 @@
 import axios from "axios";
 export default async function handler(req, res) {
-  console.log(req.body);
   const response = await axios.post(
     process.env.HASURA_URL,
     {

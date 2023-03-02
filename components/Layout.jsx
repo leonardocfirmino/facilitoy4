@@ -18,15 +18,15 @@ function classNames(...classes) {
 export default function Layout({ children, subdomain }) {
   const router = useRouter();
   const session = useSession();
-  const fetcher = async (query) =>
+  const fetcher = async (url) =>
     axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
         (subdomain ? subdomain + "." : null) +
         process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/get-home",
-      query
+        url,
+      { subdomain: subdomain }
     );
-  const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher);
+  const { data, mutate } = useSWR("/api/get-home", fetcher);
   const callback =
     process.env.NEXT_PUBLIC_PREFIX +
     subdomain +

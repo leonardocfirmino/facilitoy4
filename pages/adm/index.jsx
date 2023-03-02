@@ -276,7 +276,7 @@ export async function getServerSideProps(context) {
             process.env.NEXT_PUBLIC_PREFIX +
             process.env.NEXT_PUBLIC_SITE_URL +
             `/adm`,
-          permanent: false,
+          permanent: true,
         },
       };
   if (process.env.NEXT_PUBLIC_PREFIX != "http://")
@@ -287,7 +287,7 @@ export async function getServerSideProps(context) {
             process.env.NEXT_PUBLIC_PREFIX +
             process.env.NEXT_PUBLIC_SITE_URL +
             `/adm`,
-          permanent: false,
+          permanent: true,
         },
       };
   const session = await unstable_getServerSession(
@@ -305,14 +305,14 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  if (session?.user?.role == "user") {
+  /*  if (session?.user?.role == "user") {
     return {
       redirect: {
         destination: `/perfil`,
         permanent: false,
       },
     };
-  }
+  } */
   return {
     props: {
       sessions: JSON.stringify(session, null, 2),

@@ -15,115 +15,6 @@ import CepChecker from "../../components/CepChecker";
 import useSWR from "swr";
 import request from "graphql-request";
 import { useSession } from "next-auth/react";
-const change = [
-  {
-    id: 1,
-    name: "Torre de Carrinhos",
-    slug: "torre-carrinhos",
-    images: [
-      {
-        id: 1,
-        name: "1",
-        src: "/torre/1.jpeg",
-        alt: "1",
-      },
-      {
-        id: 2,
-        name: "2",
-        src: "/torre/2.webp",
-        alt: "2",
-      },
-      {
-        id: 3,
-        name: "3",
-        src: "/torre/3.webp",
-        alt: "3",
-      },
-      {
-        id: 4,
-        name: "4",
-        src: "/torre/4.webp",
-        alt: "4",
-      },
-      // More images...
-    ],
-    precos: [
-      {
-        tempo: "7 Dias",
-        price: 89,
-        desconto: 0,
-      },
-      {
-        tempo: "14 Dias",
-        price: 104,
-        desconto: 74,
-      },
-      {
-        tempo: "28 Dias",
-        price: 139,
-        desconto: 217,
-      },
-    ],
-    description: `
-    <p>A Torre de Carrinhos é a pista de corrida de Wheelies mais alta de todos os tempos! Com três pistas diferentes, um iniciador incrível, frases e sons de corrida bacanas e paradas de brincadeira ao longo do caminho, este conjunto de pistas é repleto de diversão incrível para crianças descobrirem e compartilharem. Brincadeira imaginativa: com veículos fáceis de manusear e brincadeiras como parar em um posto de gasolina e reparos, as crianças podem usar sua imaginação para criar histórias enquanto brincam.</p>
-  `,
-    details: [
-      {
-        name: "Descrição",
-        items: [
-          "Categorias: 1 a 2 anos, 2 a 4 anos, acima de 4 anos",
-          "Especificação: Peças: 1 torre + 2 carrinhos",
-          "Entregas: Segunda, Quarta, Quinta, Sexta e Sábado",
-        ],
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Mesa Estação de Atividades",
-    slug: "mesa-estacao-atividades",
-    images: [
-      {
-        id: 1,
-        name: "1",
-        src: "/carrousel-2/2.png",
-        alt: "1",
-      },
-    ],
-    precos: [
-      {
-        tempo: "7 Dias",
-        price: 89,
-        desconto: 0,
-      },
-      {
-        tempo: "14 Dias",
-        price: 104,
-        desconto: 74,
-      },
-      {
-        tempo: "28 Dias",
-        price: 139,
-        desconto: 217,
-      },
-    ],
-    description: `
-    <p>A Mega Estação de Atividades possui uma torre central com luzes pulsantes que incentivam o bebê a se movimentar, vem com seis bolas coloridas e é repleta de diversão nas rampas para crianças de todas as fases. Sentado, o pequeno poderá jogar as bolas nas rampas mais baixas ou bater na roda de pás. Além disso, quando estiver pronto para engatinhar, o bebê pode passar pelo portão, que gira para todos os lados ou até mesmo engatinhar pelo outro arco, ativando o sensor e sendo recompensado com luzes e sons.</p>
-  `,
-    details: [
-      {
-        name: "Descrição",
-        items: [
-          "Categorias: 1-a-2-anos, 6-a-12-meses, Sem categoria",
-          "Idade recomendada: a partir de 6 a 36 meses",
-          "Funciona com 4 pilhas C (LR14) Alcalina - Inclusas",
-          "Dimensões: Altura: 95cm; Largura: 95c m; Profundidade: 95 cm (ocupa aproximadamente 1 m²)",
-          "Quantidade de peças:  3 Bolinhas + Estação de Atividades",
-        ],
-      },
-    ],
-  },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -322,9 +213,11 @@ export default function Example({ subdomain }) {
                       </span>
                     </RadioGroup>
                   </div>
-                  <div className="sm:flex-row flex-col gap-4 mt-10 flex">
-                    <CepChecker carrinho={false} subdomain={subdomain} />
-                  </div>
+                  {
+                    <div className="sm:flex-row flex-col gap-4 mt-10 flex">
+                      <CepChecker subdomain={subdomain} />
+                    </div>
+                  }
                   <div className="sm:flex-row flex-col gap-4 mt-10 flex">
                     <button
                       type="button"
