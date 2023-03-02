@@ -9,7 +9,8 @@ import Carrinho from "./Carrinho";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
+import axios from "axios";
+import useSWR from "swr";
 import { useSelector } from "react-redux";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -17,7 +18,15 @@ function classNames(...classes) {
 export default function Layout({ children, subdomain }) {
   const router = useRouter();
   const session = useSession();
-
+  const fetcher = async (query) =>
+    axios.post(
+      process.env.NEXT_PUBLIC_PREFIX +
+        (subdomain ? subdomain + "." : null) +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/get-home",
+      query
+    );
+  const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher);
   const callback =
     process.env.NEXT_PUBLIC_PREFIX +
     subdomain +
@@ -418,7 +427,7 @@ export default function Layout({ children, subdomain }) {
               <Carrinho products={items} />
             </div>
 
-            <SearchBar />
+            <SearchBar subdomain={subdomain} />
           </div>
           <div className="flex xl:hidden flex-col gap-2 lg:gap-4  container mx-auto ">
             <div className="flex justify-between px-2 pt-2">
@@ -512,118 +521,27 @@ export default function Layout({ children, subdomain }) {
               >
                 <Menu.Items className="absolute left-0  mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link href={"/brinquedos?age=0a3"}>
-                          <a
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm"
+                    {data &&
+                      data.data.faixa_etaria.map((value) => {
+                        return (
+                          <Menu.Item key={value.id}>
+                            {({ active }) => (
+                              <Link href={`/brinquedos?age=${value.id}`}>
+                                <a
+                                  className={classNames(
+                                    active
+                                      ? "bg-gray-100 text-gray-900"
+                                      : "text-gray-700",
+                                    "block px-4 py-2 text-sm"
+                                  )}
+                                >
+                                  {value.name}
+                                </a>
+                              </Link>
                             )}
-                          >
-                            0 a 3 meses
-                          </a>
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link href={"/brinquedos?age=3a6"}>
-                          <a
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm"
-                            )}
-                          >
-                            3 a 6 meses
-                          </a>
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link href={"/brinquedos?age=6a9"}>
-                          <a
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm"
-                            )}
-                          >
-                            6 a 9 meses
-                          </a>
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link href={"/brinquedos?age=9a12"}>
-                          <a
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm"
-                            )}
-                          >
-                            9 a 12 meses
-                          </a>
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link href={"/brinquedos?age=1a2"}>
-                          <a
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm"
-                            )}
-                          >
-                            1 a 2 anos
-                          </a>
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link href={"/brinquedos?age=2a3"}>
-                          <a
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm"
-                            )}
-                          >
-                            2 a 3 anos
-                          </a>
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link href={"/brinquedos?age=3+"}>
-                          <a
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm"
-                            )}
-                          >
-                            3 anos +
-                          </a>
-                        </Link>
-                      )}
-                    </Menu.Item>
+                          </Menu.Item>
+                        );
+                      })}
                   </div>
                 </Menu.Items>
               </Transition>

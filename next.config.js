@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["space-facilitoy.sfo3.cdn.digitaloceanspaces.com"],
+  },
   reactStrictMode: true,
   swcMinify: true,
   async headers() {

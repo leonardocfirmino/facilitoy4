@@ -6,9 +6,7 @@ export default async function handler(req, res) {
     {
       query: `{
         franquia(where: {subdomain: {_eq: "${req.body.subdomain}"}}) {
-          name
-          cep
-          take_in_local
+          mpago_access_token
           frete_gratis_min
         }
        

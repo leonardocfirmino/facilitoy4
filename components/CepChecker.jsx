@@ -53,12 +53,14 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
           cep: cep.replace("-", ""),
           value: response.data.cep.valor,
           cidade: response.data.cep.cidade,
+          tempo: response.data.cep.tempo,
           bairro: response.data.cep.bairro,
         })
       );
       setShowValor({
         cep: cep.replace("-", ""),
         value: response.data.cep.valor,
+        tempo: response.data.cep.tempo,
         cidade: response.data.cep.cidade,
         bairro: response.data.cep.bairro,
       });
@@ -69,7 +71,7 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
     setIsTakeInLocal(value);
     dispatch(setTakeInLocal(value));
   };
-  console.log(data);
+
   return (
     <div className="">
       <div className="flex  items-end gap-4">
@@ -163,7 +165,9 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
                             "block text-sm"
                           )}
                         >
-                          R$ {showValor?.value}
+                          R$ {showValor?.value} - Prazo de entrega,{" "}
+                          {showValor?.tempo}{" "}
+                          {showValor?.tempo > 1 ? "dias úteis." : "dia útil."}
                         </RadioGroup.Description>
                       </span>
                     </>
@@ -232,6 +236,10 @@ export default function CepChecker({ subdomain, carrinho, take_in_local }) {
             )}
           </div>
         </RadioGroup>
+        <div className="w-full justify-center flex bg-green-400 font-bold text-white py-2 mt-2 rounded-md">
+          Frete grátis em compras acima de R${" "}
+          {data?.data.franquia[0].frete_gratis_min}
+        </div>
       </div>
     </div>
   );

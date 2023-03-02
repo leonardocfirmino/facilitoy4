@@ -17,7 +17,9 @@ const MultipleImages = forwardRef((props, ref) => {
   const [fileBanco, setFileBanco] = useState([]);
   const [fileToRemove, setFileToRemove] = useState([]);
   const [principal, setPrincipal] = useState(
-    props.principal_image_id == null
+    props.isCreate
+      ? null
+      : props.principal_image_id == null
       ? props.editImages[0].id
       : props.principal_image_id
   );
@@ -95,10 +97,17 @@ const MultipleImages = forwardRef((props, ref) => {
 
       {imageURLS.length > 0 || fileBanco?.length > 0 ? (
         <div className="flex flex-col gap-4 justify-center items-center min-h-[100px]  mt-4  border-dashed border border-gray-400/70">
-          <h1 className="font-semibold pt-2 w-full text-center text-gray-700/70 text-xl">
-            Pendentes
-          </h1>
-          <div className="flex  w-full  gap-4 justify-center items-center">
+          {!props.isCreate && (
+            <h1 className="font-semibold pt-2 w-full text-center text-gray-700/70 text-xl">
+              Pendentes
+            </h1>
+          )}
+          <div
+            className={classOrganizer(
+              props.isCreate && "mt-4",
+              "flex  w-full  gap-4 justify-center items-center"
+            )}
+          >
             {imageURLS.map((imageSrc, index) => (
               <div
                 key={index}
@@ -139,9 +148,11 @@ const MultipleImages = forwardRef((props, ref) => {
               </div>
             ))}
           </div>
-          <h1 className="font-semibold border-t-2 pt-2 w-full text-center text-gray-700 text-xl">
-            Salvas
-          </h1>
+          {!props.isCreate && (
+            <h1 className="font-semibold border-t-2 pt-2 w-full text-center text-gray-700 text-xl">
+              Salvas
+            </h1>
+          )}
           <div className="flex  w-full  gap-4 justify-center items-center">
             {fileBanco.map((imageSrc, index) => (
               <div key={index} className="relative flex flex-col group">

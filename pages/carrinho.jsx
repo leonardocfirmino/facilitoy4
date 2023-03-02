@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import CepChecker from "../components/CepChecker";
+import useSWR from "swr";
 import Recomendados from "../components/Recomendados";
 const CarrinhoPage = ({ subdomain }) => {
   const session = useSession();
@@ -14,7 +15,22 @@ const CarrinhoPage = ({ subdomain }) => {
 
   const products = useSelector((state) => state.cart);
   const cep = useSelector((state) => state.cep);
-  console.log(cep);
+  const fetcher = async (query) =>
+    axios.post(
+      process.env.NEXT_PUBLIC_PREFIX +
+        subdomain +
+        "." +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/get-franquia",
+      query
+    );
+
+  const { data, mutate } = useSWR({ subdomain }, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+
   const mercadopago = useMercadopago.v2(
     "TEST-424dab6b-43c3-4826-bf8a-d4bc5d057c53",
     {
@@ -28,7 +44,10 @@ const CarrinhoPage = ({ subdomain }) => {
       0
     );
 
-    return productValues + cep.value;
+    return (
+      productValues +
+      (data?.data.franquia[0].frete_gratis_min <= productValues ? 0 : cep.value)
+    );
   };
   const createCheckout = async () => {
     if (session.status == "unauthenticated")
@@ -49,6 +68,7 @@ const CarrinhoPage = ({ subdomain }) => {
         products: products,
         subdomain: subdomain,
         cep: cep,
+        total: getTotalPrice() - cep.value,
       }
     );
 
@@ -124,7 +144,7 @@ const CarrinhoPage = ({ subdomain }) => {
               )}
             </div>
             <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
-              <CepChecker carrinho={true} subdomain={subdomain} />
+              <CepChecker subdomain={subdomain} />
             </div>
             {/* Order summary */}
             <div className="mt-10  ">

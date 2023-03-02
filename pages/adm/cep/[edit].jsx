@@ -51,6 +51,7 @@ export default function EditBanner({ sessions }) {
        id
         bairro
         cidade
+        tempo
         valor
         
       }
@@ -108,7 +109,7 @@ export default function EditBanner({ sessions }) {
 
         {
           query: `mutation MyMutation2 {
-            update_cep_user_by_pk(pk_columns: {id: "${router.query.edit}"}, _set: {valor: "${form.target.valor.value}"}) {
+            update_cep_user_by_pk(pk_columns: {id: "${router.query.edit}"}, _set: {valor: "${form.target.valor.value}",tempo: ${form.target.tempo.value}}) {
             id
           }
         }`,
@@ -200,6 +201,21 @@ export default function EditBanner({ sessions }) {
                   defaultValue={data?.cep_user[0].valor}
                   placeholder="Digite o valor da entrega"
                   name="valor"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">
+                  Tempo da entrega
+                </h1>
+                <input
+                  className="border-2 rounded-md px-2 py-1 border-gray-300"
+                  type="number"
+                  required
+                  defaultValue={data?.cep_user[0].tempo}
+                  placeholder="Digite o tempo da entrega"
+                  name="tempo"
                 />
               </div>
             </div>

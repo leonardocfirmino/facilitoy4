@@ -49,7 +49,7 @@ export default function CreateBanner({ sessions }) {
 
         {
           query: `mutation MyMutation2 {
-          insert_cep_user_one(object: {cidade: "${stateCep.cidade}", bairro: "${stateCep.bairro}", valor: "${form.target.valor.value}"}) {
+          insert_cep_user_one(object: {cidade: "${stateCep.cidade}", bairro: "${stateCep.bairro}", tempo: ${form.target.tempo.value}, valor: "${form.target.valor.value}"}) {
             id
           }
         }`,
@@ -140,6 +140,20 @@ export default function CreateBanner({ sessions }) {
                   required
                   placeholder="Digite o valor da entrega"
                   name="valor"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">
+                  Tempo da entrega
+                </h1>
+                <input
+                  className="border-2 rounded-md px-2 py-1 border-gray-300"
+                  type="number"
+                  required
+                  placeholder="Digite o tempo da entrega"
+                  name="tempo"
                 />
               </div>
             </div>

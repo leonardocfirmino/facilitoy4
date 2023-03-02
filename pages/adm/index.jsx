@@ -266,6 +266,30 @@ const Home = ({ sessions }) => {
 export default Home;
 
 export async function getServerSideProps(context) {
+  const subdomain =
+    context.req.headers["x-forwarded-host"] || context.req.headers["host"];
+  if (process.env.NEXT_PUBLIC_PREFIX == "http://")
+    if (subdomain.split(".")[1] != undefined)
+      return {
+        redirect: {
+          destination:
+            process.env.NEXT_PUBLIC_PREFIX +
+            process.env.NEXT_PUBLIC_SITE_URL +
+            `/adm`,
+          permanent: false,
+        },
+      };
+  if (process.env.NEXT_PUBLIC_PREFIX != "http://")
+    if (subdomain.split(".")[2] != undefined)
+      return {
+        redirect: {
+          destination:
+            process.env.NEXT_PUBLIC_PREFIX +
+            process.env.NEXT_PUBLIC_SITE_URL +
+            `/adm`,
+          permanent: false,
+        },
+      };
   const session = await unstable_getServerSession(
     context.req,
     context.res,

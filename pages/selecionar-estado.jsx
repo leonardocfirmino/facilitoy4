@@ -4,12 +4,23 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import axios from "axios";
+import useSWR from "swr";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 const SelectEstado = () => {
   const router = useRouter();
   const [estado, setEstado] = useState();
+  const fetcher = async (query) =>
+    axios.get(
+      process.env.NEXT_PUBLIC_PREFIX +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/all-franquias",
+      query
+    );
+
+  const { data, mutate } = useSWR({}, fetcher);
   const groupStyles = {
     display: "flex",
     alignItems: "center",
@@ -28,7 +39,7 @@ const SelectEstado = () => {
     textAlign: "center",
   };
 
-  const formatGroupLabel = (data) => (
+  /* const formatGroupLabel = (data) => (
     <div style={groupStyles}>
       <span>{data.label}</span>
       <span style={groupBadgeStyles}>{data.options.length}</span>
@@ -61,7 +72,7 @@ const SelectEstado = () => {
         },
       ],
     },
-  ];
+  ]; */
   const sendToSite = () => {
     router.push(
       `${process.env.NEXT_PUBLIC_PREFIX}${estado.value}.${process.env.NEXT_PUBLIC_SITE_URL}`
@@ -79,6 +90,7 @@ const SelectEstado = () => {
     "/footer-estado/9.jpeg",
     "/footer-estado/10.jpeg",
   ];
+  console.log(data);
   return (
     <div
       className="w-full flex flex-col justify-center items-center  flex-1 h-screen bg-cover"
@@ -92,20 +104,25 @@ const SelectEstado = () => {
           <img src="/logo.webp" className="w-52 h-28" alt="" />
         </div>
 
-        <Select
-          options={groupedOptions}
-          onChange={(value) => setEstado(value)}
-          placeholder="Selecione a Facilitoy mais proxima de você"
-          styles={{
-            control: (baseStyles, state) => ({
-              ...baseStyles,
-              borderColor: state.isFocused ? "grey" : "black",
-              color: "black",
-            }),
-          }}
-          className="mt-2 border-black text-black"
-          formatGroupLabel={formatGroupLabel}
-        />
+        {data && (
+          <Select
+            /*    options={groupedOptions} */
+            options={data.data.franquia.map((value) => {
+              return { label: value.name, value: value.subdomain };
+            })}
+            onChange={(value) => setEstado(value)}
+            placeholder="Selecione a Facilitoy mais proxima de você"
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                borderColor: state.isFocused ? "grey" : "black",
+                color: "black",
+              }),
+            }}
+            className="mt-2 border-black text-black"
+            /* formatGroupLabel={formatGroupLabel} */
+          />
+        )}
         <div className="w-full text-sm pt-2 flex justify-center items-center">
           <h2>
             Não encontrou sua cidade? Seja um{" "}
@@ -125,6 +142,7 @@ const SelectEstado = () => {
           <p className="text-[#02d0da]">e acessórios infantis</p>
         </div>
       </div>
+
       <div className="w-full bg-[#f2f2f2] py-2  absolute bottom-0">
         <Swiper
           spaceBetween={10}

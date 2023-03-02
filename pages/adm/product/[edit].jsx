@@ -302,6 +302,7 @@ export default function EditBanner({ sessions }) {
                   {data && (
                     <MultipleImages
                       ref={multipleImage}
+                      principal_image_id={data.product[0].principal_image_id}
                       editImages={data.product[0].product_images}
                     />
                   )}

@@ -58,6 +58,7 @@ const Home = ({ sessions }) => {
         id
         cidade
         bairro
+        tempo
         valor
       }
       cep_user_aggregate {
@@ -108,7 +109,7 @@ const Home = ({ sessions }) => {
                   return (
                     <div
                       key={index}
-                      className="grow pt-2 border-2  border-gray-200 rounded-lg"
+                      className="grow pt-2 border-2 max-w-sm border-gray-200 rounded-lg"
                     >
                       <h1 className="font-bold flex gap-2 justify-start items-center text-xl text-gray-700 py-4 px-4">
                         <svg
@@ -144,9 +145,14 @@ const Home = ({ sessions }) => {
                                 <p className="truncate text-md font-medium text-gray-900">
                                   {bairro.nome}
                                 </p>
-                                <p className="truncate text-md font-semibold text-blue-500">
-                                  R$ {bairro.valor}
-                                </p>
+                                <div className="flex items-center gap-2">
+                                  <p className="truncate text-md font-semibold text-blue-500">
+                                    R$ {bairro.valor}
+                                  </p>
+                                  <p className="truncate text-sm font-semibold text-gray-400">
+                                    - {bairro.tempo} dias
+                                  </p>
+                                </div>
                               </div>
                               <div>
                                 <Link href={"/adm/cep/" + bairro.id}>
@@ -231,7 +237,7 @@ const Home = ({ sessions }) => {
                       onChange={onChange}
                       hideOnSinglePage={true}
                       current={pagination}
-                      pageSize={5}
+                      pageSize={100}
                       total={data.cep_user_aggregate.aggregate.count}
                     />
                   )}

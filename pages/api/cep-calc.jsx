@@ -12,6 +12,7 @@ export default async function handler(req, res) {
           cidade
           bairro
           valor
+          tempo
         }
        
       }`,

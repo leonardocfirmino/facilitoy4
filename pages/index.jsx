@@ -45,18 +45,7 @@ const Blog = ({ subdomain }) => {
     setActualPosts((page - 1) / 1);
     setPagination(page);
   };
-  /* const fetcher = async (query) =>
-    axios.post(
-      process.env.NEXT_PUBLIC_PREFIX +
-        (subdomain ? subdomain + "." : null) +
-        process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/getBlog",
-      query
-    );
-  const { data, mutate } = useSWR(
-    { query: subdomain, offset: actualPosts },
-    fetcher
-  ); */
+
   const carrousel1 = [
     {
       image: "/carrousel-1/1.png",

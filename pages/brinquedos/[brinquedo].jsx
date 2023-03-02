@@ -141,7 +141,7 @@ export default function Example({ subdomain }) {
         "/api/get-product",
       query
     );
-  console.log(session);
+
   const { data, mutate } = useSWR({ slug: router.query.brinquedo }, fetcher);
 
   const dispatch = useDispatch();

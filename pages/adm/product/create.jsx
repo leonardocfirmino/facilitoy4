@@ -193,7 +193,7 @@ export default function CreateBanner({ sessions }) {
                 <h1>Imagens</h1>
               </div>
               <div>
-                <MultipleImages ref={images} />
+                <MultipleImages isCreate={true} ref={images} editImages={[]} />
               </div>
               {/* <div className="w-full mx-auto lg:mx-0 flex flex-col justify-center ">
                 <div

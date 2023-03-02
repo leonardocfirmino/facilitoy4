@@ -6,12 +6,20 @@ const groupByCidade = (bairros) =>
     if (!cidadeExistente) {
       result.push({
         cidade: item.cidade,
-        bairros: [{ nome: item.bairro, valor: item.valor, id: item.id }],
+        bairros: [
+          {
+            nome: item.bairro,
+            valor: item.valor,
+            tempo: item.tempo,
+            id: item.id,
+          },
+        ],
       });
     } else {
       cidadeExistente.bairros.push({
         nome: item.bairro,
         valor: item.valor,
+        tempo: item.tempo,
         id: item.ids,
       });
     }

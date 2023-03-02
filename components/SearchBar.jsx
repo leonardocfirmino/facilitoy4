@@ -1,42 +1,50 @@
 import { useState } from "react";
 import Image from "next/image";
+import axios from "axios";
 import Link from "next/link";
-export default function SearchBar() {
-  const [search, setSearch] = useState();
-  const [produto, setProduto] = useState(false);
-  const handler = (input) => {
-    if (input.target.value.length >= 3) {
-      setSearch(input.target.value);
-      if (produtos.find((value) => value.name.includes(search))) {
-        return setProduto(true);
-      }
-      return setProduto(false);
+import { useRouter } from "next/router";
+export default function SearchBar({ subdomain }) {
+  const [produto, setProduto] = useState([]);
+  const router = useRouter();
+  const getProducts = async (name) => {
+    const result = await axios.post(
+      process.env.NEXT_PUBLIC_PREFIX +
+        subdomain +
+        "." +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/search-products",
+      { name: name, subdomain: subdomain }
+    );
+    return result;
+  };
+  const handler = async (input) => {
+    if (input.length >= 2) {
+      const { data } = await getProducts(input);
+      console.log(data);
+      if (data.product.length > 0) return setProduto(data.product);
+      return setProduto([]);
     }
-    if (input.target.value.length < 3) {
-      setSearch();
-      setProduto(false);
+    if (input.length < 2) {
+      setProduto([]);
     }
   };
-  const produtos = [
-    {
-      name: "Torre de Carrinhos",
-      price: 89,
-      image: "/carrousel-2/1.jpeg",
-      slug: "torre-carrinhos",
-    },
-    {
-      name: "Mesa Estação de Atividades",
-      price: 89,
-      image: "/carrousel-2/2.png",
-      slug: "mesa-estacao-atividades",
-    },
-  ];
+  let filterTimeout;
+  const filterHandler = (query) => {
+    clearTimeout(filterTimeout);
+
+    filterTimeout = setTimeout(() => {
+      handler(query);
+    }, 600);
+  };
+
   return (
     <div className="relative order-4  lg:order-2 w-full max-w-3xl">
-      <div className="flex ">
+      <form method="GET" action="/brinquedos" className="flex ">
         <input
           type="text"
-          onChange={handler}
+          onChange={(e) => filterHandler(e.target.value)}
+          name="search"
+          defaultValue={router.query.search}
           placeholder="Buscando algum brinquedo?"
           className="border-gray-200 w-full rounded-l-full text-base px-4 py-2 outline-none border-[1px]"
         />
@@ -56,14 +64,24 @@ export default function SearchBar() {
             />
           </svg>
         </button>
-      </div>
-      {produto && (
+      </form>
+      {produto.length > 0 && (
         <div className="w-full z-20 grid grid-cols-2 absolute min-h-[200px] rounded-b-xl bg-white">
-          {produtos.map((value, index) => {
+          {produto.map((value, index) => {
             return (
               <Link key={index} href={"/brinquedos/" + value.slug}>
                 <a className="flex hover:bg-gray-100 transition-all duration-300 max-h-[80px] py-2 border-[1px] gap-4 px-8">
-                  <Image src={value.image} width={65} height={65} alt="" />
+                  <Image
+                    src={
+                      value.product_image?.src != undefined
+                        ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                          value.product_image?.src
+                        : "/logo.webp"
+                    }
+                    width={65}
+                    height={65}
+                    alt=""
+                  />
                   <div className="space-y-2 flex flex-col text-xs lg:text-base justify-center items-start">
                     <h1 className="font-semibold">{value.name}</h1>
                     <h2 className="font-semibold text-red-500">

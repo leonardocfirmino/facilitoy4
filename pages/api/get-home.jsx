@@ -1,15 +1,12 @@
 import axios from "axios";
 export default async function handler(req, res) {
-  console.log(req.body);
   const response = await axios.post(
     process.env.HASURA_URL,
     {
       query: `{
-        franquia(where: {subdomain: {_eq: "${req.body.subdomain}"}}) {
+        faixa_etaria{
           name
-          cep
-          take_in_local
-          frete_gratis_min
+          id
         }
        
       }`,
