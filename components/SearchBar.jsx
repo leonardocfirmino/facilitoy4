@@ -85,7 +85,7 @@ export default function SearchBar({ subdomain }) {
                   <div className="space-y-2 flex flex-col text-xs lg:text-base justify-center items-start">
                     <h1 className="font-semibold">{value.name}</h1>
                     <h2 className="font-semibold text-red-500">
-                      R${value.price},00
+                      R${value.price_one},00
                     </h2>
                   </div>
                 </a>

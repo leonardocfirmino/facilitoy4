@@ -110,7 +110,8 @@ export default async function handler(req, res) {
             ${faixasAdd}
             ${faixasDelete}
             update_product_by_pk(pk_columns: {id: "${req.body.id}"}, _set : {description: "${req.body.desc}", principal_image_id: "${req.body.principal}",
-              details: "${req.body.details}", slug: "${link}", name: "${req.body.name}", category_id: "${req.body.category}"}) {
+              details: "${req.body.details}",price_one: "${req.body.price_one}", price_two: "${req.body.price_two}",
+              price_three: "${req.body.price_three}", slug: "${link}", name: "${req.body.name}", category_id: "${req.body.category}"}) {
                 id
               }
           }`,

@@ -64,17 +64,17 @@ export default function Example({ subdomain }) {
           precos: [
             {
               tempo: "7 Dias",
-              price: setPrice.price,
+              price: setPrice.price_one,
               desconto: 0,
             },
             {
               tempo: "14 Dias",
-              price: setPrice.price + 15,
+              price: setPrice.price_two,
               desconto: 74,
             },
             {
               tempo: "28 Dias",
-              price: setPrice.price + 35,
+              price: setPrice.price_three,
               desconto: 217,
             },
           ],
@@ -174,7 +174,7 @@ export default function Example({ subdomain }) {
                     <RadioGroup
                       value={selectedTime}
                       defaultChecked={selectedTime}
-                      by={"price"}
+                      by={"tempo"}
                       onChange={(e) => setSelectedTime(e)}
                       className="mt-2"
                     >
@@ -190,14 +190,14 @@ export default function Example({ subdomain }) {
                                   ? "bg-red-500 text-white"
                                   : "text-red-500",
 
-                                "-m-0.5 relative p-0.5 flex-1 sm:flex-none rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
+                                "-m-0.5 relative p-0.5 flex-1  sm:flex-none rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
                               )
                             }
                           >
                             <span
                               aria-hidden="true"
                               className={classNames(
-                                "flex text-xs md:text-sm gap-1  text-center flex-col border px-6 py-2 border-red-500 border-opacity-90 rounded-xl"
+                                "flex text-xs md:text-sm gap-1  text-center flex-col border px-6 py-2 min-w-[120px] border-red-500 border-opacity-90 rounded-xl"
                               )}
                             >
                               <h1 className="font-bold">{color.tempo}</h1>

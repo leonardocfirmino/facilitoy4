@@ -57,7 +57,8 @@ export default async function handler(req, res) {
           {
             query: `mutation {
               insert_product_one(object: {product_images: {data: ${imageNames}}, description: "${req.body.desc}", 
-              details: "${req.body.details}", slug: "${link}",name: "${req.body.name}", category_id: "${req.body.category}"}) {
+              details: "${req.body.details}", slug: "${link}",name: "${req.body.name}", price_one: "${req.body.price_one}", price_two: "${req.body.price_two}",
+              price_three: "${req.body.price_three}", category_id: "${req.body.category}"}) {
                 id
               }
           }`,
@@ -82,7 +83,8 @@ export default async function handler(req, res) {
           query: `
       mutation{
         insert_product_one(object: { description: "${req.body.desc}", 
-              details: "${req.body.details}", slug: "${link}",name: "${req.body.name}", category_id: "${req.body.category}"}) {
+              details: "${req.body.details}", slug: "${link}",name: "${req.body.name}",price_one: "${req.body.price_one}", price_two: "${req.body.price_two}",
+              price_three: "${req.body.price_three}", category_id: "${req.body.category}"}) {
                 id
               }
       }`,

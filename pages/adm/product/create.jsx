@@ -75,6 +75,9 @@ export default function CreateBanner({ sessions }) {
     formData.append("name", form.target.name.value);
 
     formData.append("desc", form.target.desc.value);
+    formData.append("price_one", form.target.price_one.value);
+    formData.append("price_two", form.target.price_two.value);
+    formData.append("price_three", form.target.price_three.value);
     formData.append("category", form.target.categoria.value);
     formData.append("details", form.target.details.value);
 
@@ -185,6 +188,42 @@ export default function CreateBanner({ sessions }) {
                   required
                   placeholder="Liste os detalhes do produto"
                   name="details"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">Preço 1</h1>
+                <input
+                  className="border-2 rounded-md px-2 py-1 border-gray-300"
+                  type="text"
+                  required
+                  placeholder="Defina o preço"
+                  name="price_one"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">Preço 2</h1>
+                <input
+                  className="border-2 rounded-md px-2 py-1 border-gray-300"
+                  type="text"
+                  required
+                  placeholder="Defina o preço"
+                  name="price_two"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">Preço 3</h1>
+                <input
+                  className="border-2 rounded-md px-2 py-1 border-gray-300"
+                  type="text"
+                  required
+                  placeholder="Defina o preço"
+                  name="price_three"
                 />
               </div>
             </div>

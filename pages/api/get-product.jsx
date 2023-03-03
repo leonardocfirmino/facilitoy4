@@ -11,7 +11,9 @@ export default async function handler(req, res) {
           created_at
           id
           name
-          price
+          price_one
+          price_two
+          price_three
           product_images {
             src
           }

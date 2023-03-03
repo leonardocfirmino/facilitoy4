@@ -31,6 +31,9 @@ export default function EditBanner({ sessions }) {
         name
         slug
         description
+        price_one
+        price_two
+        price_three
         details
         principal_image_id
         category_id
@@ -145,6 +148,9 @@ export default function EditBanner({ sessions }) {
     formData.append("desc", form.target.desc.value);
     formData.append("category", form.target.categoria.value);
     formData.append("details", form.target.details.value);
+    formData.append("price_one", form.target.price_one.value);
+    formData.append("price_two", form.target.price_two.value);
+    formData.append("price_three", form.target.price_three.value);
     formData.append("principal", multipleImage.current.getPrincipal());
     multipleImage.current.sendFiles()?.map((value) => {
       formData.append("images", value);
@@ -276,6 +282,45 @@ export default function EditBanner({ sessions }) {
                     defaultValue={data.product[0].details}
                     placeholder="Descreva os detalhes"
                     name="details"
+                  />
+                </div>
+              </div>
+              <div className="w-full  items-start">
+                <div className="w-full   flex flex-col justify-center pb-4">
+                  <h1 className="text-xl font-semibold px-1 pb-2">Preço 1</h1>
+                  <input
+                    className="border-2 rounded-md px-2 py-1 border-gray-300"
+                    type="text"
+                    required
+                    defaultValue={data.product[0].price_one}
+                    placeholder="Defina o preço"
+                    name="price_one"
+                  />
+                </div>
+              </div>
+              <div className="w-full  items-start">
+                <div className="w-full   flex flex-col justify-center pb-4">
+                  <h1 className="text-xl font-semibold px-1 pb-2">Preço 2</h1>
+                  <input
+                    className="border-2 rounded-md px-2 py-1 border-gray-300"
+                    type="text"
+                    required
+                    defaultValue={data.product[0].price_two}
+                    placeholder="Defina o preço"
+                    name="price_two"
+                  />
+                </div>
+              </div>
+              <div className="w-full  items-start">
+                <div className="w-full   flex flex-col justify-center pb-4">
+                  <h1 className="text-xl font-semibold px-1 pb-2">Preço 3</h1>
+                  <input
+                    className="border-2 rounded-md px-2 py-1 border-gray-300"
+                    type="text"
+                    required
+                    defaultValue={data.product[0].price_three}
+                    placeholder="Defina o preço"
+                    name="price_three"
                   />
                 </div>
               </div>
