@@ -51,6 +51,13 @@ export default function Example({ subdomain }) {
 
   const [selectedTime, setSelectedTime] = useState(null);
   let product = {};
+  function calcDesconto(tempo, price, inicial) {
+    const diarioInicial = inicial / 7;
+
+    const valorBruto = tempo * diarioInicial;
+    console.log(valorBruto);
+    return (valorBruto - price).toFixed(2);
+  }
   let setPrice = null;
   if (data) {
     if (data.data.product.length == 0) {
@@ -70,12 +77,20 @@ export default function Example({ subdomain }) {
             {
               tempo: "14 Dias",
               price: setPrice.price_two,
-              desconto: 74,
+              desconto: calcDesconto(
+                14,
+                setPrice.price_two,
+                setPrice.price_one
+              ),
             },
             {
               tempo: "28 Dias",
               price: setPrice.price_three,
-              desconto: 217,
+              desconto: calcDesconto(
+                28,
+                setPrice.price_three,
+                setPrice.price_one
+              ),
             },
           ],
         };

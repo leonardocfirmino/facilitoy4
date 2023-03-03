@@ -37,7 +37,7 @@ const CarrinhoPage = ({ subdomain }) => {
       locale: "pt-BR",
     }
   );
-  console.log(products);
+
   const getTotalPrice = () => {
     const productValues = products.reduce(
       (accumulator, item) => accumulator + item.quantity * item.time.price,

@@ -20,7 +20,7 @@ export default function SearchBar({ subdomain }) {
   const handler = async (input) => {
     if (input.length >= 2) {
       const { data } = await getProducts(input);
-      console.log(data);
+
       if (data.product.length > 0) return setProduto(data.product);
       return setProduto([]);
     }
