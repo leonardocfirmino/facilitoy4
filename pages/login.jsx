@@ -1,5 +1,5 @@
 import { unstable_getServerSession } from "next-auth";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { ToastContainer, toast } from "react-toastify";
@@ -27,10 +27,17 @@ export default function Login() {
         progress: undefined,
       });
     }
-    if (res.status == 200)
+    if (res.status == 200) {
+      const { user } = await getSession();
+
       router.push(
-        router.query.callbackUrl == undefined ? "/" : router.query.callbackUrl
+        user.role == "user"
+          ? "/"
+          : process.env.NEXT_PUBLIC_PREFIX +
+              process.env.NEXT_PUBLIC_SITE_URL +
+              "/adm"
       );
+    }
   };
   return (
     <>

@@ -21,6 +21,7 @@ export const authOptions = {
         },
         password: { label: "Senha", type: "password" },
       },
+
       async authorize(credentials, req) {
         const res = await axios.post(
           process.env.HASURA_URL,

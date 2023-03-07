@@ -32,7 +32,7 @@ const CarrinhoPage = ({ subdomain }) => {
   });
 
   const mercadopago = useMercadopago.v2(
-    "TEST-424dab6b-43c3-4826-bf8a-d4bc5d057c53",
+    "APP_USR-1abac126-20b5-4469-8415-05893b943c16",
     {
       locale: "pt-BR",
     }
