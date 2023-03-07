@@ -99,7 +99,7 @@ const SelectEstado = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className=" bg-faciRose px-6 mb-20 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
+      <div className=" bg-faciRose z-30 px-6 mb-20 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
         <div className="w-full flex justify-center">
           <img src="/logo.webp" className="w-52 h-28" alt="" />
         </div>
@@ -171,7 +171,7 @@ const SelectEstado = () => {
                 <a className="relative text-center  flex flex-col items-center justify-start  text-gray-600">
                   <img
                     src={value}
-                    className="w-64 h-64 rounded-md object-cover"
+                    className="w-64 h-32 sm:h-64 rounded-md object-cover"
                     alt=""
                   />
                 </a>
