@@ -90,7 +90,7 @@ const SelectEstado = () => {
     "/footer-estado/9.jpeg",
     "/footer-estado/10.jpeg",
   ];
-  console.log(data);
+
   return (
     <div
       className="w-full flex flex-col justify-center items-center  flex-1 h-screen bg-cover"
@@ -99,7 +99,7 @@ const SelectEstado = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className=" bg-faciRose z-30 px-6 mb-20 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
+      <div className=" bg-faciRose z-30  px-6 mb-20 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
         <div className="w-full flex justify-center">
           <img src="/logo.webp" className="w-52 h-28" alt="" />
         </div>
@@ -108,6 +108,10 @@ const SelectEstado = () => {
           <Select
             /*    options={groupedOptions} */
             options={data.data.franquia.map((value) => {
+              if (value.subdomain == "rio-das-ostras")
+                return { label: value.name, value: "roemacae" };
+              if (value.subdomain == "roemacae")
+                return { label: "Macaé", value: "roemacae" };
               return { label: value.name, value: value.subdomain };
             })}
             onChange={(value) => setEstado(value)}
