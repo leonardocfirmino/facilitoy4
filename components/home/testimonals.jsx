@@ -11,7 +11,7 @@ export default function Testimonals() {
           CONFIRA A OPINIÃO DE QUEM ALUGA
         </h2>
       </div>
-      <div>
+      <div className="w-full">
         <Swiper
           spaceBetween={10}
           navigation

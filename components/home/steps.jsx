@@ -100,7 +100,7 @@ export default function Steps() {
             >
               <ReactTooltip
                 anchorId={index + 1}
-                className="max-w-[15rem] sm:max-w-[17rem] z-20 absolute"
+                className="max-w-[13rem] sm:max-w-[17rem] z-20 absolute"
               />
 
               <img
