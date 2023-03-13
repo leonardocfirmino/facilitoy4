@@ -3,6 +3,7 @@ var mercadopago = require("mercadopago");
 
 export default async function handler(req, res) {
   const subdomain = req.headers.host.split(".")[0];
+
   const franquia = await axios.post(
     process.env.HASURA_URL,
     {
@@ -23,7 +24,7 @@ export default async function handler(req, res) {
     access_token: franquia.data.data.franquia[0].mpago_key,
   });
   const orderStatus = await mercadopago.payment.get(req.body.data.id);
-
+  console.log(orderStatus);
   const response = await axios.post(
     process.env.HASURA_URL,
     {
