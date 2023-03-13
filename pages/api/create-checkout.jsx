@@ -45,7 +45,7 @@ export default async function handler(req, res) {
       (req.body.subdomain ? req.body.subdomain + "." : null) +
       process.env.NEXT_PUBLIC_SITE_URL +
       "/api/mpago-webhook",
-    metadata: idPay,
+    metadata: { id: idPay },
     shipments: {
       cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",
@@ -57,11 +57,9 @@ export default async function handler(req, res) {
     },
   };
   const response = await mercadopago.preferences.create(preference);
-  res
-    .status(200)
-    .json({
-      mpago: response,
-      uuid: idPay,
-      franquia_id: franquia.data.data.franquia[0].id,
-    });
+  res.status(200).json({
+    mpago: response,
+    uuid: idPay,
+    franquia_id: franquia.data.data.franquia[0].id,
+  });
 }
