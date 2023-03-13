@@ -20,8 +20,11 @@ export default async function handler(req, res) {
       },
     }
   );
+  const prodKey = franquia.data.data.franquia[0].mpago_key;
+  const testeKey =
+    "TEST-3584331251484724-102505-8141bc5a77ac68d1f65a123eb0b59866-476385198";
   mercadopago.configure({
-    access_token: franquia.data.data.franquia[0].mpago_key,
+    access_token: testeKey,
   });
   const items = req.body.products.map((value) => {
     return {
