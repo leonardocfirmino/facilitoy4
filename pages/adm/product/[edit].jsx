@@ -34,6 +34,7 @@ export default function EditBanner({ sessions }) {
         price_one
         price_two
         price_three
+        youtube_link
         details
         principal_image_id
         category_id
@@ -148,6 +149,7 @@ export default function EditBanner({ sessions }) {
     formData.append("desc", form.target.desc.value);
     formData.append("category", form.target.categoria.value);
     formData.append("details", form.target.details.value);
+    formData.append("video", form.target.link.value);
     formData.append("price_one", form.target.price_one.value);
     formData.append("price_two", form.target.price_two.value);
     formData.append("price_three", form.target.price_three.value);
@@ -202,7 +204,7 @@ export default function EditBanner({ sessions }) {
   if (data) {
     if (preview == undefined) {
       setPreview(
-        `https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/${data.product[0]?.product_images[0]?.src}`
+        `https://space-facilitoy.sfo3.digitaloceanspaces.com/${data.product[0]?.product_images[0]?.src}`
       );
     }
   }
@@ -269,6 +271,21 @@ export default function EditBanner({ sessions }) {
                     defaultValue={data.product[0].description}
                     placeholder="Descreva o produto"
                     name="desc"
+                  />
+                </div>
+              </div>
+              <div className="w-full  items-start">
+                <div className="w-full   flex flex-col justify-center pb-4">
+                  <h1 className="text-xl font-semibold px-1 pb-2">
+                    Link do video
+                  </h1>
+                  <input
+                    className="border-2 rounded-md px-2 py-1 border-gray-300"
+                    type="text"
+                    required
+                    defaultValue={data.product[0].youtube_link}
+                    placeholder="Link do video do youtube"
+                    name="link"
                   />
                 </div>
               </div>

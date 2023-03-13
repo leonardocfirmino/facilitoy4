@@ -214,7 +214,7 @@ const Home = ({ sessions }) => {
                                       src={
                                         value.carrinho_produtos[0].product
                                           .product_images[0].src != undefined
-                                          ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                                          ? "https://space-facilitoy.sfo3.digitaloceanspaces.com/" +
                                             value.carrinho_produtos[0].product
                                               .product_images[0].src
                                           : "/logo.webp"

@@ -207,7 +207,7 @@ const Home = ({ sessions }) => {
                                       className="w-32  h-40"
                                       src={
                                         value.product_images[0] != undefined
-                                          ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                                          ? "https://space-facilitoy.sfo3.digitaloceanspaces.com/" +
                                             value.product_images[0]?.src
                                           : "/logo.webp"
                                       }

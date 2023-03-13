@@ -75,6 +75,7 @@ export default function CreateBanner({ sessions }) {
     formData.append("name", form.target.name.value);
 
     formData.append("desc", form.target.desc.value);
+    formData.append("video", form.target.link.value);
     formData.append("price_one", form.target.price_one.value);
     formData.append("price_two", form.target.price_two.value);
     formData.append("price_three", form.target.price_three.value);
@@ -176,6 +177,20 @@ export default function CreateBanner({ sessions }) {
                   required
                   placeholder="Descreva o produto"
                   name="desc"
+                />
+              </div>
+            </div>
+            <div className="w-full  items-start">
+              <div className="w-full   flex flex-col justify-center pb-4">
+                <h1 className="text-xl font-semibold px-1 pb-2">
+                  Link do video
+                </h1>
+                <input
+                  className="border-2 rounded-md px-2  py-1 border-gray-300"
+                  type="text"
+                  required
+                  placeholder="Video do youtube"
+                  name="link"
                 />
               </div>
             </div>

@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   const testeKey =
     "TEST-3584331251484724-102505-8141bc5a77ac68d1f65a123eb0b59866-476385198";
   mercadopago.configure({
-    access_token: testeKey,
+    access_token: prodKey,
   });
   const items = req.body.products.map((value) => {
     return {

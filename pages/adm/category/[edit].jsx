@@ -148,7 +148,7 @@ export default function EditBanner({ sessions }) {
   if (data) {
     if (preview == undefined) {
       setPreview(
-        `https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/${data.category[0].image_src}`
+        `https://space-facilitoy.sfo3.digitaloceanspaces.com/${data.category[0].image_src}`
       );
     }
   }
@@ -168,7 +168,7 @@ export default function EditBanner({ sessions }) {
 
       <div className="flex flex-col w-2/5 mx-auto my-auto py-10 ">
         <div className="w-full text-3xl font-bold flex justify-center pb-4">
-          <h1>Editar produto</h1>
+          <h1>Editar categoria</h1>
         </div>
         {data && (
           <form

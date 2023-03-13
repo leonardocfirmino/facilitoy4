@@ -32,7 +32,7 @@ const CarrinhoPage = ({ subdomain }) => {
   });
   const testeKey = "TEST-6d2e03c2-dd24-40b2-8392-ed30bf41bfca";
   const prodKey = "APP_USR-1abac126-20b5-4469-8415-05893b943c16";
-  const mercadopago = useMercadopago.v2(testeKey, {
+  const mercadopago = useMercadopago.v2(prodKey, {
     locale: "pt-BR",
   });
 

@@ -166,7 +166,7 @@ const MultipleImages = forwardRef((props, ref) => {
                 >
                   <img
                     src={
-                      "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                      "https://space-facilitoy.sfo3.digitaloceanspaces.com/" +
                       imageSrc.src
                     }
                     className=" w-32 object-contain"
