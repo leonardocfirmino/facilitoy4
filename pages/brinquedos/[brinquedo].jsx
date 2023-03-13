@@ -212,7 +212,7 @@ export default function Example({ subdomain }) {
                             <span
                               aria-hidden="true"
                               className={classNames(
-                                "flex text-xs md:text-sm gap-1  text-center flex-col border px-6 py-2 min-w-[120px] border-red-500 border-opacity-90 rounded-xl"
+                                "flex text-xs md:text-sm gap-1  text-center flex-col border px-6 py-2 min-w-[140px] border-red-500 border-opacity-90 rounded-xl"
                               )}
                             >
                               <h1 className="font-bold">{color.tempo}</h1>
