@@ -75,11 +75,12 @@ const CarrinhoPage = ({ subdomain }) => {
         id: response.data.mpago.body.id,
       },
     });
+
     let finalProducts = "[";
     products.map((value) => {
       finalProducts += `{product_id:"${value.id}", preco:"${value.time.price}", tempo:"${value.time.tempo}", quantity: "${value.quantity}"},`;
     });
-    console.log(response.data);
+
     finalProducts += "]";
     const saveTransaction = await axios.post(
       process.env.NEXT_PUBLIC_PREFIX +

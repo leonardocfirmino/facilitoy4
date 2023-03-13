@@ -38,21 +38,12 @@ export default async function handler(req, res) {
 
   var preference = {
     items: items,
-    back_urls: {
-      success:
-        process.env.NEXT_PUBLIC_PREFIX +
-        process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/mpago-webhook",
-      failure:
-        process.env.NEXT_PUBLIC_PREFIX +
-        process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/mpago-webhook",
-      pending:
-        process.env.NEXT_PUBLIC_PREFIX +
-        process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/mpago-webhook",
-    },
-    auto_return: "approved",
+
+    /* notification_url:
+      process.env.NEXT_PUBLIC_PREFIX +
+      process.env.NEXT_PUBLIC_SITE_URL +
+      "/api/mpago-webhook", */
+    notification_url: "https://gabslabteste.site/api/mpago-webhook",
     shipments: {
       cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",
