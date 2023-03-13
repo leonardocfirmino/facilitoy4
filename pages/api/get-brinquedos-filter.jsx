@@ -21,7 +21,7 @@ export default async function handler(req, res) {
           product_image {
             src
           }
-          price
+          price_one
           id
           slug
         }

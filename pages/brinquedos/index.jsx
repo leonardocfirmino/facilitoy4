@@ -512,7 +512,7 @@ const IndexBrinquedo = ({ subdomain }) => {
                       </h3>
 
                       <p className="mt-4 text-base font-medium text-red-600">
-                        R${product.price},00
+                        R${product.price_one},00
                       </p>
                     </div>
                     <div className="mt-6">

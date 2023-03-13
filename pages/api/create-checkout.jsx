@@ -47,7 +47,9 @@ export default async function handler(req, res) {
       mode: "not_specified",
       free_shipping:
         franquia.data.data.franquia[0].frete_gratis_min <= req.body.total,
-      receiver_address: { zip_code: req.body.cep.cep },
+      receiver_address: {
+        zip_code: req.body.cep.cep == null ? "" : req.body.cep.cep,
+      },
     },
   };
   const response = await mercadopago.preferences.create(preference);

@@ -2,6 +2,7 @@ import axios from "axios";
 var mercadopago = require("mercadopago");
 
 export default async function handler(req, res) {
+  console.log(req.body);
   const franquia = await axios.post(
     process.env.HASURA_URL,
     {
