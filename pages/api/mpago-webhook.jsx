@@ -2,22 +2,13 @@ import axios from "axios";
 var mercadopago = require("mercadopago");
 
 export default async function handler(req, res) {
-  console.log(req.headers.host.split(".")[0]);
+  const subdomain = req.headers.host.split(".")[0];
   const franquia = await axios.post(
     process.env.HASURA_URL,
     {
       query: `{
-        user_carrinho(where: {mercado_order_id: {_eq: "${req.body.preference_id}"}}) {
-         
-          carrinho_produtos {
-            product {
-              user {
-                franquia {
-                  mpago_key
-                }
-              }
-            }
-          }
+        franquia(where: {subdomain: {_eq: "${subdomain}"}}) {
+          mpago_key
         }
        
       }`,
@@ -29,17 +20,15 @@ export default async function handler(req, res) {
     }
   );
   mercadopago.configure({
-    access_token:
-      franquia.data.data.user_carrinho[0].carrinho_produtos[0].product.user
-        .franquia[0].mpago_key,
+    access_token: franquia.data.data.franquia[0].mpago_key,
   });
-  const orderStatus = await mercadopago.payment.get(req.body.preference_id);
+  const orderStatus = await mercadopago.payment.get(req.body.data.id);
 
   const response = await axios.post(
     process.env.HASURA_URL,
     {
       query: `mutation {
-        update_user_carrinho(where: {mercado_order_id: {_eq: "${req.body.preference_id}"}}, _set: {status: "${orderStatus.body.status}"}) {
+        update_user_carrinho(where: {mercado_order_id: {_eq: "${orderStatus.body.metadata}"}}, _set: {status: "${orderStatus.body.status}"}) {
           affected_rows
         }
        

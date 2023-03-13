@@ -92,7 +92,7 @@ const CarrinhoPage = ({ subdomain }) => {
         query: `mutation MyMutation2 {
           insert_user_carrinho_one(object: {total: "${getTotalPrice()}", 
           status: "pending", 
-          mercado_order_id: "${response.data.mpago.body.id}", 
+          mercado_order_id: "${response.data.uuid}", 
           frete_value: "${cep.value}", 
           cep: "${cep.cep}", 
           franquia_id: "${response.data.franquia_id}",

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 var mercadopago = require("mercadopago");
 
 export default async function handler(req, res) {
@@ -35,15 +36,16 @@ export default async function handler(req, res) {
       unit_price: value.time.price,
     };
   });
-
+  const idPay = uuidv4();
   var preference = {
     items: items,
 
-    /* notification_url:
+    notification_url:
       process.env.NEXT_PUBLIC_PREFIX +
+      (req.body.subdomain ? req.body.subdomain + "." : null) +
       process.env.NEXT_PUBLIC_SITE_URL +
-      "/api/mpago-webhook", */
-    notification_url: "https://gabslabteste.site/api/mpago-webhook",
+      "/api/mpago-webhook",
+    metadata: idPay,
     shipments: {
       cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",
@@ -57,5 +59,9 @@ export default async function handler(req, res) {
   const response = await mercadopago.preferences.create(preference);
   res
     .status(200)
-    .json({ mpago: response, franquia_id: franquia.data.data.franquia[0].id });
+    .json({
+      mpago: response,
+      uuid: idPay,
+      franquia_id: franquia.data.data.franquia[0].id,
+    });
 }
