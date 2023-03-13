@@ -23,7 +23,8 @@ export default async function handler(req, res) {
   mercadopago.configure({
     access_token: franquia.data.data.franquia[0].mpago_key,
   });
-  const orderStatus = await mercadopago.payment.get(req.body.data.id);
+  console.log(req.body);
+  const orderStatus = await mercadopago.payment.get(req.body.id);
   console.log(orderStatus);
   const response = await axios.post(
     process.env.HASURA_URL,
