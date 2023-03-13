@@ -52,7 +52,7 @@ export default async function handler(req, res) {
         process.env.NEXT_PUBLIC_SITE_URL +
         "/api/mpago-webhook",
     },
-
+    auto_return: "approved",
     shipments: {
       cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",
