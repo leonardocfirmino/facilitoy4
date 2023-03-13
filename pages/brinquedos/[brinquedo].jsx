@@ -182,8 +182,8 @@ export default function Example({ subdomain }) {
                   {product.name}
                 </h1>
 
-                <form className="mt-6">
-                  <div>
+                <form className="mt-6 ">
+                  <div className="">
                     <h3 className="text-sm text-gray-600">Escolha o período</h3>
 
                     <RadioGroup
@@ -191,7 +191,7 @@ export default function Example({ subdomain }) {
                       defaultChecked={selectedTime}
                       by={"tempo"}
                       onChange={(e) => setSelectedTime(e)}
-                      className="mt-2"
+                      className="mt-2 flex"
                     >
                       <span className="flex items-center gap-3">
                         {product.precos.map((color, index) => (
@@ -205,7 +205,7 @@ export default function Example({ subdomain }) {
                                   ? "bg-red-500 text-white"
                                   : "text-red-500",
 
-                                "-m-0.5 relative p-0.5 flex-1  sm:flex-none rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
+                                "-m-0.5 relative  p-0.5 flex-1 sm:flex-none rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
                               )
                             }
                           >

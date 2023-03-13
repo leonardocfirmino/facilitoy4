@@ -496,7 +496,7 @@ export default function Layout({ children, subdomain }) {
                 <Carrinho products={items} />
               </div>
             </div>
-            <SearchBar />
+            <SearchBar subdomain={subdomain} />
           </div>
           <div className="xl:flex divide-gray-300 hidden bg-gray-100 w-full border-t justify-center items-center font-semibold uppercase text-sm divide-x-2">
             <Menu as="div" className="relative inline-block text-left">
