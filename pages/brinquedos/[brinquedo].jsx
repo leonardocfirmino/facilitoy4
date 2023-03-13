@@ -15,6 +15,7 @@ import CepChecker from "../../components/CepChecker";
 import useSWR from "swr";
 import request from "graphql-request";
 import { useSession } from "next-auth/react";
+import ReactPlayer from "react-player/youtube";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -55,7 +56,7 @@ export default function Example({ subdomain }) {
     const diarioInicial = inicial / 7;
 
     const valorBruto = tempo * diarioInicial;
-    console.log(valorBruto);
+
     return (valorBruto - price).toFixed(2);
   }
   let setPrice = null;
@@ -121,10 +122,35 @@ export default function Example({ subdomain }) {
           <div className="mx-auto max-w-2xl py-8 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
               {/* Image gallery */}
-              <Tab.Group as="div" className="flex flex-col-reverse">
+              <Tab.Group
+                as="div"
+                onChange={(value) => console.log(value)}
+                className="flex flex-col-reverse"
+              >
                 {/* Image selector */}
-                <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+                <div className="mx-auto mt-6  w-full max-w-2xl sm:block lg:max-w-none">
                   <Tab.List className="grid grid-cols-4 gap-6">
+                    {data &&
+                      product.youtube_link != null &&
+                      product.youtube_link != "" && (
+                        <Tab className="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4">
+                          {({ selected }) => (
+                            <div className="flex pointer-events-none w-full h-full">
+                              <ReactPlayer
+                                light={true}
+                                height={96}
+                                playIcon={false}
+                                config={{
+                                  youtube: {
+                                    controls: 0,
+                                  },
+                                }}
+                                url={product.youtube_link}
+                              />
+                            </div>
+                          )}
+                        </Tab>
+                      )}
                     {data &&
                       product.product_images.map((image, index) => (
                         <Tab
@@ -162,6 +188,15 @@ export default function Example({ subdomain }) {
 
                 <Tab.Panels className="aspect-w-1 aspect-h-1 w-full">
                   {data &&
+                    product.youtube_link != null &&
+                    product.youtube_link != "" && (
+                      <Tab.Panel>
+                        <div className="flex items-center w-full h-full">
+                          <ReactPlayer url={product.youtube_link} />
+                        </div>
+                      </Tab.Panel>
+                    )}
+                  {data &&
                     product.product_images.map((image, index) => (
                       <Tab.Panel key={index}>
                         <img
@@ -191,9 +226,9 @@ export default function Example({ subdomain }) {
                       defaultChecked={selectedTime}
                       by={"tempo"}
                       onChange={(e) => setSelectedTime(e)}
-                      className="mt-2 flex"
+                      className="mt-2 flex w-full"
                     >
-                      <span className="flex items-center gap-3">
+                      <span className="flex flex-wrap w-full justify-start gap-4">
                         {product.precos.map((color, index) => (
                           <RadioGroup.Option
                             key={index}
@@ -205,7 +240,7 @@ export default function Example({ subdomain }) {
                                   ? "bg-red-500 text-white"
                                   : "text-red-500",
 
-                                "-m-0.5 relative  p-0.5 flex-1 sm:flex-none rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
+                                "-m-0.5 relative  p-0.5  sm:flex-none rounded-xl duration-300 flex items-center justify-center cursor-pointer focus:outline-none"
                               )
                             }
                           >

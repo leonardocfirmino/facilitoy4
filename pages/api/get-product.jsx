@@ -10,6 +10,7 @@ export default async function handler(req, res) {
           description
           created_at
           id
+          youtube_link
           name
           price_one
           price_two
