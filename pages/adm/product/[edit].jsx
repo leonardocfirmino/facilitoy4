@@ -282,7 +282,6 @@ export default function EditBanner({ sessions }) {
                   <input
                     className="border-2 rounded-md px-2 py-1 border-gray-300"
                     type="text"
-                    required
                     defaultValue={data.product[0].youtube_link}
                     placeholder="Link do video do youtube"
                     name="link"

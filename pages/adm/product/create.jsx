@@ -188,7 +188,6 @@ export default function CreateBanner({ sessions }) {
                 <input
                   className="border-2 rounded-md px-2  py-1 border-gray-300"
                   type="text"
-                  required
                   placeholder="Video do youtube"
                   name="link"
                 />
