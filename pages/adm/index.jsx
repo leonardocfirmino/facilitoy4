@@ -38,7 +38,7 @@ const Home = ({ sessions }) => {
   const [actualPosts, setActualPosts] = useState(0);
   const onChange = (page) => {
     mutate();
-    setActualPosts((page - 1) / 1);
+    setActualPosts((page - 1) / 30);
     setPagination(page);
   };
   console.log(user);
@@ -53,7 +53,7 @@ const Home = ({ sessions }) => {
     );
   const { data, mutate } = useSWR(
     `{
-      product(offset:${actualPosts}, limit: 5, order_by: {created_at: desc}) {
+      product(offset:${actualPosts}, limit: 30, order_by: {created_at: desc}) {
         category {
           name
         }
@@ -250,7 +250,7 @@ const Home = ({ sessions }) => {
                       onChange={onChange}
                       hideOnSinglePage={true}
                       current={pagination}
-                      pageSize={5}
+                      pageSize={30}
                       total={data.product_aggregate.aggregate.count}
                     />
                   )}

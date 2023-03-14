@@ -131,27 +131,6 @@ export default function Example({ subdomain }) {
                 <div className="mx-auto mt-6  w-full max-w-2xl sm:block lg:max-w-none">
                   <Tab.List className="grid grid-cols-4 gap-6">
                     {data &&
-                      product.youtube_link != null &&
-                      product.youtube_link != "" && (
-                        <Tab className="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4">
-                          {({ selected }) => (
-                            <div className="flex pointer-events-none w-full h-full">
-                              <ReactPlayer
-                                light={true}
-                                height={96}
-                                playIcon={false}
-                                config={{
-                                  youtube: {
-                                    controls: 0,
-                                  },
-                                }}
-                                url={product.youtube_link}
-                              />
-                            </div>
-                          )}
-                        </Tab>
-                      )}
-                    {data &&
                       product.product_images.map((image, index) => (
                         <Tab
                           key={index}
@@ -187,15 +166,6 @@ export default function Example({ subdomain }) {
                 </div>
 
                 <Tab.Panels className="aspect-w-1 aspect-h-1 w-full">
-                  {data &&
-                    product.youtube_link != null &&
-                    product.youtube_link != "" && (
-                      <Tab.Panel>
-                        <div className="flex items-center w-full h-full">
-                          <ReactPlayer url={product.youtube_link} />
-                        </div>
-                      </Tab.Panel>
-                    )}
                   {data &&
                     product.product_images.map((image, index) => (
                       <Tab.Panel key={index}>
@@ -357,6 +327,26 @@ export default function Example({ subdomain }) {
                     </Disclosure>
                   </div>
                 </section>
+                {product.youtube_link != null &&
+                  product.youtube_link != undefined &&
+                  product.youtube_link != "undefined" &&
+                  product.youtube_link != "" && (
+                    <div className="flex flex-col w-full h-full">
+                      <h1 className="text-md mb-2 font-medium text-gray-900">
+                        Video
+                      </h1>
+                      <div className="w-full flex">
+                        <ReactPlayer
+                          config={{
+                            youtube: {
+                              controls: 0,
+                            },
+                          }}
+                          url={product.youtube_link}
+                        />
+                      </div>
+                    </div>
+                  )}
               </div>
             </div>
           </div>

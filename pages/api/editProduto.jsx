@@ -42,7 +42,8 @@ function toAdd(ids, product_id) {
       ids.map((value) => {
         toAdd += `{faixa_etaria_id: "${value}", brinquedo_id: "${product_id}"}`;
       });
-    if (!Array.isArray(ids)) toAdd += `"${ids}",`;
+    if (!Array.isArray(ids))
+      toAdd += `{faixa_etaria_id: "${ids}", brinquedo_id: "${product_id}"}`;
     toAdd += `]) {
       affected_rows
     }`;

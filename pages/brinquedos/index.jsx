@@ -40,7 +40,7 @@ const IndexBrinquedo = ({ subdomain }) => {
     if (router.query.age != undefined) setAgeFilter(router.query.age);
   }, [router.query.age]);
   const { data, mutate } = useSWR(
-    { age: ageFilter, search: router.query.search, subdomain: subdomain },
+    { age: ageFilter, name: router.query.search, subdomain: subdomain },
     fetcher,
     {
       revalidateIfStale: false,
