@@ -39,7 +39,7 @@ const Home = ({ sessions }) => {
   const [actualPosts, setActualPosts] = useState(0);
   const onChange = (page) => {
     mutate();
-    setActualPosts((page - 1) / 30);
+    setActualPosts((page - 1) * 30);
     setPagination(page);
   };
   console.log(user);
@@ -54,7 +54,7 @@ const Home = ({ sessions }) => {
     );
   const { data, mutate } = useSWR(
     `{
-        user_carrinho(offset:${actualPosts}, limit: 30, order_by: {created_at: desc}) {
+        user_carrinho(offset:${actualPosts}, limit: 30, order_by: {created_at: desc}, where: {carrinho_produtos: {id: {_is_null: false}}}){
           created_at
           cep
           id
@@ -76,7 +76,7 @@ const Home = ({ sessions }) => {
           }
         }
     
-      user_carrinho_aggregate {
+      user_carrinho_aggregate(where: {carrinho_produtos: {id: {_is_null: false}}}) {
         aggregate {
           count
         }

@@ -38,7 +38,7 @@ const Home = ({ sessions }) => {
   const [actualPosts, setActualPosts] = useState(0);
   const onChange = (page) => {
     mutate();
-    setActualPosts((page - 1) / 1);
+    setActualPosts((page - 1) * 5);
     setPagination(page);
   };
   console.log(user);

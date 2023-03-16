@@ -484,47 +484,51 @@ const IndexBrinquedo = ({ subdomain }) => {
           {data ? (
             data.data.product.length > 0 ? (
               <div className="-mx-px grid grid-cols-2 gap-2 border-l border-gray-200 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
-                {data.data.product.map((product) => (
-                  <div
-                    key={product.id}
-                    className="group relative border-r border-b border-gray-200 p-4 sm:p-6"
-                  >
-                    <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
-                      <img
-                        src={
-                          product?.product_image?.src != undefined
-                            ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                              product?.product_image?.src
-                            : "/logo.webp"
-                        }
-                        className="h-full w-full object-cover object-center"
-                      />
-                    </div>
-                    <div className="pt-10 pb-4 text-center">
-                      <h3 className="text-sm font-medium text-gray-900">
-                        <a href={"/brinquedos/" + product.slug}>
-                          <span
-                            aria-hidden="true"
-                            className="absolute inset-0"
-                          />
-                          {product.name}
-                        </a>
-                      </h3>
-
-                      <p className="mt-4 text-base font-medium text-red-600">
-                        R${product.price_one},00
-                      </p>
-                    </div>
-                    <div className="mt-6">
-                      <a
-                        href={"/brinquedos/" + product.slug}
-                        className="relative cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-red-600 py-2 px-8 text-sm font-medium text-white hover:bg-red-500"
+                {data.data.product.map(
+                  (product) =>
+                    product.is_active == true && (
+                      <div
+                        key={product.id}
+                        className="group relative border-r border-b border-gray-200 p-4 sm:p-6"
                       >
-                        Alugar<span className="sr-only">, {product.name}</span>
-                      </a>
-                    </div>
-                  </div>
-                ))}
+                        <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
+                          <img
+                            src={
+                              product?.product_image?.src != undefined
+                                ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                                  product?.product_image?.src
+                                : "/logo.webp"
+                            }
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                        <div className="pt-10 pb-4 text-center">
+                          <h3 className="text-sm font-medium text-gray-900">
+                            <a href={"/brinquedos/" + product.slug}>
+                              <span
+                                aria-hidden="true"
+                                className="absolute inset-0"
+                              />
+                              {product.name}
+                            </a>
+                          </h3>
+
+                          <p className="mt-4 text-base font-medium text-red-600">
+                            R${product.price_one},00
+                          </p>
+                        </div>
+                        <div className="mt-6">
+                          <a
+                            href={"/brinquedos/" + product.slug}
+                            className="relative cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-red-600 py-2 px-8 text-sm font-medium text-white hover:bg-red-500"
+                          >
+                            Alugar
+                            <span className="sr-only">, {product.name}</span>
+                          </a>
+                        </div>
+                      </div>
+                    )
+                )}
               </div>
             ) : (
               <Empty />

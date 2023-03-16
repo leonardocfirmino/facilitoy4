@@ -38,14 +38,23 @@ const localeInfo = {
 const Blog = ({ subdomain }) => {
   const router = useRouter();
 
-  const [pagination, setPagination] = useState();
-  const [actualPosts, setActualPosts] = useState(0);
-  const onChange = (page) => {
-    mutate();
-    setActualPosts((page - 1) / 1);
-    setPagination(page);
-  };
+  const [ages, setAges] = useState([]);
+  const fetcher = async (query) =>
+    axios.post(
+      process.env.NEXT_PUBLIC_PREFIX +
+        subdomain +
+        "." +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/home-data",
+      query,
+      {}
+    );
 
+  const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
   const carrousel1 = [
     {
       image: "/carrousel-1/1.png",
@@ -204,8 +213,8 @@ const Blog = ({ subdomain }) => {
     <Layout subdomain={subdomain}>
       <div className="w-full h-full">
         <Hero1 />
-        <HomeCarrousel1 data={carrousel1} />
-        <HomeCarrousel2 data={carrousel2} />
+        {data && <HomeCarrousel1 data={data.data.category} />}
+        {data && <HomeCarrousel2 data={data.data.product} />}
         <Steps />
         <HomeCarrousel3 data={carrousel2} />
         <Razoes />
