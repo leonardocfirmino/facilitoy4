@@ -200,7 +200,7 @@ export async function getServerSideProps(context) {
         },
       };
   if (process.env.NEXT_PUBLIC_PREFIX != "http://")
-    if (subdomain.split(".")[2] == undefined)
+    if (subdomain.split(".")[3] == undefined)
       return {
         redirect: {
           destination: `/selecionar-estado`,
