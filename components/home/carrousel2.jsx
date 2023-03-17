@@ -183,8 +183,10 @@ export default function HomeCarrousel2({ data }) {
                     <div className="relative h-72 w-full overflow-hidden rounded-lg">
                       <img
                         src={
-                          "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                          product.product_image.src
+                          product.product_image == null
+                            ? "/logo.webp"
+                            : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                              product.product_image.src
                         }
                         className="h-full w-full object-contain"
                       />
