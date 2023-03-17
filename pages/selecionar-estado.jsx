@@ -130,7 +130,10 @@ const SelectEstado = () => {
         <div className="w-full text-sm pt-2 flex justify-center items-center">
           <h2>
             Não encontrou sua cidade? Seja um{" "}
-            <a href="" className="text-blue-400 underline">
+            <a
+              href="https://facilitoyfranquia.com.br"
+              className="text-blue-400 underline"
+            >
               franqueado Facilitoy!
             </a>
           </h2>
