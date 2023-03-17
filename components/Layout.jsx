@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useState } from "react";
@@ -147,7 +148,11 @@ export default function Layout({ children, subdomain }) {
                         <div className="py-1">
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/brinquedos?age=0a3"}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={"/brinquedos?age=0a3"}
+                              >
                                 <a
                                   className={classNames(
                                     active
@@ -163,7 +168,11 @@ export default function Layout({ children, subdomain }) {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/brinquedos?age=3a6"}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={"/brinquedos?age=3a6"}
+                              >
                                 <a
                                   className={classNames(
                                     active
@@ -179,7 +188,11 @@ export default function Layout({ children, subdomain }) {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/brinquedos?age=6a9"}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={"/brinquedos?age=6a9"}
+                              >
                                 <a
                                   className={classNames(
                                     active
@@ -195,7 +208,11 @@ export default function Layout({ children, subdomain }) {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/brinquedos?age=9a12"}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={"/brinquedos?age=9a12"}
+                              >
                                 <a
                                   className={classNames(
                                     active
@@ -211,7 +228,11 @@ export default function Layout({ children, subdomain }) {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/brinquedos?age=1a2"}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={"/brinquedos?age=1a2"}
+                              >
                                 <a
                                   className={classNames(
                                     active
@@ -227,7 +248,11 @@ export default function Layout({ children, subdomain }) {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/brinquedos?age=2a3"}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={"/brinquedos?age=2a3"}
+                              >
                                 <a
                                   className={classNames(
                                     active
@@ -243,7 +268,11 @@ export default function Layout({ children, subdomain }) {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link href={"/brinquedos?age=3+"}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={"/brinquedos?age=3+"}
+                              >
                                 <a
                                   className={classNames(
                                     active
@@ -385,7 +414,7 @@ export default function Layout({ children, subdomain }) {
           <div className="hidden xl:flex gap-2 lg:gap-4 py-6 container mx-auto md:flex-row md:items-center md:justify-center">
             <div className="flex lg:order-1 w-48 h-24  justify-center  items-center">
               <div>
-                <Link href="/">
+                <Link shallow={true} href="/">
                   <a className="text-gray-800 text-xl font-bold md:text-2xl">
                     <img src="/logo.webp" className=" " alt="" />
                   </a>
@@ -414,7 +443,11 @@ export default function Layout({ children, subdomain }) {
                     </a>
                   </Link>
                 ) : (
-                  <Link href={"/login?callbackUrl=" + callback}>
+                  <Link
+                    legacyBehavior
+                    prefetch={false}
+                    href={"/login?callbackUrl=" + callback}
+                  >
                     <a className="flex w-48 justify-center">
                       <span className="hidden lg:block">
                         Entrar / Cadastrar-se
@@ -468,6 +501,8 @@ export default function Layout({ children, subdomain }) {
               <div className="flex xl:order-3 order-2 items-center gap-2">
                 <div className=" font-semibold  text-lg">
                   <Link
+                    legacyBehavior
+                    prefetch={false}
                     href={
                       session.data != undefined
                         ? "/perfil"
@@ -526,7 +561,11 @@ export default function Layout({ children, subdomain }) {
                         return (
                           <Menu.Item key={value.id}>
                             {({ active }) => (
-                              <Link href={`/brinquedos?age=${value.id}`}>
+                              <Link
+                                legacyBehavior
+                                prefetch={false}
+                                href={`/brinquedos?age=${value.id}`}
+                              >
                                 <a
                                   className={classNames(
                                     active

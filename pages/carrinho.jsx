@@ -15,15 +15,7 @@ const CarrinhoPage = ({ subdomain }) => {
 
   const products = useSelector((state) => state.cart);
   const cep = useSelector((state) => state.cep);
-  const fetcher = async (query) =>
-    axios.post(
-      process.env.NEXT_PUBLIC_PREFIX +
-        subdomain +
-        "." +
-        process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/get-franquia",
-      query
-    );
+  const fetcher = async (query) => axios.post("/api/get-franquia", query);
 
   const { data, mutate } = useSWR({ subdomain }, fetcher, {
     revalidateIfStale: false,

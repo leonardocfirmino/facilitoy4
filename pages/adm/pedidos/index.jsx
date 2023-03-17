@@ -253,7 +253,11 @@ const Home = ({ sessions }) => {
                                     </div>
                                   </td>
                                   <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pl-6">
-                                    <Link href={"/adm/category/" + value.id}>
+                                    <Link
+                                      legacyBehavior
+                                      prefetch={false}
+                                      href={"/adm/category/" + value.id}
+                                    >
                                       <a className="text-indigo-600 hover:text-indigo-900">
                                         <svg
                                           xmlns="http://www.w3.org/2000/svg"

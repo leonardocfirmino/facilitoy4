@@ -50,11 +50,7 @@ const Blog = ({ subdomain }) => {
       {}
     );
 
-  const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher);
   const carrousel1 = [
     {
       image: "/carrousel-1/1.png",

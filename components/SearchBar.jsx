@@ -69,7 +69,12 @@ export default function SearchBar({ subdomain }) {
         <div className="w-full z-20 grid grid-cols-2 absolute min-h-[200px] rounded-b-xl bg-white">
           {produto.map((value, index) => {
             return (
-              <Link key={index} href={"/brinquedos/" + value.slug}>
+              <Link
+                legacyBehavior
+                prefetch={false}
+                key={index}
+                href={"/brinquedos/" + value.slug}
+              >
                 <a className="flex hover:bg-gray-100 transition-all duration-300 max-h-[80px] py-2 border-[1px] gap-4 px-8">
                   <Image
                     src={
