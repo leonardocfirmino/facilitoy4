@@ -81,7 +81,8 @@ export default function HomeCarrousel2({ data }) {
                       <img
                         src={
                           product.product_image == null
-                            ? "/logo.webp"
+                            ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                              product.product_images[0].src
                             : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
                               product.product_image.src
                         }
@@ -186,7 +187,8 @@ export default function HomeCarrousel2({ data }) {
                       <img
                         src={
                           product.product_image == null
-                            ? "/logo.webp"
+                            ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                              product.product_images[0].src
                             : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
                               product.product_image.src
                         }

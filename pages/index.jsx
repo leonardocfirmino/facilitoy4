@@ -209,8 +209,12 @@ const Blog = ({ subdomain }) => {
     <Layout subdomain={subdomain}>
       <div className="w-full h-full">
         <Hero1 />
-        {data && <HomeCarrousel1 data={data.data.category} />}
-        {data && <HomeCarrousel2 data={data.data.product} />}
+        {data && data.data.category.length > 0 && (
+          <HomeCarrousel1 data={data.data.category} />
+        )}
+        {data && data.data.product.length > 0 && (
+          <HomeCarrousel2 data={data.data.product} />
+        )}
         <Steps />
         <HomeCarrousel3 data={carrousel2} />
         <Razoes />

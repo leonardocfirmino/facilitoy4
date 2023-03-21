@@ -15,6 +15,9 @@ export default async function handler(req, res) {
           product_image {
             src
           }
+          product_images {
+            src
+          }
           slug
         }
       }`,
