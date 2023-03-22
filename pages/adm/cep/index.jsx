@@ -173,64 +173,6 @@ const Home = ({ sessions }) => {
                   );
                 })}
               </div>
-              {/* <div className="mt-8 flex flex-col">
-                <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                  <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                    <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                      <table className="min-w-full divide-y divide-gray-300">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th
-                              scope="col"
-                              className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                            >
-                              Bairro
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                            >
-                              Valor
-                            </th>
-
-                            <th
-                              scope="col"
-                              className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                            >
-                              <span className="">Editar</span>
-                            </th>
-                          </tr>
-                        </thead>
-                        {data && (
-                          <tbody className="divide-y divide-gray-200 bg-white">
-                            {data.cep_user.map((value, index) => {
-                              return (
-                                <tr key={index}>
-                                  <td className="whitespace-nowrap flex flex-col justify-center overflow-y-auto h-32 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                    {value.bairro}
-                                  </td>
-                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    R$ {value.valor}
-                                  </td>
-
-                                  <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <Link href={"/adm/cep/" + value.id}>
-                                      <a className="text-indigo-600 hover:text-indigo-900">
-                                        Editar
-                                      </a>
-                                    </Link>
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        )}
-                      </table>
-                      {data.cep_user.length == 0 && <Empty />}
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
             <div className="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-end px-4">
