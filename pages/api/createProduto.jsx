@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     const link = slugify(req.body.name);
     if (req.files != undefined) {
       let imageNames = "[";
-      req.files.map(async (fileMap) => {
+      const promises = req.files.map(async (fileMap) => {
         const imageName = randomName();
         const params = {
           Bucket: process.env.BUCKET_NAME,
@@ -42,12 +42,14 @@ export default async function handler(req, res) {
           ACL: "public-read",
           ContentType: fileMap.mimetype,
         };
+
         const data = await s3Client.send(new PutObjectCommand(params));
-        if (data.$metadata.httpStatusCode == 200) {
-          imageNames += `{src: "${imageName}.${
-            fileMap.originalname.split(".")[1]
-          }"},`;
-        }
+        if (data.$metadata.httpStatusCode == 200)
+          return `{src: "${imageName}.${fileMap.originalname.split(".")[1]}"},`;
+      });
+      const arrayImages = await Promise.all(promises);
+      arrayImages.map((value) => {
+        imageNames += value;
       });
       imageNames += "]";
       console.log(imageNames);

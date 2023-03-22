@@ -20,7 +20,7 @@ const MultipleImages = forwardRef((props, ref) => {
     props.isCreate
       ? null
       : props.principal_image_id == null
-      ? props.editImages[0].id
+      ? props.editImages[0]?.id
       : props.principal_image_id
   );
   useImperativeHandle(ref, () => ({
