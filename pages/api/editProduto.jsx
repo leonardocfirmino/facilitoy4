@@ -74,12 +74,12 @@ export default async function handler(req, res) {
           ACL: "public-read",
           ContentType: fileMap.mimetype,
         };
-
-        imageNames += `{src: "${imageName}.${
-          fileMap.originalname.split(".")[1]
-        }", product_id: "${req.body.id}"},`;
-
         const data = await s3Client.send(new PutObjectCommand(params));
+        if (data.$metadata.httpStatusCode == 200) {
+          imageNames += `{src: "${imageName}.${
+            fileMap.originalname.split(".")[1]
+          }", product_id: "${req.body.id}"},`;
+        }
       });
       imageNames += `]) {
         affected_rows
