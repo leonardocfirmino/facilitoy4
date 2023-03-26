@@ -235,7 +235,7 @@ export default function Example({ subdomain }) {
                   </div>
                   {
                     <div className="sm:flex-row flex-col gap-4 mt-10 flex">
-                      <CepChecker />
+                      <CepChecker subdomain={subdomain} />
                     </div>
                   }
                   <div className="sm:flex-row flex-col gap-4 mt-10 flex">
