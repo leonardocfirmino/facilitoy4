@@ -71,7 +71,7 @@ export default async function handler(req, res) {
             },
           }
         );
-        console.log(result.data);
+        console.log(result.config);
         if (result.data.errors != undefined) {
           return res.status(500).json(req.body.name);
         }
@@ -98,6 +98,7 @@ export default async function handler(req, res) {
         }
       );
       if (result.data.errors != undefined) {
+        console.log(result.config);
         return res.status(500).json(result.data.errors);
       }
       return res.status(200).json(req.body.name);
