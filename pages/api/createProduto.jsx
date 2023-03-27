@@ -23,6 +23,7 @@ export default async function handler(req, res) {
   const s3Client = new S3Client({
     endpoint: "https://sfo3.digitaloceanspaces.com",
     region: "us-east-1",
+    maxAttempts: 3,
     credentials: {
       accessKeyId: process.env.SPACES_KEY,
       secretAccessKey: process.env.SPACES_SECRET,
@@ -57,7 +58,7 @@ export default async function handler(req, res) {
         const result = await axios.post(
           `${process.env.HASURA_URL}`,
           {
-            query: `mutation {
+            query: `mutation oi{
               insert_product_one(object: {product_images: {data: ${imageNames}}, description: "${req.body.desc}", 
               details: "${req.body.details}",youtube_link: "${req.body.video}", slug: "${link}",name: "${req.body.name}", price_one: "${req.body.price_one}", price_two: "${req.body.price_two}",
               price_three: "${req.body.price_three}", category_id: "${req.body.category}"}) {
@@ -83,7 +84,7 @@ export default async function handler(req, res) {
         `${process.env.HASURA_URL}`,
         {
           query: `
-      mutation{
+      mutation oi{
         insert_product_one(object: { description: "${req.body.desc}", 
               details: "${req.body.details}",youtube_link: "${req.body.video}", slug: "${link}",name: "${req.body.name}",price_one: "${req.body.price_one}", price_two: "${req.body.price_two}",
               price_three: "${req.body.price_three}", category_id: "${req.body.category}"}) {
