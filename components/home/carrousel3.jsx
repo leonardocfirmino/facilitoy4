@@ -43,12 +43,15 @@ export default function HomeCarrousel2({ data }) {
         {data.map((product, index) => (
           <SwiperSlide key={index}>
             <div className="relative">
-              <div className="relative h-72 w-full overflow-hidden rounded-lg">
+              <a
+                href={product.href}
+                className="relative h-72 w-full overflow-hidden rounded-lg"
+              >
                 <img
                   src={product.image}
                   className="h-full w-full object-contain"
                 />
-              </div>
+              </a>
               <div className="relative text-center mt-4">
                 <h3 className="text-sm font-medium h-12 text-gray-900">
                   {product.name}

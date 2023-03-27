@@ -77,7 +77,10 @@ export default function HomeCarrousel2({ data }) {
               data1.map((product, index) => (
                 <SwiperSlide key={index}>
                   <div className="relative">
-                    <div className="relative h-72 w-full overflow-hidden rounded-lg">
+                    <a
+                      href={"/brinquedos/" + product.slug}
+                      className="relative h-72 w-full overflow-hidden rounded-lg"
+                    >
                       <img
                         src={
                           product.product_image == null
@@ -88,7 +91,7 @@ export default function HomeCarrousel2({ data }) {
                         }
                         className="h-full w-full object-contain"
                       />
-                    </div>
+                    </a>
                     <div className="relative text-center mt-4">
                       <h3 className="text-sm font-medium h-12 text-gray-900">
                         {product.name}
@@ -183,7 +186,10 @@ export default function HomeCarrousel2({ data }) {
               data2.map((product, index) => (
                 <SwiperSlide key={index}>
                   <div className="relative">
-                    <div className="relative h-72 w-full overflow-hidden rounded-lg">
+                    <a
+                      href={"/brinquedos/" + product.slug}
+                      className="relative h-72 w-full overflow-hidden rounded-lg"
+                    >
                       <img
                         src={
                           product.product_image == null
@@ -194,7 +200,7 @@ export default function HomeCarrousel2({ data }) {
                         }
                         className="h-full w-full object-contain"
                       />
-                    </div>
+                    </a>
                     <div className="relative text-center mt-4">
                       <h3 className="text-sm font-medium h-12 text-gray-900">
                         {product.name}

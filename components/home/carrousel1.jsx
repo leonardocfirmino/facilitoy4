@@ -34,7 +34,10 @@ export default function HomeCarrousel1({ data }) {
         {data.map((value, index) => {
           return (
             <SwiperSlide key={index}>
-              <a className="relative text-center  gap-2 flex flex-col items-center justify-start text-gray-600">
+              <a
+                href={"/brinquedos/?categoria=" + value.id}
+                className="relative text-center  gap-2 flex flex-col items-center justify-start text-gray-600"
+              >
                 <img
                   src={
                     "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +

@@ -397,18 +397,30 @@ export default function Layout({ children, subdomain }) {
       <div className="flex flex-col flex-1 ">
         <div className=" top-0 z-10 border-b-2 border-gray-300/40">
           <div className="bg-[#12bcc6] gap-2 lg:gap-4 w-full py-1 px-2 flex  items-center lg:flex-row flex-col justify-center lg:justify-around">
-            <div className="bg-white rounded-full pr-2">
+            <a
+              href={
+                process.env.NEXT_PUBLIC_PREFIX +
+                process.env.NEXT_PUBLIC_SITE_URL +
+                "/selecionar-estado"
+              }
+              className="bg-white rounded-full pr-2"
+            >
               <button className="bg-red-600 font-semibold uppercase text-white px-4 py-2 rounded-full text-xs">
                 Brinquedos disponíveis para
               </button>
               <span className="font-semibold uppercase text-xs px-4 py-2 text-[#12bcc6]">
                 {subdomain}
               </span>
-            </div>
+            </a>
             <div className="flex justify-center gap-2 items-center">
-              <button className="bg-white rounded-xl px-4 text-xs text-red-500 py-2 uppercase font-bold">
+              <a
+                href="https://facilitoyfranquia.com.br/"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-white rounded-xl px-4 text-xs text-red-500 py-2 uppercase font-bold"
+              >
                 Seja um franqueado
-              </button>
+              </a>
             </div>
           </div>
           <div className="hidden xl:flex gap-2 lg:gap-4 py-6 container mx-auto md:flex-row md:items-center md:justify-center">

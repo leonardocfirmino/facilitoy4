@@ -16,6 +16,7 @@ import {
 } from "@headlessui/react";
 import useSWR from "swr";
 import request from "graphql-request";
+import Select from "react-select";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Empty from "../../components/Empty";
@@ -36,11 +37,23 @@ const IndexBrinquedo = ({ subdomain }) => {
       {}
     );
   const [ageFilter, setAgeFilter] = useState("");
+  const [categoriaFilter, setCategoriaFilter] = useState("");
+  const [orderBy, setOrderBy] = useState("order_by: {created_at: desc}");
+  const [select, setSelect] = useState(null);
+  const [selectValue, setSelectValue] = useState(null);
   useEffect(() => {
     if (router.query.age != undefined) setAgeFilter(router.query.age);
-  }, [router.query.age]);
+    if (router.query.categoria != undefined)
+      setCategoriaFilter(router.query.categoria);
+  }, [router.query.age, router.query.categoria]);
   const { data, mutate } = useSWR(
-    { age: ageFilter, name: router.query.search, subdomain: subdomain },
+    {
+      age: ageFilter,
+      name: router.query.search,
+      subdomain: subdomain,
+      category_id: categoriaFilter,
+      order_by: orderBy,
+    },
     fetcher,
     {
       revalidateIfStale: false,
@@ -54,6 +67,72 @@ const IndexBrinquedo = ({ subdomain }) => {
   if (data && ages.length == 0) {
     setAges(data.data.faixa_etaria);
   }
+  if (data && select == null) {
+    setSelect(
+      data.data.category.map((value) => {
+        return {
+          value: value.id,
+          label: (
+            <div className="flex gap-4  items-center">
+              <img
+                className="w-8 h-8"
+                src={
+                  "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                  value.image_src
+                }
+              />
+              <h1>{value.name}</h1>
+            </div>
+          ),
+        };
+      })
+    );
+  }
+
+  const getCategoryById = (id, data) => {
+    const category = data.find((value) => {
+      return value.id == id;
+    });
+
+    return {
+      value: id,
+      label: (
+        <div className="flex gap-4  items-center">
+          <img
+            className="w-8 h-8"
+            src={
+              "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+              category.image_src
+            }
+          />
+          <h1>{category.name}</h1>
+        </div>
+      ),
+    };
+  };
+  if (data && selectValue == null && router.query.categoria != null) {
+    setSelectValue(getCategoryById(router.query.categoria, data.data.category));
+  }
+  const sortOptions = [
+    { name: "Mais novos", href: "order_by: {created_at: desc}", current: true },
+    { name: "Nome ascendente", href: "order_by: {name: asc}", current: false },
+    {
+      name: "Nome decrescente",
+      href: "order_by: {name: desc}",
+      current: false,
+    },
+
+    {
+      name: "Preço: menor ao maior",
+      href: "order_by: {price_one: asc}",
+      current: false,
+    },
+    {
+      name: "Price: maior ao menor",
+      href: "order_by: {price_one: desc}",
+      current: false,
+    },
+  ];
   return (
     <Layout subdomain={subdomain}>
       <div
@@ -68,7 +147,7 @@ const IndexBrinquedo = ({ subdomain }) => {
         </div>
       </div>
       <div className="py-8">
-        <div className="flex flex-wrap w-full justify-center gap-4 items-center">
+        <div className="flex mb-4 flex-wrap w-full justify-center gap-4 items-center">
           <button
             onClick={() => setAgeFilter("")}
             className={classNames(
@@ -285,7 +364,7 @@ const IndexBrinquedo = ({ subdomain }) => {
             </button>
           ))}
         </div>
-        {/*    <Disclosure
+        <Disclosure
           as="section"
           aria-labelledby="filter-heading"
           className="grid items-center border-t border-b border-gray-200"
@@ -295,140 +374,27 @@ const IndexBrinquedo = ({ subdomain }) => {
           </h2>
           <div className="relative col-start-1 row-start-1 py-4">
             <div className="mx-auto flex max-w-7xl space-x-6 divide-x divide-gray-200 px-4 text-sm sm:px-6 lg:px-8">
-              <div>
-                <Disclosure.Button className="group flex items-center font-medium text-gray-700">
-                  <FunnelIcon
-                    className="mr-2 h-5 w-5 flex-none text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                  2 Filters
-                </Disclosure.Button>
-              </div>
-              <div className="pl-6">
-                <button type="button" className="text-gray-500">
-                  Clear all
-                </button>
-              </div>
+              <Select
+                placeholder="Selecione uma categoria"
+                name="produto"
+                className="w-64"
+                required
+                onChange={(e) => {
+                  setSelectValue(e);
+                  setCategoriaFilter(e.value);
+                }}
+                value={selectValue}
+                options={select}
+              />
             </div>
           </div>
-          <Disclosure.Panel className="border-t border-gray-200 py-10">
-            <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 px-4 text-sm sm:px-6 md:gap-x-6 lg:px-8">
-              <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
-                <fieldset>
-                  <legend className="block font-medium">Price</legend>
-                  <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                    {filters.price.map((option, optionIdx) => (
-                      <div
-                        key={option.value}
-                        className="flex items-center text-base sm:text-sm"
-                      >
-                        <input
-                          id={`price-${optionIdx}`}
-                          name="price[]"
-                          defaultValue={option.value}
-                          type="checkbox"
-                          className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          defaultChecked={option.checked}
-                        />
-                        <label
-                          htmlFor={`price-${optionIdx}`}
-                          className="ml-3 min-w-0 flex-1 text-gray-600"
-                        >
-                          {option.label}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend className="block font-medium">Color</legend>
-                  <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                    {filters.color.map((option, optionIdx) => (
-                      <div
-                        key={option.value}
-                        className="flex items-center text-base sm:text-sm"
-                      >
-                        <input
-                          id={`color-${optionIdx}`}
-                          name="color[]"
-                          defaultValue={option.value}
-                          type="checkbox"
-                          className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          defaultChecked={option.checked}
-                        />
-                        <label
-                          htmlFor={`color-${optionIdx}`}
-                          className="ml-3 min-w-0 flex-1 text-gray-600"
-                        >
-                          {option.label}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </fieldset>
-              </div>
-              <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
-                <fieldset>
-                  <legend className="block font-medium">Size</legend>
-                  <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                    {filters.size.map((option, optionIdx) => (
-                      <div
-                        key={option.value}
-                        className="flex items-center text-base sm:text-sm"
-                      >
-                        <input
-                          id={`size-${optionIdx}`}
-                          name="size[]"
-                          defaultValue={option.value}
-                          type="checkbox"
-                          className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          defaultChecked={option.checked}
-                        />
-                        <label
-                          htmlFor={`size-${optionIdx}`}
-                          className="ml-3 min-w-0 flex-1 text-gray-600"
-                        >
-                          {option.label}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend className="block font-medium">Category</legend>
-                  <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                    {filters.category.map((option, optionIdx) => (
-                      <div
-                        key={option.value}
-                        className="flex items-center text-base sm:text-sm"
-                      >
-                        <input
-                          id={`category-${optionIdx}`}
-                          name="category[]"
-                          defaultValue={option.value}
-                          type="checkbox"
-                          className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          defaultChecked={option.checked}
-                        />
-                        <label
-                          htmlFor={`category-${optionIdx}`}
-                          className="ml-3 min-w-0 flex-1 text-gray-600"
-                        >
-                          {option.label}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </fieldset>
-              </div>
-            </div>
-          </Disclosure.Panel>
+
           <div className="col-start-1 row-start-1 py-4">
             <div className="mx-auto flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
               <Menu as="div" className="relative inline-block">
                 <div className="flex">
                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                    Sort
+                    Organizar por
                     <ChevronDownIcon
                       className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
@@ -445,13 +411,13 @@ const IndexBrinquedo = ({ subdomain }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1 flex flex-col justify-center">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <a
-                              href={option.href}
+                            <button
+                              onClick={() => setOrderBy(option.href)}
                               className={classNames(
                                 option.current
                                   ? "font-medium text-gray-900"
@@ -461,7 +427,7 @@ const IndexBrinquedo = ({ subdomain }) => {
                               )}
                             >
                               {option.name}
-                            </a>
+                            </button>
                           )}
                         </Menu.Item>
                       ))}
@@ -471,7 +437,7 @@ const IndexBrinquedo = ({ subdomain }) => {
               </Menu>
             </div>
           </div>
-        </Disclosure> */}
+        </Disclosure>
         <div className="w-4/6 mx-auto py-6 flex justify-between items-center">
           <h2>
             Início / <span className="font-semibold">Brinquedos</span>
@@ -497,7 +463,8 @@ const IndexBrinquedo = ({ subdomain }) => {
                               product?.product_image?.src != undefined
                                 ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
                                   product?.product_image?.src
-                                : "/logo.webp"
+                                : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                                  product?.product_images[0]?.src
                             }
                             className="h-full w-full object-cover object-center"
                           />
