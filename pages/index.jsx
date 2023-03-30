@@ -216,7 +216,7 @@ const Blog = ({ subdomain }) => {
           <HomeCarrousel2 data={data.data.product} />
         )}
         <Steps />
-        <HomeCarrousel3 data={carrousel2} />
+        {/*  <HomeCarrousel3 data={carrousel2} /> */}
         <Razoes />
         <Sobre />
         <EmpresasCarrousel data={empresas} />
