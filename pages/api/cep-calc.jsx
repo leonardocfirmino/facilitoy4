@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     process.env.HASURA_URL,
     {
       query: `{
-        cep_user(where: {cidade: {_ilike: "%${viaCep.data.localidade}%"}, _and: {bairro: {_ilike: "%${viaCep.data.bairro}%"}}}) {
+        cep_user(where: {cidade: {_ilike: "%${viaCep.data.localidade}%"}, _and: {bairro: {_ilike: "%${viaCep.data.bairro}%"}, _and: {user: {franquia: {subdomain: {_eq: "${req.body.subdomain}"}}}}}}) {
           cidade
           bairro
           valor
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       },
     }
   );
-
+  console.log(cepBanco.data);
   if (cepBanco.data.data.cep_user.length == 0)
     return res.status(200).json({ isNull: true });
 

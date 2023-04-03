@@ -238,7 +238,7 @@ export default function Example({ subdomain }) {
                       <CepChecker subdomain={subdomain} />
                     </div>
                   }
-                  <div className="sm:flex-row flex-col gap-4 mt-10 flex">
+                  <div className="sm:flex-row pointer-events-none flex-col gap-4 mt-10 flex">
                     <button
                       type="button"
                       onClick={() => {
@@ -249,7 +249,7 @@ export default function Example({ subdomain }) {
                         });
                         router.push("/carrinho");
                       }}
-                      className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-red-600 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                      className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-red-600 bg-gray-600/30 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                     >
                       Alugar
                     </button>
@@ -262,7 +262,7 @@ export default function Example({ subdomain }) {
                           time: selectedTime,
                         });
                       }}
-                      className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-[#12bcc6]  py-3 px-8 text-base font-medium text-white hover:bg-[#0e858b]  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                      className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-[#12bcc6] bg-gray-600/30  py-3 px-8 text-base font-medium text-white hover:bg-[#0e858b]  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                     >
                       Adicionar ao carrinho
                     </button>

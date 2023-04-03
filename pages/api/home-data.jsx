@@ -20,6 +20,19 @@ export default async function handler(req, res) {
           }
           slug
         }
+        home_recomendados(where: {user: {franquia: {subdomain: {_eq: "${req.body.subdomain}"}}}}, order_by: {position:asc}) {
+          product {
+            product_image {
+              src
+            }
+            product_images {
+              src
+            }
+            slug
+            price_one
+            name
+          }
+        }
       }`,
     },
     {

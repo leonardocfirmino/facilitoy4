@@ -20,22 +20,22 @@ export default function HomeCarrousel2({ data }) {
           360: {
             slidesPerView: 2,
 
-            spaceBetween: 10,
+            spaceBetween: 50,
           },
           768: {
             slidesPerView: 2,
-            width: 600,
-            spaceBetween: 10,
+
+            spaceBetween: 50,
           },
-          1025: {
+          1200: {
             slidesPerView: 4,
-            width: 900,
-            spaceBetween: 20,
+
+            spaceBetween: 30,
           },
-          1400: {
+          1500: {
             slidesPerView: 4,
-            width: 1200,
-            spaceBetween: 20,
+
+            spaceBetween: 70,
           },
         }}
         className=" swiper-container  "
@@ -44,29 +44,35 @@ export default function HomeCarrousel2({ data }) {
           <SwiperSlide key={index}>
             <div className="relative">
               <a
-                href={product.href}
+                href={product.product.slug}
                 className="relative h-72 w-full overflow-hidden rounded-lg"
               >
                 <img
-                  src={product.image}
+                  src={
+                    product.product_image == null
+                      ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                        product.product_images[0].src
+                      : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                        product.product_image.src
+                  }
                   className="h-full w-full object-contain"
                 />
               </a>
               <div className="relative text-center mt-4">
                 <h3 className="text-sm font-medium h-12 text-gray-900">
-                  {product.name}
+                  {product.product.name}
                 </h3>
                 <p className="mt-1 text-sm font-semibold text-red-600">
-                  A partir de R${product.price},00
+                  A partir de R${product.product.price_one},00
                 </p>
               </div>
             </div>
             <div className="mt-6">
               <a
-                href={product.href}
+                href={product.product.slug}
                 className="relative cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-red-600 py-2 px-8 text-sm font-medium text-white hover:bg-red-500"
               >
-                Alugar<span className="sr-only">, {product.name}</span>
+                Alugar<span className="sr-only">, {product.product.name}</span>
               </a>
             </div>
           </SwiperSlide>

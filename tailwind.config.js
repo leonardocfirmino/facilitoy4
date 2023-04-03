@@ -10,6 +10,7 @@ module.exports = {
         faciRose: "#ffeff4",
         faciRed: "#ff2336",
         faciBlue: "#00d6de",
+        faciBabyBlue: "#b0f1f3",
       },
     },
   },

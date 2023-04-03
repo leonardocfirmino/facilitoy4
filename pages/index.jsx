@@ -18,6 +18,8 @@ import HomeCarrousel3 from "../components/home/carrousel3";
 import Steps from "../components/home/steps";
 import EmpresasCarrousel from "../components/home/empresas";
 import Astrolovers from "../components/home/astrolovers";
+import AgeBalls from "../components/home/AgeBalls";
+import { SyncLoader } from "react-spinners";
 
 const localeInfo = {
   // Options.jsx
@@ -51,117 +53,10 @@ const Blog = ({ subdomain }) => {
     );
 
   const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher);
-  const carrousel1 = [
-    {
-      image: "/carrousel-1/1.png",
-      name: "Jumperoo",
-    },
-    {
-      image: "/carrousel-1/2.png",
-      name: "Centro de atividades",
-    },
-    {
-      image: "/carrousel-1/3.png",
-      name: "Mamaroo",
-    },
-    {
-      image: "/carrousel-1/4.png",
-      name: "Tapete de atividades",
-    },
-    {
-      image: "/carrousel-1/5.png",
-      name: "Cercadinho",
-    },
-    {
-      image: "/carrousel-1/6.png",
-      name: "Mini veículo Elétrico",
-    },
-    {
-      image: "/carrousel-1/7.webp",
-      name: "Playground",
-    },
-    {
-      image: "/carrousel-1/8.webp",
-      name: "Cadeira bumbo",
-    },
-  ];
-  const carrousel2 = [
-    {
-      image: "/carrousel-2/1.jpeg",
-      name: "Torre de Carrinhos",
-      price: 89,
-      slug: "torre-de-carrinhos",
-    },
-    {
-      image: "/carrousel-2/2.png",
-      name: "Mesa Estação de Atividades (1)",
-      price: 89,
-      slug: "mega-estacao-de-carrinhos-1",
-    },
-    {
-      image: "/carrousel-2/3.jpeg",
-      name: "Play Urso (1)",
-      price: 119,
-      slug: "play-urso-1",
-    },
-    {
-      image: "/carrousel-2/4.jpg",
-      name: "Mega Estação Selva",
-      price: 89,
-      slug: "mega-estacao-selva",
-    },
-    {
-      image: "/carrousel-2/5.jpg",
-      name: "Cercadinho Playground Cinza (3)",
-      price: 109,
-      slug: "cercadinho-cinza",
-    },
-    {
-      image: "/carrousel-2/6.jpg",
-      name: "Escorrega de Plastico",
-      price: 79,
-      slug: "escorrega-plastico",
-    },
-    {
-      image: "/carrousel-2/7.jpg",
-      name: "Escorregador 2 degraus e gangorra",
-      price: 59,
-      slug: "escorregador-dois-degraus",
-    },
-    {
-      image: "/carrousel-2/8.jpg",
-      name: "Centro de atividades Summer Safari",
-      price: 89,
-      slug: "centro-safari",
-    },
-    {
-      image: "/carrousel-2/9.jpeg",
-      name: "Cama elastica colorida",
-      price: 160,
-      slug: "cama-elastica",
-    },
-    {
-      image: "/carrousel-2/10.jpg",
-      name: "Banheira dobravel azul",
-      price: 79,
-      slug: "banheira-dobravel",
-    },
-    {
-      image: "/carrousel-2/11.webp",
-      name: "Caminhão Food Truck",
-      price: 129,
-      slug: "caminhao-food-truck",
-    },
-    {
-      image: "/carrousel-2/12.jpg",
-      name: "Moto Elétrica azul",
-      price: 79.0,
-      slug: "moto-eletrica",
-    },
-  ];
+
   const empresas = [
     {
-      image: "/empresas/4moms.jpg",
+      image: "/empresas/4moms.png",
       name: "4 Moms",
     },
     {
@@ -173,7 +68,7 @@ const Blog = ({ subdomain }) => {
       name: "Cosco",
     },
     {
-      image: "/empresas/safety.jpg",
+      image: "/empresas/safety.png",
       name: "Safety",
     },
     {
@@ -205,18 +100,33 @@ const Blog = ({ subdomain }) => {
       name: "Vtech",
     },
   ];
+  if (data)
+    if (data.data.category == undefined) {
+      router.reload();
+    }
   return (
     <Layout subdomain={subdomain}>
       <div className="w-full h-full">
         <Hero1 />
-        {data && data.data.category.length > 0 && (
+        {data && data.data.category.length > 0 ? (
           <HomeCarrousel1 data={data.data.category} />
+        ) : (
+          <div className=" h-60 flex justify-center items-center">
+            <SyncLoader color="#ff2336" size={30} />
+          </div>
         )}
-        {data && data.data.product.length > 0 && (
+        {data && data.data.product.length > 0 ? (
           <HomeCarrousel2 data={data.data.product} />
+        ) : (
+          <div className=" h-60 flex justify-center items-center">
+            <SyncLoader color="#ff2336" size={30} />
+          </div>
         )}
         <Steps />
-        {/*  <HomeCarrousel3 data={carrousel2} /> */}
+        {data && data.data.home_recomendados.length > 0 && (
+          <HomeCarrousel3 data={data.data.home_recomendados} />
+        )}
+        <AgeBalls subdomain={subdomain} />
         <Razoes />
         <Sobre />
         <EmpresasCarrousel data={empresas} />

@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       process.env.HASURA_URL,
       {
         query: `mutation {
-        update_user_carrinho(where: {mercado_order_id: {_eq: "${orderStatus.body.metadata.id}"}}, _set: {status: "${orderStatus.body.status}"}) {
+        update_user_carrinho(where: {mercado_order_id: {_eq: "${orderStatus.body.metadata.id}"}}, _set: {payment_method: "${orderStatus.body.payment_type_id}",status: "${orderStatus.body.status}"}) {
           affected_rows
         }
        

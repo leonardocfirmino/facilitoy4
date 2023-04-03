@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Sobre() {
   return (
     <div
@@ -8,7 +10,7 @@ export default function Sobre() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1000 100"
-          fill="#f6fafb"
+          fill="#f3f4f6"
           preserveAspectRatio="none"
           style={{ width: "100%" }}
           className=" h-14 transform "
@@ -26,10 +28,16 @@ export default function Sobre() {
           QUEM SOMOS
         </h2>
       </div>
-      <div className="w-full flex flex-col lg:flex-row items-center justify-center px-2 gap-2 lg:gap-6 items-center pb-4">
-        <div className="h-[400px] lg:h-[500px]">
-          <img src="/QUEM_SOMOS new.png" className="w-full h-full" alt="" />
-        </div>
+      <div className="w-full pb-20 flex flex-col lg:flex-row items-center justify-center px-2 gap-2 lg:gap-6  ">
+        <Image
+          width={550}
+          quality={100}
+          height={400}
+          src="/sobre-png.png"
+          className=" rounded-full "
+          alt=""
+        />
+
         <div className="bg-white lg:w-[480px] px-8 py-8 text-sm lg:text-md rounded-xl  text-gray-500 flex flex-col gap-10 justify-center items-center">
           <p>
             Queremos transformar e facilitar a vida das mães, fazendo com que o

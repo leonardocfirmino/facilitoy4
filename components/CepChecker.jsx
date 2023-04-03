@@ -42,6 +42,7 @@ export default function CepChecker({ subdomain }) {
         "/api/cep-calc",
       {
         cep: cep.replace("-", ""),
+        subdomain: subdomain,
       }
     );
 

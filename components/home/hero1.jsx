@@ -37,6 +37,39 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
           <SwiperSlide>
             <div
               style={{
+                backgroundImage: "url('/hero-1/banner3.jpg')",
+              }}
+              className="w-full relative md:gap-4 bg-[#12bdc64b] justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center h-[80vh] md:h-[26rem] bg-cover "
+            >
+              <div className="flex flex-col justify-center  px-4 text-gray-700">
+                <h1 className="font-semibold uppercase text-xl">
+                  Alugue e economize até
+                </h1>
+                <div className=" gap-2 flex items-center justify-start text-4xl md:text-8xl ">
+                  <span className=" font-bold ">90</span>
+                  <p className="text-xl md:text-4xl font-semibold">%</p>
+                </div>
+                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-xl">
+                  <p>em relação ao valor de compra!</p>
+                </div>
+              </div>
+              <div className="flex items-end h-1/2 sm:h-full">
+                <img
+                  src="/banner_1 new.png"
+                  className="h-auto sm:h-full"
+                  alt=""
+                />
+              </div>
+              <Link href="/brinquedos">
+                <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
+                  ALUGAR
+                </a>
+              </Link>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div
+              style={{
                 backgroundImage: "url('/hero-1/banner1.jpg')",
                 backgroundPositon: "center",
               }}
@@ -121,39 +154,6 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
               </div>
               <div className="flex items-end h-3/4 sm:h-full">
                 <img src="/Jumper.png" className=" sm:h-full" alt="" />
-              </div>
-              <Link href="/brinquedos">
-                <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
-                  ALUGAR
-                </a>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              style={{
-                backgroundImage: "url('/hero-1/banner3.jpg')",
-              }}
-              className="w-full relative md:gap-4 bg-[#12bdc64b] justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center h-[80vh] md:h-[26rem] bg-cover "
-            >
-              <div className="flex flex-col justify-center  px-4 text-gray-700">
-                <h1 className="font-semibold uppercase text-xl">
-                  Alugue e economize até
-                </h1>
-                <div className=" gap-2 flex items-center justify-start text-4xl md:text-8xl ">
-                  <span className=" font-bold ">90</span>
-                  <p className="text-xl md:text-4xl font-semibold">%</p>
-                </div>
-                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-xl">
-                  <p>em relação ao valor de compra!</p>
-                </div>
-              </div>
-              <div className="flex items-end h-1/2 sm:h-full">
-                <img
-                  src="/banner_1 new.png"
-                  className="h-auto sm:h-full"
-                  alt=""
-                />
               </div>
               <Link href="/brinquedos">
                 <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">

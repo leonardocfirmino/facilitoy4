@@ -5,7 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 export default function Astrolovers() {
   return (
-    <div className="w-full lg:w-4/6 mx-auto pb-8 flex flex-col justify-center">
+    <div className="w-full lg:w-11/12 mx-auto pb-8 flex flex-col justify-center">
       <div className="w-full flex  uppercase  justify-center text-center items-center text-xl px-4 lg:text-3xl text-blue-400 font-semibold pb-10">
         <h2 className="text-center text-2xl font-bold tracking-tight text-blue-400 sm:text-3xl">
           NOSSOS ASTROLOVERS
@@ -33,7 +33,7 @@ export default function Astrolovers() {
 
               spaceBetween: 20,
             },
-            1300: {
+            1200: {
               slidesPerView: 4,
 
               spaceBetween: 20,

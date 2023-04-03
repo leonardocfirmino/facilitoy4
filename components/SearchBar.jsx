@@ -38,7 +38,7 @@ export default function SearchBar({ subdomain }) {
   };
 
   return (
-    <div className="relative order-4  lg:order-2 w-full max-w-3xl">
+    <div className="relative order-4  lg:order-2 w-full max-w-xl 2xl:max-w-3xl">
       <form method="GET" action="/brinquedos" className="flex ">
         <input
           type="text"

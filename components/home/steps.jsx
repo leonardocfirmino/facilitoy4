@@ -3,6 +3,9 @@ import { useRef } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import Xarrow from "react-xarrows";
 import Link from "next/link";
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 export default function Steps() {
   const steps = [
     {
@@ -27,13 +30,8 @@ export default function Steps() {
     },
     {
       text: "Devolva ou troque por outro brinquedo",
-      image: "/steps/5.webp",
-      tip: "Buscamos os brinquedos em sua casa, ou trocamos por uma nova e inesquecível diversão!",
-    },
-    {
-      text: "Sem preocupações",
       image: "/steps/6.webp",
-      tip: "Quando o prazo do seu aluguel terminar, não se preocupe! Você pode renovar ou pedir novos brinquedos com a gente. Se resolver alugar novos, o astronauta retira o antigo e já deixa o brinquedo novo com você.",
+      tip: "Buscamos os brinquedos em sua casa, ou trocamos por uma nova e inesquecível diversão!",
     },
   ];
   const box1 = useRef();
@@ -89,14 +87,17 @@ export default function Steps() {
         </h2>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 justify-center place-items-center pt-0 py-28  lg:w-4/6 ">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 justify-center place-items-center pt-0 py-28  lg:w-11/12 ">
         {steps.map((value, index) => {
           return (
             <div
               key={index}
               id={index + 1}
               data-tooltip-html={value.tip}
-              className="w-32 text-center gap-2 flex flex-col justify-center relative items-center"
+              className={classNames(
+                index == 4 && "col-span-2 lg:col-span-1",
+                "w-40 text-center gap-2 flex flex-col justify-between relative items-center"
+              )}
             >
               <ReactTooltip
                 anchorId={index + 1}
@@ -105,11 +106,13 @@ export default function Steps() {
 
               <img
                 ref={listBoxes[index]}
-                className={index == 4 ? "w-20 h-28 z-20" : "w-24 h-28 z-20"}
+                className={"w-24 h-28 z-20"}
                 src={value.image}
                 alt=""
               />
-              <h1 className="font-bold font-skranji z-20">{value.text}</h1>
+              <h1 className="font-semibold text-sm font-skranji z-20">
+                {value.text}
+              </h1>
             </div>
           );
         })}
@@ -118,58 +121,51 @@ export default function Steps() {
         <div className="hidden lg:flex">
           <Xarrow
             start={box1} //can be react ref
-            startAnchor="bottom"
-            endAnchor="top"
+            startAnchor="middle"
+            endAnchor="middle"
             dashness
+            _cpy1Offset={70}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4}
+            curveness={0.8}
             end={box2} //or an id
           />
           <Xarrow
             start={box2} //can be react ref
-            startAnchor="bottom"
-            endAnchor="top"
+            startAnchor="right"
+            endAnchor="left"
             dashness
+            _cpy1Offset={70}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4}
+            curveness={0.8}
             end={box3} //or an id
           />
           <Xarrow
             start={box3} //can be react ref
-            startAnchor="bottom"
-            endAnchor="top"
+            startAnchor="right"
+            endAnchor="left"
             dashness
+            _cpy1Offset={70}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={4}
+            curveness={0.8}
             end={box4} //or an id
           />
           <Xarrow
             start={box4} //can be react ref
-            startAnchor="bottom"
-            endAnchor="top"
+            startAnchor="right"
+            endAnchor="left"
             dashness
+            _cpy1Offset={70}
             color="rgba(131, 131, 131, 0.5)"
             path="smooth"
             showHead={false}
-            curveness={3}
+            curveness={0.8}
             end={box5} //or an id
-          />
-          <Xarrow
-            start={box5} //can be react ref
-            startAnchor="bottom"
-            endAnchor="top"
-            dashness
-            color="rgba(131, 131, 131, 0.5)"
-            path="smooth"
-            showHead={false}
-            curveness={4}
-            end={box6} //or an id
           />
         </div>
         <div className="flex lg:hidden">
@@ -219,17 +215,6 @@ export default function Steps() {
             path="smooth"
             showHead={false}
             end={box5} //or an id
-          />
-          <Xarrow
-            start={box5} //can be react ref
-            startAnchor="right"
-            endAnchor="left"
-            dashness
-            _cpy2Offset={25}
-            color="rgba(131, 131, 131, 0.5)"
-            path="smooth"
-            showHead={false}
-            end={box6} //or an id
           />
         </div>
       </div>

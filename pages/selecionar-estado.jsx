@@ -92,20 +92,17 @@ const SelectEstado = () => {
   ];
 
   return (
-    <div
-      className="w-full flex flex-col justify-center items-center  flex-1 h-screen bg-cover"
-      style={{
-        backgroundImage: "url('/fundo-estado.jpg')",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="w-full flex estadoClass  flex-col justify-center items-center  flex-1 h-screen bg-cover">
       {data && (
         <>
           <div className=" bg-faciRose z-30  px-6 mb-20 lg:min-w-[460px] py-4 rounded-2xl shadow-2xl">
             <div className="w-full flex justify-center">
               <img src="/logo.webp" className="w-52 h-28" alt="" />
             </div>
-
+            <div className="flex gap-1 font-semibold pt-4 pb-2 justify-center w-full items-center text-center">
+              <p className="text-[#d72b3e]">Aluguel de brinquedos</p>
+              <p className="text-[#d72b3e]">e acessórios infantis</p>
+            </div>
             {data && (
               <Select
                 /*    options={groupedOptions} */
@@ -129,6 +126,13 @@ const SelectEstado = () => {
                 /* formatGroupLabel={formatGroupLabel} */
               />
             )}
+
+            <button
+              onClick={() => sendToSite()}
+              className="hover:bg-[#1b7c80] transition-all duration-300 mt-4 bg-[#08b6bd] w-full rounded-full py-2 text-white font-bold"
+            >
+              Ir para o site
+            </button>
             <div className="w-full text-sm pt-2 flex justify-center items-center">
               <h2>
                 Não encontrou sua cidade? Seja um{" "}
@@ -139,16 +143,6 @@ const SelectEstado = () => {
                   franqueado Facilitoy!
                 </a>
               </h2>
-            </div>
-            <button
-              onClick={() => sendToSite()}
-              className="hover:bg-[#1b7c80] transition-all duration-300 mt-4 bg-[#08b6bd] w-full rounded-full py-2 text-white font-bold"
-            >
-              Ir para o site
-            </button>
-            <div className="flex gap-1 font-semibold pt-4 pb-2 justify-center w-full items-center text-center">
-              <p className="text-[#d72b3e]">Aluguel de brinquedos</p>
-              <p className="text-[#02d0da]">e acessórios infantis</p>
             </div>
           </div>
 
@@ -166,7 +160,7 @@ const SelectEstado = () => {
                   slidesPerView: 3,
                 },
                 1025: {
-                  slidesPerView: 4,
+                  slidesPerView: 7,
                 },
                 1400: {
                   slidesPerView: 7,
@@ -180,7 +174,7 @@ const SelectEstado = () => {
                     <a className="relative text-center  flex flex-col items-center justify-start  text-gray-600">
                       <img
                         src={value}
-                        className="w-64 h-32 sm:h-64 rounded-md object-cover"
+                        className="2xl:w-64 w-32 h-32 2xl:h-64 rounded-md object-cover"
                         alt=""
                       />
                     </a>

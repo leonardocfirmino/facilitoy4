@@ -8,6 +8,16 @@
   font-style: normal;
   src: url("../public/Skranji-Bold.ttf");
 }
+
+@media (min-width: 768px) {
+  .estadoClass {
+    background-image: url("/fundo-estado.jpg");
+    background-position: "center";
+  }
+}
+.estadoClass {
+  background-color: #aedfff;
+}
 .font-skranji {
   font-family: "Skranji";
 }

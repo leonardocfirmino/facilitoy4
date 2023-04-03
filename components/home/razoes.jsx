@@ -1,6 +1,6 @@
 export default function Razoes() {
   return (
-    <div id="razoes" className="relative w-full pb-10 bg-[#f6fafb]">
+    <div id="razoes" className="relative w-full pb-10 bg-gray-100">
       <div className="absolute z-10  -top-1 left-0 right-0 w-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"

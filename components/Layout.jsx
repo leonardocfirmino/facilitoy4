@@ -336,7 +336,7 @@ export default function Layout({ children, subdomain }) {
                       dúvidas frequentes
                     </a>
                   </Link>
-                  <Link href="#">
+                  <Link href="#razoes">
                     <a
                       className={
                         "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
@@ -356,31 +356,7 @@ export default function Layout({ children, subdomain }) {
                           d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                         />
                       </svg>
-                      faciliclub
-                    </a>
-                  </Link>
-                  <Link href="/#sobre">
-                    <a
-                      className={
-                        "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      }
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="mr-3 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        {" "}
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-                        />
-                      </svg>
-                      vale presente
+                      Por que alugar?
                     </a>
                   </Link>
                 </nav>
@@ -616,8 +592,8 @@ export default function Layout({ children, subdomain }) {
         </div>
         <main className="flex-1">{children}</main>
         <footer className=" divide-y bg-contain bg-[#12bcc6] text-gray-100">
-          <div className="container flex flex-col justify-center py-10 mx-auto gap-4 space-y-8 lg:flex-row lg:space-y-0">
-            <div className="lg:w-1/4">
+          <div className="w-11/12 flex flex-col items-center justify-center py-10 mx-auto gap-4 space-y-8 lg:flex-row lg:space-y-0">
+            <div className="">
               <a
                 rel="noopener noreferrer"
                 href="#"
@@ -628,53 +604,46 @@ export default function Layout({ children, subdomain }) {
                 </span>
               </a>
             </div>
+            <div className="space-y-3 text-sm">
+              <h3 className="tracking-wide uppercase font-bold dark:text-gray-50">
+                Empresa
+              </h3>
+              <ul className="space-y-1">
+                <li>
+                  <a rel="noopener noreferrer" href="#">
+                    Politica de Privacidade
+                  </a>
+                </li>
+                <li>
+                  <a rel="noopener noreferrer" href="#">
+                    Politica de reserva
+                  </a>
+                </li>
+                <li>
+                  <a rel="noopener noreferrer" href="#">
+                    Politica de cookies
+                  </a>
+                </li>
+                <li>
+                  <a rel="noopener noreferrer" href="#">
+                    Mundo Facilitoy
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 justify-center text-sm gap-x-3 gap-y-8 lg:w-2/4 ">
-              <div className="w-full flex gap-4 justify-center md:justify-start items-start  ">
-                <div className="space-y-3">
-                  <h3 className="tracking-wide uppercase font-bold dark:text-gray-50">
-                    Empresa
-                  </h3>
-                  <ul className="space-y-1">
-                    <li>
-                      <a rel="noopener noreferrer" href="#">
-                        Politica de Privacidade
-                      </a>
-                    </li>
-                    <li>
-                      <a rel="noopener noreferrer" href="#">
-                        Politica de reserva
-                      </a>
-                    </li>
-                    <li>
-                      <a rel="noopener noreferrer" href="#">
-                        Politica de cookies
-                      </a>
-                    </li>
-                    <li>
-                      <a rel="noopener noreferrer" href="#">
-                        Mundo Facilitoy
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex flex-col gap-4 ">
-                  <div className="flex gap-4">
-                    <img src="/selo_ffc.png" className="w-20 h-20" alt="" />
-                    <img
-                      src="/eu-reciclo-trans.png"
-                      className=" w-20 h-20 "
-                      alt=""
-                    />
-                  </div>
-                  <div className="w-full flex justify-center">
-                    <img src="/icons-pagamento.svg" className="w-40" alt="" />
-                  </div>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-center text-sm gap-x-3 gap-y-8  ">
+              <div className="flex  gap-4 ">
+                <img src="/selo_ffc.png" className="w-32 h-32" alt="" />
+                <img
+                  src="/eu-reciclo-trans.png"
+                  className=" w-32 h-32"
+                  alt=""
+                />
               </div>
 
               <div className="flex flex-col gap-4">
-                <div className="w-full flex flex-col lg:flex-row items-center lg:items-start gap-4 justify-center   ">
+                <div className="flex h-full flex-col  items-center  gap-4 justify-around   ">
                   <div className="text-center">
                     <h1 className="text-sm font-bold mb-4 text-white">
                       Nos encontre nas redes sociais
@@ -703,20 +672,14 @@ export default function Layout({ children, subdomain }) {
                       </div>
                     </div>
                   </div>
+                  <div className="w-full flex justify-center">
+                    <img src="/icons-pagamento.svg" className="w-40" alt="" />
+                  </div>
                 </div>
-
-                <h1 className="text-xs text-center font-bold mt-2 text-white">
-                  Se alguma foto de sua autoria estiver em nosso site e você
-                  desejar sua remoção ou registrar sua autoria, por favor envie
-                  um email para{" "}
-                  <a className="text-blue-600 underline">
-                    contato@facilitoy.com.br
-                  </a>{" "}
-                  que prontamente lhe atenderemos
-                </h1>
               </div>
             </div>
-            <div className=" shadow-xl flex rounded-xl  bg-white px-6 py-6 text-xl ">
+
+            <div className=" shadow-xl flex flex-col rounded-xl  bg-white px-4 py-4 text-xl ">
               <div className="space-y-2">
                 <h1 className="font-bold text-red-500 mb-2">Facilitoy</h1>
                 <h2 className="font-semibold text-red-500 flex text-sm items-center justify-start gap-1">
@@ -760,9 +723,20 @@ export default function Layout({ children, subdomain }) {
               </div>
             </div>
           </div>
-          <div className="py-6 bg-gray-100 w-full text-sm text-center text-black">
-            © Copyright 2022 Facilitoy - Todos os direitos reservados - CNPJ
-            26.369.719/0001-98
+          <div className="py-4 bg-gray-100 w-full text-sm text-center text-black">
+            <h1>
+              © Copyright 2022 Facilitoy - Todos os direitos reservados - CNPJ
+              26.369.719/0001-98
+            </h1>
+            <h1 className="text-[10px] text-center  text-black">
+              Se alguma foto de sua autoria estiver em nosso site e você desejar
+              sua remoção ou registrar sua autoria, por favor envie um email
+              para{" "}
+              <a className="text-blue-600 underline">
+                contato@facilitoy.com.br
+              </a>{" "}
+              que prontamente lhe atenderemos
+            </h1>
           </div>
         </footer>
       </div>

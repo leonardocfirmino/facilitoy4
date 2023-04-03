@@ -256,7 +256,7 @@ const Home = ({ sessions }) => {
                                     <Link
                                       legacyBehavior
                                       prefetch={false}
-                                      href={"/adm/category/" + value.id}
+                                      href={"/adm/pedidos/" + value.id}
                                     >
                                       <a className="text-indigo-600 hover:text-indigo-900">
                                         <svg

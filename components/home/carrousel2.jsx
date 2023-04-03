@@ -7,24 +7,26 @@ import "swiper/css/grid";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
+import Image from "next/image";
 export default function HomeCarrousel2({ data }) {
   const [slider, setSlider] = useState();
   const [slider2, setSlider2] = useState();
   const [data1, setData1] = useState([]);
   const [data2, setData2] = useState([]);
   if (data1.length == 0) {
-    setData1(data.slice(0, 6));
-    setData2(data.slice(6, data.length));
+    const meio = data.length / 2;
+    setData1(data.slice(0, meio));
+    setData2(data.slice(meio, data.length));
   }
 
   return (
-    <div className="w-full relative px-2 lg:w-4/6 mx-auto py-6">
-      <div className="border-b-2 mb-2">
-        <h1 className="text-red-600 -mb-[2px] text-3xl font-bold w-fit pb-4 border-red-600 border-b-2">
+    <div className=" relative px-2 w-full lg:w-11/12 mx-auto py-6">
+      <div className="w-full flex justify-center mb-2">
+        <h1 className="text-red-600 text-center text-2xl sm:text-3xl font-bold w-fit pb-4">
           BRINQUEDOS MAIS ALUGADOS!
         </h1>
       </div>
-      <div className="relative">
+      <div className="relative mb-4">
         <button
           className="absolute left-0 z-20 bottom-0 top-0"
           onClick={() => slider.slidePrev()}
@@ -44,7 +46,7 @@ export default function HomeCarrousel2({ data }) {
             />
           </svg>
         </button>
-        <div className="mx-6">
+        <div className="mx-8">
           <Swiper
             spaceBetween={10}
             onSwiper={(swiper) => setSlider(swiper)}
@@ -57,17 +59,17 @@ export default function HomeCarrousel2({ data }) {
               },
               768: {
                 slidesPerView: 2,
-                width: 600,
+
                 spaceBetween: 50,
               },
-              1025: {
+              1200: {
                 slidesPerView: 4,
-                width: 900,
-                spaceBetween: 70,
+
+                spaceBetween: 30,
               },
-              1400: {
+              1500: {
                 slidesPerView: 4,
-                width: 1200,
+
                 spaceBetween: 70,
               },
             }}
@@ -79,9 +81,13 @@ export default function HomeCarrousel2({ data }) {
                   <div className="relative">
                     <a
                       href={"/brinquedos/" + product.slug}
-                      className="relative h-72 w-full overflow-hidden rounded-lg"
+                      className="relative  object-scale-down rounded-lg"
                     >
-                      <img
+                      <Image
+                        width={256}
+                        height={256}
+                        alt={product.name}
+                        className=" "
                         src={
                           product.product_image == null
                             ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
@@ -89,7 +95,6 @@ export default function HomeCarrousel2({ data }) {
                             : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
                               product.product_image.src
                         }
-                        className="h-full w-full object-contain"
                       />
                     </a>
                     <div className="relative text-center mt-4">
@@ -153,7 +158,7 @@ export default function HomeCarrousel2({ data }) {
             />
           </svg>
         </button>
-        <div className="mx-6">
+        <div className="mx-8">
           <Swiper
             spaceBetween={10}
             onSwiper={(swiper) => setSlider2(swiper)}
@@ -166,17 +171,17 @@ export default function HomeCarrousel2({ data }) {
               },
               768: {
                 slidesPerView: 2,
-                width: 600,
+
                 spaceBetween: 50,
               },
-              1025: {
+              1200: {
                 slidesPerView: 4,
-                width: 900,
-                spaceBetween: 70,
+
+                spaceBetween: 30,
               },
-              1400: {
+              1500: {
                 slidesPerView: 4,
-                width: 1200,
+
                 spaceBetween: 70,
               },
             }}
@@ -188,9 +193,13 @@ export default function HomeCarrousel2({ data }) {
                   <div className="relative">
                     <a
                       href={"/brinquedos/" + product.slug}
-                      className="relative h-72 w-full overflow-hidden rounded-lg"
+                      className="relative  object-scale-down rounded-lg"
                     >
-                      <img
+                      <Image
+                        width={256}
+                        height={256}
+                        alt={product.name}
+                        className=" "
                         src={
                           product.product_image == null
                             ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
@@ -198,7 +207,6 @@ export default function HomeCarrousel2({ data }) {
                             : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
                               product.product_image.src
                         }
-                        className="h-full w-full object-contain"
                       />
                     </a>
                     <div className="relative text-center mt-4">
