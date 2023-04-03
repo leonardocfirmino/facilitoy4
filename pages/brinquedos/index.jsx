@@ -377,7 +377,7 @@ const IndexBrinquedo = ({ subdomain }) => {
               <Select
                 placeholder="Selecione uma categoria"
                 name="produto"
-                className="w-64"
+                className="sm:w-64"
                 required
                 onChange={(e) => {
                   setSelectValue(e);

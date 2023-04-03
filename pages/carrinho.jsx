@@ -28,7 +28,7 @@ const CarrinhoPage = ({ subdomain }) => {
     locale: "pt-BR",
   });
 
-  const getTotalPrice = () => {
+  const getTotalPrice = (data) => {
     const productValues = products.reduce(
       (accumulator, item) => accumulator + item.quantity * item.time.price,
       0
@@ -149,7 +149,7 @@ const CarrinhoPage = ({ subdomain }) => {
                         Valor total
                       </dt>
                       <dd className="text-base font-medium text-gray-900">
-                        R$ {getTotalPrice()}
+                        R$ {getTotalPrice(data)}
                       </dd>
                     </div>
                   </dl>

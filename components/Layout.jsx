@@ -145,220 +145,119 @@ export default function Layout({ children, subdomain }) {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div className="py-1">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={"/brinquedos?age=0a3"}
-                              >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
+                        <div
+                          className="py-1"
+                          onClick={() => {
+                            setMobileMenu(!mobileMenu);
+                          }}
+                        >
+                          {data &&
+                            data.data.faixa_etaria.map((value) => {
+                              return (
+                                <Menu.Item key={value.id}>
+                                  {({ active }) => (
+                                    <Link
+                                      legacyBehavior
+                                      prefetch={false}
+                                      href={`/brinquedos?age=${value.id}`}
+                                    >
+                                      <a
+                                        className={classNames(
+                                          active
+                                            ? "bg-gray-100 text-gray-900"
+                                            : "text-gray-700",
+                                          "block px-4 py-2 text-sm"
+                                        )}
+                                      >
+                                        {value.name}
+                                      </a>
+                                    </Link>
                                   )}
-                                >
-                                  0 a 3 meses
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={"/brinquedos?age=3a6"}
-                              >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
-                                  )}
-                                >
-                                  3 a 6 meses
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={"/brinquedos?age=6a9"}
-                              >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
-                                  )}
-                                >
-                                  6 a 9 meses
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={"/brinquedos?age=9a12"}
-                              >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
-                                  )}
-                                >
-                                  9 a 12 meses
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={"/brinquedos?age=1a2"}
-                              >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
-                                  )}
-                                >
-                                  1 a 2 anos
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={"/brinquedos?age=2a3"}
-                              >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
-                                  )}
-                                >
-                                  2 a 3 anos
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={"/brinquedos?age=3+"}
-                              >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
-                                  )}
-                                >
-                                  3 anos +
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
+                                </Menu.Item>
+                              );
+                            })}
                         </div>
                       </Menu.Items>
                     </Transition>
                   </Menu>
-                  <Link href="/#sobre">
-                    <a
-                      className={
-                        "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      }
+
+                  <a
+                    onClick={() => {
+                      setMobileMenu(!mobileMenu);
+                    }}
+                    href="/#sobre"
+                    className={
+                      "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="mr-3 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="mr-3 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
-                        />
-                      </svg>
-                      Quem somos
-                    </a>
-                  </Link>
-                  <Link href="/#faq">
-                    <a
-                      className={
-                        "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      }
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                      />
+                    </svg>
+                    Quem somos
+                  </a>
+
+                  <a
+                    href="/#faq"
+                    onClick={() => {
+                      setMobileMenu(!mobileMenu);
+                    }}
+                    className={
+                      "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="mr-3 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="mr-3 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
-                        />
-                      </svg>
-                      dúvidas frequentes
-                    </a>
-                  </Link>
-                  <Link href="#razoes">
-                    <a
-                      className={
-                        "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                      }
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                      />
+                    </svg>
+                    dúvidas frequentes
+                  </a>
+
+                  <a
+                    href="#razoes"
+                    onClick={() => {
+                      setMobileMenu(!mobileMenu);
+                    }}
+                    className={
+                      "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="mr-3 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="mr-3 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                        />
-                      </svg>
-                      Por que alugar?
-                    </a>
-                  </Link>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                      />
+                    </svg>
+                    Por que alugar?
+                  </a>
                 </nav>
               </div>
             </div>
@@ -402,11 +301,12 @@ export default function Layout({ children, subdomain }) {
           <div className="hidden xl:flex gap-2 lg:gap-4 py-6 container mx-auto md:flex-row md:items-center md:justify-center">
             <div className="flex lg:order-1 w-48 h-24  justify-center  items-center">
               <div>
-                <Link shallow={true} href="/">
-                  <a className="text-gray-800 text-xl font-bold md:text-2xl">
-                    <img src="/logo.webp" className=" " alt="" />
-                  </a>
-                </Link>
+                <a
+                  href="/"
+                  className="text-gray-800 text-xl font-bold md:text-2xl"
+                >
+                  <img src="/logo.webp" className=" " alt="" />
+                </a>
               </div>
             </div>
             <div className="flex lg:order-3 order-2 items-center gap-2">
@@ -479,11 +379,12 @@ export default function Layout({ children, subdomain }) {
               </button>
               <div className="flex lg:order-1 w-28 h-14 lg:w-48 lg:h-24 justify-center  items-center">
                 <div>
-                  <Link href="/">
-                    <a className="text-gray-800 text-xl font-bold md:text-2xl">
-                      <img src="/logo.webp" className=" " alt="" />
-                    </a>
-                  </Link>
+                  <a
+                    href="/"
+                    className="text-gray-800 text-xl font-bold md:text-2xl"
+                  >
+                    <img src="/logo.webp" className=" " alt="" />
+                  </a>
                 </div>
               </div>
               <div className="flex xl:order-3 order-2 items-center gap-2">
@@ -573,21 +474,27 @@ export default function Layout({ children, subdomain }) {
                 </Menu.Items>
               </Transition>
             </Menu>
-            <Link href="/#sobre">
-              <a className="py-3 hover:text-gray-400 duration-300 px-4">
-                QUem Somos
-              </a>
-            </Link>
-            <Link href="/#faq">
-              <a className="py-3 hover:text-gray-400 duration-300 px-4">
-                DÚVIDAS FREQUENTES
-              </a>
-            </Link>
-            <Link href="/#razoes">
-              <a className="py-3 hover:text-gray-400 duration-300 px-4">
-                Por que alugar?
-              </a>
-            </Link>
+
+            <a
+              href="/#sobre"
+              className="py-3 hover:text-gray-400 duration-300 px-4"
+            >
+              QUem Somos
+            </a>
+
+            <a
+              href="/#faq"
+              className="py-3 hover:text-gray-400 duration-300 px-4"
+            >
+              DÚVIDAS FREQUENTES
+            </a>
+
+            <a
+              href="/#razoes"
+              className="py-3 hover:text-gray-400 duration-300 px-4"
+            >
+              Por que alugar?
+            </a>
           </div>
         </div>
         <main className="flex-1">{children}</main>

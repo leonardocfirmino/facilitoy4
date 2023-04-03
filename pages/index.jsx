@@ -39,7 +39,7 @@ const localeInfo = {
 };
 const Blog = ({ subdomain }) => {
   const router = useRouter();
-
+  console.log(router);
   const [ages, setAges] = useState([]);
   const fetcher = async (query) =>
     axios.post(
@@ -108,14 +108,14 @@ const Blog = ({ subdomain }) => {
     <Layout subdomain={subdomain}>
       <div className="w-full h-full">
         <Hero1 />
-        {data && data.data.category.length > 0 ? (
+        {data && data.data.category?.length > 0 ? (
           <HomeCarrousel1 data={data.data.category} />
         ) : (
           <div className=" h-60 flex justify-center items-center">
             <SyncLoader color="#ff2336" size={30} />
           </div>
         )}
-        {data && data.data.product.length > 0 ? (
+        {data && data.data.product?.length > 0 ? (
           <HomeCarrousel2 data={data.data.product} />
         ) : (
           <div className=" h-60 flex justify-center items-center">
@@ -123,7 +123,7 @@ const Blog = ({ subdomain }) => {
           </div>
         )}
         <Steps />
-        {data && data.data.home_recomendados.length > 0 && (
+        {data && data.data.home_recomendados?.length > 0 && (
           <HomeCarrousel3 data={data.data.home_recomendados} />
         )}
         <AgeBalls subdomain={subdomain} />
@@ -137,7 +137,6 @@ const Blog = ({ subdomain }) => {
     </Layout>
   );
 };
-export default Blog;
 
 export async function getServerSideProps(ctx) {
   const subdomain =
@@ -160,3 +159,4 @@ export async function getServerSideProps(ctx) {
       };
   return { props: { subdomain: subdomain.split(".")[0] } };
 }
+export default Blog;
