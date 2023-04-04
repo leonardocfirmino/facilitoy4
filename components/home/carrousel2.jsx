@@ -78,7 +78,7 @@ export default function HomeCarrousel2({ data }) {
             {data1.length > 0 &&
               data1.map((product, index) => (
                 <SwiperSlide key={index}>
-                  <div className="relative">
+                  <div className="relative flex justify-center flex-col items-center">
                     <a
                       href={"/brinquedos/" + product.slug}
                       className="relative  object-scale-down rounded-lg"
@@ -190,7 +190,7 @@ export default function HomeCarrousel2({ data }) {
             {data2.length > 0 &&
               data2.map((product, index) => (
                 <SwiperSlide key={index}>
-                  <div className="relative">
+                  <div className="relative flex justify-center flex-col items-center">
                     <a
                       href={"/brinquedos/" + product.slug}
                       className="relative  object-scale-down rounded-lg"
