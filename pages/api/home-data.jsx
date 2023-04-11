@@ -1,17 +1,20 @@
 import axios from "axios";
 export default async function handler(req, res) {
+  const subdomain = req.headers.host.split(".")[0];
+  res.setHeader("Cache-Control", "s-maxage=86400");
   const response = await axios.post(
     process.env.HASURA_URL,
     {
       query: `{
-        category(where: {user: {franquia: {subdomain: {_eq: "${req.body.subdomain}"}}}}) {
+        category(where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}}) {
           name
           image_src
           id
         }
-        product(order_by: {carrinho_produtos_aggregate: {count: desc}}, where: {user: {franquia: {subdomain: {_eq: "${req.body.subdomain}"}}}, _and: {is_active: {_eq: true}}}) {
+        product(order_by: {carrinho_produtos_aggregate: {count: desc}}, where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}, _and: {is_active: {_eq: true}}}) {
           name
           price_one
+          is_unavailable
           product_image {
             src
           }
@@ -20,11 +23,12 @@ export default async function handler(req, res) {
           }
           slug
         }
-        home_recomendados(where: {user: {franquia: {subdomain: {_eq: "${req.body.subdomain}"}}}}, order_by: {position:asc}) {
+        home_recomendados(where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}}, order_by: {position:asc}) {
           product {
             product_image {
               src
             }
+            is_unavailable
             product_images {
               src
             }

@@ -160,7 +160,7 @@ const SelectEstado = () => {
                   slidesPerView: 3,
                 },
                 1025: {
-                  slidesPerView: 7,
+                  slidesPerView: 6,
                 },
                 1400: {
                   slidesPerView: 7,
@@ -174,7 +174,7 @@ const SelectEstado = () => {
                     <a className="relative text-center  flex flex-col items-center justify-start  text-gray-600">
                       <img
                         src={value}
-                        className="2xl:w-64 w-32 h-32 2xl:h-64 rounded-md object-cover"
+                        className="sm:w-48 sm:h-48 2xl:w-64 w-32 h-32 2xl:h-64 rounded-md object-cover"
                         alt=""
                       />
                     </a>

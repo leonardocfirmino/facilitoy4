@@ -1,5 +1,6 @@
 import axios from "axios";
 export default async function handler(req, res) {
+  res.setHeader("Cache-Control", "s-maxage=86400");
   const response = await axios.post(
     process.env.HASURA_URL,
     {

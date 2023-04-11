@@ -13,6 +13,7 @@ export default async function handler(req, res) {
           youtube_link
           name
           price_one
+          is_unavailable
           price_two
           price_three
           product_images {

@@ -88,7 +88,7 @@ const Home = ({ sessions }) => {
     Swal.fire({
       title: "Anotar",
       showCancelButton: true,
-      input: "text",
+      input: "textarea",
       cancelButtonText: "Cancelar",
       confirmButtonText: "Anotar",
       confirmButtonColor: "#CA8A04",
@@ -212,8 +212,8 @@ const Home = ({ sessions }) => {
                                     <img
                                       className="w-32  h-32"
                                       src={
-                                        value.carrinho_produtos[0].product
-                                          .product_images[0].src != undefined
+                                        value.carrinho_produtos[0]?.product
+                                          ?.product_images[0]?.src != undefined
                                           ? "https://space-facilitoy.sfo3.digitaloceanspaces.com/" +
                                             value.carrinho_produtos[0].product
                                               .product_images[0].src

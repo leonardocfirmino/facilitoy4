@@ -134,32 +134,34 @@ export default function CreateBanner({ sessions }) {
                     <tbody className="divide-y divide-gray-200 bg-white">
                       {data.user_carrinho[0].carrinho_produtos.map(
                         (value, index) => {
-                          return (
-                            <tr key={index}>
-                              <td className=" w-40 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                <p className="w-40">{value.product.name}</p>
-                              </td>
+                          if (value.product != null)
+                            return (
+                              <tr key={index}>
+                                <td className=" w-40 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                  <p className="w-40">{value.product.name}</p>
+                                </td>
 
-                              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                <img
-                                  className="w-32  h-40"
-                                  src={
-                                    value.product.product_images[0] != undefined
-                                      ? "https://space-facilitoy.sfo3.digitaloceanspaces.com/" +
-                                        value.product.product_images[0]?.src
-                                      : "/logo.webp"
-                                  }
-                                  alt=""
-                                />
-                              </td>
-                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                {value.quantity}
-                              </td>
-                              <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                {value.tempo}
-                              </td>
-                            </tr>
-                          );
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                  <img
+                                    className="w-32  h-40"
+                                    src={
+                                      value.product.product_images[0] !=
+                                      undefined
+                                        ? "https://space-facilitoy.sfo3.digitaloceanspaces.com/" +
+                                          value.product.product_images[0]?.src
+                                        : "/logo.webp"
+                                    }
+                                    alt=""
+                                  />
+                                </td>
+                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                  {value.quantity}
+                                </td>
+                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                  {value.tempo}
+                                </td>
+                              </tr>
+                            );
                         }
                       )}
                     </tbody>

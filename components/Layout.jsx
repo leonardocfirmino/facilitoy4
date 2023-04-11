@@ -20,12 +20,11 @@ export default function Layout({ children, subdomain }) {
   const router = useRouter();
   const session = useSession();
   const fetcher = async (url) =>
-    axios.post(
+    axios.get(
       process.env.NEXT_PUBLIC_PREFIX +
         (subdomain ? subdomain + "." : null) +
         process.env.NEXT_PUBLIC_SITE_URL +
-        url,
-      { subdomain: subdomain }
+        url
     );
   const { data, mutate } = useSWR("/api/get-home", fetcher);
   const callback =
@@ -499,7 +498,7 @@ export default function Layout({ children, subdomain }) {
         </div>
         <main className="flex-1">{children}</main>
         <footer className=" divide-y bg-contain bg-[#12bcc6] text-gray-100">
-          <div className="w-11/12 flex flex-col items-center justify-center py-10 mx-auto gap-4 space-y-8 lg:flex-row lg:space-y-0">
+          <div className="w-full px-10 lg:gap-10 flex flex-col items-center justify-center py-10 mx-auto gap-4 space-y-8 lg:flex-row lg:space-y-0">
             <div className="">
               <a
                 rel="noopener noreferrer"
@@ -539,48 +538,37 @@ export default function Layout({ children, subdomain }) {
               </ul>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 justify-center text-sm gap-x-3 gap-y-8  ">
-              <div className="flex  gap-4 ">
-                <img src="/selo_ffc.png" className="w-32 h-32" alt="" />
-                <img
-                  src="/eu-reciclo-trans.png"
-                  className=" w-32 h-32"
-                  alt=""
-                />
-              </div>
-
-              <div className="flex flex-col gap-4">
-                <div className="flex h-full flex-col  items-center  gap-4 justify-around   ">
-                  <div className="text-center">
-                    <h1 className="text-sm font-bold mb-4 text-white">
-                      Nos encontre nas redes sociais
-                    </h1>
-                    <div className="flex justify-center gap-4 items-center">
-                      <div className=" transition-all duration-300 cursor-pointer  rounded-full">
-                        <img
-                          src="/icons/facebook.png"
-                          className="invert w-8 h-8"
-                          alt=""
-                        />
-                      </div>
-                      <div className=" transition-all duration-300 cursor-pointer  rounded-full ">
-                        <img
-                          src="/icons/instagram.png"
-                          className="invert w-8 h-8"
-                          alt=""
-                        />
-                      </div>
-                      <div className="  transition-all duration-300 cursor-pointer  rounded-full">
-                        <img
-                          src="/icons/youtube.png"
-                          className="invert w-8 h-8"
-                          alt=""
-                        />
-                      </div>
+            <div className="flex justify-center">
+              <img src="/eu-reciclo-trans.png" className=" w-40 h-40" alt="" />
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="flex h-full   items-center  gap-4 justify-center  ">
+                <div className="text-center">
+                  <h1 className="text-sm font-bold mb-4 text-white">
+                    Nos encontre nas redes sociais
+                  </h1>
+                  <div className="flex justify-center gap-4 items-center">
+                    <div className=" transition-all duration-300 cursor-pointer  rounded-full">
+                      <img
+                        src="/icons/facebook.png"
+                        className="invert w-8 h-8"
+                        alt=""
+                      />
                     </div>
-                  </div>
-                  <div className="w-full flex justify-center">
-                    <img src="/icons-pagamento.svg" className="w-40" alt="" />
+                    <div className=" transition-all duration-300 cursor-pointer  rounded-full ">
+                      <img
+                        src="/icons/instagram.png"
+                        className="invert w-8 h-8"
+                        alt=""
+                      />
+                    </div>
+                    <div className="  transition-all duration-300 cursor-pointer  rounded-full">
+                      <img
+                        src="/icons/youtube.png"
+                        className="invert w-8 h-8"
+                        alt=""
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -651,11 +639,7 @@ export default function Layout({ children, subdomain }) {
         href="https://web.whatsapp.com/"
         className="fixed bottom-5 z-50 right-5 duration-300 hover:scale-110"
       >
-        <img
-          src="/pngwing.com.png"
-          className="w-10 h-10 sm:w-16 sm:h-16 "
-          alt=""
-        />
+        <img src="/pngwing.com.png" className="w-16 h-16 " alt="" />
       </a>
     </div>
   );

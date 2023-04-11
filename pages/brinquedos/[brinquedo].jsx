@@ -20,6 +20,9 @@ import ReactPlayer from "react-player/youtube";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+function classOrganizer(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export default function Example({ subdomain }) {
   const session = useSession();
@@ -128,7 +131,7 @@ export default function Example({ subdomain }) {
                 className="flex flex-col-reverse"
               >
                 {/* Image selector */}
-                <div className="mx-auto mt-6  w-full max-w-2xl sm:block lg:max-w-none">
+                <div className="mx-auto mt-6   w-full max-w-2xl sm:block lg:max-w-none">
                   <Tab.List className="grid grid-cols-4 gap-6">
                     {data &&
                       product.product_images.map((image, index) => (
@@ -183,9 +186,15 @@ export default function Example({ subdomain }) {
 
               {/* Product info */}
               <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                  {product.name}
-                </h1>
+                <div className="flex flex-col lg:flex-row gap-2 items-center">
+                  <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                    {product.name}
+                  </h1>
+
+                  {product.is_unavailable && (
+                    <h2 className="mt-2"> - Brinquedo indisponível</h2>
+                  )}
+                </div>
 
                 <form className="mt-6 ">
                   <div className="">
@@ -238,7 +247,12 @@ export default function Example({ subdomain }) {
                       <CepChecker subdomain={subdomain} />
                     </div>
                   }
-                  <div className="sm:flex-row pointer-events-none flex-col gap-4 mt-10 flex">
+                  <div
+                    className={classOrganizer(
+                      product.is_unavailable && "pointer-events-none",
+                      "sm:flex-row pointer-events-none flex-col gap-4 mt-10 flex"
+                    )}
+                  >
                     <button
                       type="button"
                       onClick={() => {
@@ -249,7 +263,12 @@ export default function Example({ subdomain }) {
                         });
                         router.push("/carrinho");
                       }}
-                      className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-red-600 bg-gray-600/30 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                      className={classOrganizer(
+                        product.is_unavailable
+                          ? "bg-gray-600/30"
+                          : "bg-gray-600/30",
+                        "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent  bg-gray-600/30 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                      )}
                     >
                       Alugar
                     </button>
@@ -262,7 +281,12 @@ export default function Example({ subdomain }) {
                           time: selectedTime,
                         });
                       }}
-                      className="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent  bg-gray-600/30  py-3 px-8 text-base font-medium text-white hover:bg-[#0e858b]  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                      className={classOrganizer(
+                        product.is_unavailable
+                          ? "bg-gray-600/30"
+                          : "bg-gray-600/30",
+                        "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent  bg-gray-600/30  py-3 px-8 text-base font-medium text-white hover:bg-[#0e858b]  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                      )}
                     >
                       Adicionar ao carrinho
                     </button>

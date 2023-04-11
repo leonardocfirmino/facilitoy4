@@ -54,7 +54,7 @@ const Home = ({ sessions }) => {
     );
   const { data, mutate } = useSWR(
     `{
-      cep_user {
+      cep_user(order_by:{bairro:asc}) {
         id
         cidade
         bairro
@@ -133,7 +133,7 @@ const Home = ({ sessions }) => {
                         </svg>
                         {value.cidade}
                       </h1>
-                      <ul role="list" className="">
+                      <ul role="list" className="max-h-[400px] overflow-y-auto">
                         {value.bairros.map((bairro) => (
                           <li
                             key={bairro.nome}
@@ -172,22 +172,6 @@ const Home = ({ sessions }) => {
                     </div>
                   );
                 })}
-              </div>
-            </div>
-            <div className="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
-              <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-end px-4">
-                <div>
-                  {data && (
-                    <Pagination
-                      locale={localeInfo}
-                      onChange={onChange}
-                      hideOnSinglePage={true}
-                      current={pagination}
-                      pageSize={100}
-                      total={data.cep_user_aggregate.aggregate.count}
-                    />
-                  )}
-                </div>
               </div>
             </div>
           </div>

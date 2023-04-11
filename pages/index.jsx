@@ -41,18 +41,16 @@ const Blog = ({ subdomain }) => {
   const router = useRouter();
   console.log(router);
   const [ages, setAges] = useState([]);
-  const fetcher = async (query) =>
-    axios.post(
-      process.env.NEXT_PUBLIC_PREFIX +
-        subdomain +
-        "." +
-        process.env.NEXT_PUBLIC_SITE_URL +
-        "/api/home-data",
-      query,
-      {}
-    );
+  const fetcher = async (query) => axios.get(query, {});
 
-  const { data, mutate } = useSWR({ subdomain: subdomain }, fetcher);
+  const { data, mutate } = useSWR(
+    process.env.NEXT_PUBLIC_PREFIX +
+      subdomain +
+      "." +
+      process.env.NEXT_PUBLIC_SITE_URL +
+      "/api/home-data",
+    fetcher
+  );
 
   const empresas = [
     {

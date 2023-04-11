@@ -17,6 +17,7 @@ export default async function handler(req, res) {
           category {
             name
           }
+          is_unavailable
           is_active
           name
           product_images {

@@ -130,7 +130,7 @@ export default function CreateBanner({ sessions }) {
           </div>
           <form
             onSubmit={(form) => sendBanner(form)}
-            className=" w-full h-full"
+            className="min-h-[500px] w-full h-full"
           >
             <div className="w-full  items-start">
               <div className="w-full   flex flex-col justify-center pb-4">
