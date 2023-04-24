@@ -9,10 +9,12 @@ import { useRouter } from "next/router";
 import CepChecker from "../components/CepChecker";
 import useSWR from "swr";
 import Recomendados from "../components/Recomendados";
+import Cupon from "../components/Cupon";
+import { useState } from "react";
 const CarrinhoPage = ({ subdomain }) => {
   const session = useSession();
   const router = useRouter();
-
+  const [cupon, setCupon] = useState();
   const products = useSelector((state) => state.cart);
   const cep = useSelector((state) => state.cep);
   const fetcher = async (query) => axios.post("/api/get-franquia", query);
@@ -58,6 +60,11 @@ const CarrinhoPage = ({ subdomain }) => {
         products: products,
         subdomain: subdomain,
         cep: cep,
+        cupon: {
+          discount: cuponDiscount(cupon),
+          code: cupon?.code,
+          id: cupon?.id,
+        },
         total: getTotalPrice() - cep.value,
       }
     );
@@ -88,9 +95,11 @@ const CarrinhoPage = ({ subdomain }) => {
           frete_value: "${cep.value}", 
           cep: "${cep.cep}", 
           franquia_id: "${response.data.franquia_id}",
+          cupon_users: {data: {cupon_id: "${cupon.id}"}},
           carrinho_produtos: {data: ${finalProducts}}}) {
             id
           }
+
       }`,
       },
 
@@ -101,6 +110,13 @@ const CarrinhoPage = ({ subdomain }) => {
       }
     );
     checkout.open();
+  };
+  const cuponDiscount = (cupon) => {
+    if (cupon == undefined) return 0;
+    if (cupon.is_percentage == true) {
+      return (getTotalPrice(data) * (cupon.discount / 100)).toFixed(2);
+    }
+    return cupon.discount;
   };
   return (
     <Layout subdomain={subdomain}>
@@ -137,19 +153,63 @@ const CarrinhoPage = ({ subdomain }) => {
             <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
               <CepChecker subdomain={subdomain} />
             </div>
+            <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
+              <Cupon cupon={cupon} products={products} setCupon={setCupon} />
+            </div>
             {/* Order summary */}
             <div className="mt-10  ">
               <div className="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
                 <h2 className="sr-only">Order summary</h2>
 
                 <div className="flow-root">
+                  {products.length > 0 && (
+                    <dl className="-my-4 divide-y divide-gray-200 text-sm">
+                      <div className="flex items-center justify-between py-4">
+                        <dt className="text-base font-medium text-gray-900">
+                          Brinquedos
+                        </dt>
+                        <dd className="text-base font-medium text-gray-900">
+                          R${" "}
+                          {products.reduce(
+                            (accumulator, item) =>
+                              accumulator + item.quantity * item.time.price,
+                            0
+                          )}
+                        </dd>
+                      </div>
+                    </dl>
+                  )}
+                  {cep != undefined && (
+                    <dl className="-my-4 divide-y divide-gray-200 text-sm">
+                      <div className="flex items-center justify-between py-4">
+                        <dt className="text-base font-medium text-gray-900">
+                          Frete
+                        </dt>
+                        <dd className="text-base font-medium text-gray-900">
+                          R$ {cep.value}
+                        </dd>
+                      </div>
+                    </dl>
+                  )}
+                  {cupon != undefined && (
+                    <dl className="-my-4 divide-y divide-gray-200 text-sm">
+                      <div className="flex items-center justify-between py-4">
+                        <dt className="text-base font-medium text-gray-900">
+                          Desconto aplicado
+                        </dt>
+                        <dd className="text-base font-medium text-gray-900">
+                          - R$ {cuponDiscount(cupon)}
+                        </dd>
+                      </div>
+                    </dl>
+                  )}
                   <dl className="-my-4 divide-y divide-gray-200 text-sm">
                     <div className="flex items-center justify-between py-4">
                       <dt className="text-base font-medium text-gray-900">
                         Valor total
                       </dt>
                       <dd className="text-base font-medium text-gray-900">
-                        R$ {getTotalPrice(data)}
+                        R$ {getTotalPrice(data) - cuponDiscount(cupon)}
                       </dd>
                     </div>
                   </dl>

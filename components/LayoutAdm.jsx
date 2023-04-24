@@ -3,9 +3,63 @@ import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { PulseLoader } from "react-spinners";
+import useSWR from "swr";
+import request from "graphql-request";
+
+import Notification from "./Notification";
 export default function LayoutAdm({ children, session }) {
   const router = useRouter();
+  const user = session;
 
+  const fetcher = async (query) =>
+    request(
+      process.env.NEXT_PUBLIC_PREFIX +
+        process.env.NEXT_PUBLIC_SITE_URL +
+        "/api/userQuery",
+      query,
+      {},
+      { authorization: `Bearer ${user.token}` }
+    );
+
+  const { data, mutate } = useSWR(
+    `{
+    
+    user_carrinho(where: {is_notify:{_eq:true}, _and:{status:{_eq:"approved"}}}, order_by: {created_at: desc}){
+      created_at
+      cep
+      id
+      frete_value
+      mercado_order_id
+      status
+      is_notify
+      total
+      anotacao
+      user {
+        name
+        email
+      }
+      carrinho_produtos {
+        product {
+          product_images {
+            src
+          }
+        }
+      }
+    }
+
+    user_carrinho_aggregate(where: {is_notify:{_eq:true}, _and:{status:{_eq:"approved"}}}, order_by: {created_at: desc}) {
+      aggregate {
+        count
+      }
+    }
+  }`,
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
   const [mobileMenu, setMobileMenu] = useState(false);
   const [actualMenu, setActualMenu] = useState(router.pathname);
 
@@ -333,6 +387,34 @@ export default function LayoutAdm({ children, session }) {
                   Cep
                 </a>
               </Link>
+              <Link href="/adm/cupom">
+                <a
+                  onClick={() => {
+                    setActualMenu("/adm/cupom");
+                  }}
+                  className={
+                    actualMenu == "/adm/cupom"
+                      ? "bg-gray-900 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                  }
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 mr-3 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+                    />
+                  </svg>
+                  Cupons
+                </a>
+              </Link>
               <Link href="/adm/configuracao">
                 <a
                   onClick={() => {
@@ -414,6 +496,17 @@ export default function LayoutAdm({ children, session }) {
               />
             </svg>
           </button>
+        </div>
+        <div className="">
+          <div className="sticky top-0 z-40  justify-end flex py-5  gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm w-full lg:mx-auto  lg:px-10">
+            {data && (
+              <Notification
+                total={data.user_carrinho_aggregate.aggregate.count}
+                pedidos={data.user_carrinho}
+                user={user}
+              />
+            )}
+          </div>
         </div>
         <main className="flex-1">{children}</main>
       </div>

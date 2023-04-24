@@ -29,6 +29,7 @@ export default async function handler(req, res) {
   });
   const items = req.body.products.map((value) => {
     return {
+      id: value.product.id,
       title: value.product.name,
       quantity: value.quantity,
       currency_id: "BRL",
@@ -38,7 +39,17 @@ export default async function handler(req, res) {
   });
   const idPay = uuidv4();
   var preference = {
-    items: items,
+    items: [
+      ...items,
+      {
+        id: req.body.cupon.id,
+        title: req.body.cupon.code,
+        quantity: 1,
+        currency_id: "BRL",
+
+        unit_price: Math.abs(req.body.cupon.discount) * -1,
+      },
+    ],
 
     notification_url:
       process.env.NEXT_PUBLIC_PREFIX +
@@ -46,6 +57,7 @@ export default async function handler(req, res) {
       process.env.NEXT_PUBLIC_SITE_URL +
       "/api/mpago-webhook",
     metadata: { id: idPay },
+
     shipments: {
       cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",

@@ -235,7 +235,7 @@ export default function CepChecker({ subdomain }) {
             )}
           </div>
         </RadioGroup>
-        <div className="w-full justify-center flex bg-green-400 font-bold text-white py-2 mt-2 rounded-md">
+        <div className="w-full justify-center flex bg-blue-500 font-bold text-white py-2 mt-2 rounded-md">
           Frete grátis em compras acima de R${" "}
           {data?.data.franquia[0].frete_gratis_min}
         </div>
