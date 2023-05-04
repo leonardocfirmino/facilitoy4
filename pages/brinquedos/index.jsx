@@ -148,14 +148,16 @@ const IndexBrinquedo = ({ subdomain }) => {
           backgroundImage: "url('/ROSA-aviao.jpg')",
           backgroundPosition: "top",
         }}
-        className="w-full py-20 flex justify-center items-center bg-cover"
+        className="w-full py-10 lg:py-20 flex justify-center items-center bg-cover"
       >
-        <div className="lg:w-4/6 py-20">
-          <h1 className="text-6xl text-gray-800 font-bold">Brinquedos</h1>
+        <div className="lg:w-4/6 py-10 lg:py-20">
+          <h1 className="text-4xl lg:text-6xl text-gray-800 font-bold">
+            Brinquedos
+          </h1>
         </div>
       </div>
-      <div className="py-8">
-        <div className="mb-4  w-11/12 mx-auto">
+      <div className="py-8 flex flex-col">
+        <div className="mb-4 order-3 mt-4 lg:mt-0 lg:order-1  w-11/12 mx-auto">
           {data && (
             <Swiper
               spaceBetween={2}
@@ -163,6 +165,7 @@ const IndexBrinquedo = ({ subdomain }) => {
               breakpoints={{
                 360: {
                   slidesPerView: 2.8,
+                  spaceBetween: 10,
                 },
                 768: {
                   slidesPerView: ages.length >= 7 ? 7 : ages.length,
@@ -350,7 +353,7 @@ const IndexBrinquedo = ({ subdomain }) => {
             </div>
           </div>
         </Disclosure>
-        <div className="w-4/6 mx-auto py-6 flex justify-between items-center">
+        <div className="w-4/6  mx-auto py-6 flex justify-between items-center">
           <h2>
             Início / <span className="font-semibold">Brinquedos</span>
           </h2>
@@ -386,11 +389,11 @@ const IndexBrinquedo = ({ subdomain }) => {
                           />
                         </div>
                         <div className="pt-10 pb-4 text-center">
-                          <h3 className="text-sm font-medium text-gray-900">
+                          <h3 className="text-sm h-10 font-medium text-gray-900">
                             <a href={"/brinquedos/" + product.slug}>
                               <span
                                 aria-hidden="true"
-                                className="absolute inset-0"
+                                className="absolute  inset-0"
                               />
                               {product.name}
                             </a>
