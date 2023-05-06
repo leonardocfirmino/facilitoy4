@@ -8,7 +8,36 @@
   font-style: normal;
   src: url("../public/Skranji-Bold.ttf");
 }
-
+.back-branco {
+  background-image: url("/hero-1/branco desktop.jpg");
+  background-position: center;
+}
+@media (max-width: 1024px) {
+  .back-branco {
+    background-image: url("/hero-1/branco mobile.jpg");
+    background-position: top;
+  }
+}
+.back-rosa {
+  background-image: url("/hero-1/rosa desktop.jpg");
+  background-position: center;
+}
+@media (max-width: 1024px) {
+  .back-rosa {
+    background-image: url("/hero-1/rosa mobile.jpg");
+    background-position: top;
+  }
+}
+.back-azul {
+  background-image: url("/hero-1/azul desktop.jpg");
+  background-position: center;
+}
+@media (max-width: 1024px) {
+  .back-azul {
+    background-image: url("/hero-1/azul mobile.jpg");
+    background-position: top;
+  }
+}
 @media (min-width: 768px) {
   .estadoClass {
     background-image: url("/fundo-estado.jpg");

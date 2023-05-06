@@ -35,31 +35,7 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
           className="w-full swiper-container  "
         >
           <SwiperSlide>
-            <div
-              style={{
-                backgroundImage: "url('/hero-1/banner3.jpg')",
-              }}
-              className="w-full relative md:gap-4 bg-[#12bdc64b] justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center h-[80vh] md:h-[26rem] bg-cover "
-            >
-              <div className="flex flex-col justify-center  px-4 text-gray-700">
-                <h1 className="font-semibold uppercase text-xl">
-                  Alugue e economize até
-                </h1>
-                <div className=" gap-2 flex items-center justify-start text-4xl md:text-8xl ">
-                  <span className=" font-bold ">90</span>
-                  <p className="text-xl md:text-4xl font-semibold">%</p>
-                </div>
-                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-xl">
-                  <p>em relação ao valor de compra!</p>
-                </div>
-              </div>
-              <div className="flex items-end h-1/2 sm:h-full">
-                <img
-                  src="/banner_1 new.png"
-                  className="h-auto sm:h-full"
-                  alt=""
-                />
-              </div>
+            <div className="w-full h-[55vh] sm:h-[70vh] lg:h-[26rem] 2xl:h-[38rem] back-branco relative bg-center md:gap-4 bg-[#12bdc64b] justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center   bg-cover ">
               <Link href="/brinquedos">
                 <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
                   ALUGAR
@@ -68,25 +44,7 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div
-              style={{
-                backgroundImage: "url('/hero-1/banner1.jpg')",
-                backgroundPositon: "center",
-              }}
-              className="w-full relative gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[80vh] md:h-[26rem] bg-cover "
-            >
-              <div className="text-4xl  flex flex-col justify-center text-gray-700 font-bold px-4 text-center lg:text-left ">
-                <h1 className="  ">Aluguel de brinquedos</h1>
-
-                <h1 className="  ">e acessórios infantis</h1>
-              </div>
-              <div className="flex items-end  sm:h-full">
-                <img
-                  src="/hero-1/mamaro.png"
-                  className=" h-auto sm:h-full"
-                  alt=""
-                />
-              </div>
+            <div className="w-full h-[55vh] sm:h-[70vh] lg:h-[26rem] 2xl:h-[38rem] back-rosa relative gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center bg-cover ">
               <Link href="/brinquedos">
                 <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
                   ALUGAR
@@ -95,66 +53,7 @@ c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div
-              style={{
-                backgroundImage: "url('/hero-1/banner2.jpg')",
-                backgroundPositon: "bottom",
-              }}
-              className="w-full relative  gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center  h-[80vh] md:h-[26rem] bg-cover "
-            >
-              <div className="max-w-sm  flex flex-col justify-center px-4">
-                <h1 className="font-bold text-xl md:text-3xl">
-                  Os melhores brinquedos para quem quer:
-                </h1>
-                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-lg sm:text-2xl">
-                  <span className="text-red-500">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={4}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                      />
-                    </svg>
-                  </span>
-                  <p>Diversão para os pequenos</p>
-                </div>
-                <div className="mt-2 gap-2 flex items-center justify-start font-semibold text-lg sm:text-2xl">
-                  <span className="text-red-500">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={4}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 12h-15"
-                      />
-                    </svg>
-                  </span>
-
-                  <p>Gastos para os adultos</p>
-                </div>
-                <p className="mt-6 font-semibold text-sm md:text-base">
-                  Você não precisa gastar muito dinheiro para proporcionar
-                  experiências incríveis na vida do seu filho. Alugue nossos
-                  brinquedos de forma fácil, rápida e acessível, pelo tempo
-                  certo que ele irá usar.
-                </p>
-              </div>
-              <div className="flex items-end h-3/4 sm:h-full">
-                <img src="/Jumper.png" className=" sm:h-full" alt="" />
-              </div>
+            <div className="w-full h-[55vh] sm:h-[70vh] lg:h-[26rem] 2xl:h-[38rem] back-azul relative  gap-4 justify-between sm:justify-center flex-col pt-4 md:pt-0 md:flex-row flex items-center   bg-cover ">
               <Link href="/brinquedos">
                 <a className="absolute bottom-0 duration-300 hover:scale-125 text-white px-14 py-4 bg-red-500 rounded-t-md font-bold">
                   ALUGAR
