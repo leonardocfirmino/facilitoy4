@@ -1,11 +1,11 @@
 import axios from "axios";
 export default async function handler(req, res) {
-  console.log(req.body);
+  const subdomain = req.headers.host.split(".")[0];
   const response = await axios.post(
     process.env.HASURA_URL,
     {
       query: `{
-        product(where: {slug: {_eq: "${req.body.slug}"}, _and: {is_active: {_eq: true}}}) {
+        product(where: {slug: {_eq: "${req.body.slug}"}, _and: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}, _and: {is_active: {_eq: true}}}}) {
           details
           description
           created_at

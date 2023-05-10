@@ -3,6 +3,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Image from "next/image";
 function classOrganizer(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -56,7 +57,11 @@ export default function HomeCarrousel2({ data }) {
                   href={product.product.slug}
                   className="relative h-72 w-full overflow-hidden rounded-lg"
                 >
-                  <img
+                  <Image
+                    width={256}
+                    height={256}
+                    alt={product.name}
+                    className=" "
                     src={
                       product.product.product_image == null
                         ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
@@ -64,7 +69,6 @@ export default function HomeCarrousel2({ data }) {
                         : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
                           product.product.product_image.src
                     }
-                    className="h-full w-full object-contain"
                   />
                 </a>
                 <div className="relative text-center mt-4">
