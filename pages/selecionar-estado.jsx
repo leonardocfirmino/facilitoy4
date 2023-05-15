@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 const SelectEstado = () => {
   const router = useRouter();
+  const [franquias, setFranquias] = useState(null);
   const [estado, setEstado] = useState();
   const fetcher = async (query) =>
     axios.get(
@@ -39,40 +40,6 @@ const SelectEstado = () => {
     textAlign: "center",
   };
 
-  /* const formatGroupLabel = (data) => (
-    <div style={groupStyles}>
-      <span>{data.label}</span>
-      <span style={groupBadgeStyles}>{data.options.length}</span>
-    </div>
-  );
-  const groupedOptions = [
-    {
-      label: "RJ",
-      options: [
-        {
-          label: "Cabo Frio",
-          value: "cabo-frio",
-        },
-        {
-          label: "Rio de Janeiro - Zona Norte",
-          value: "rjzonanorte",
-        },
-      ],
-    },
-    {
-      label: "SP",
-      options: [
-        {
-          label: "Araçatuba",
-          value: "aracatuba",
-        },
-        {
-          label: "São Paulo",
-          value: "sao-paulo",
-        },
-      ],
-    },
-  ]; */
   const sendToSite = () => {
     router.push(
       `${process.env.NEXT_PUBLIC_PREFIX}${estado.value}.${process.env.NEXT_PUBLIC_SITE_URL}`
@@ -90,7 +57,36 @@ const SelectEstado = () => {
     "/footer-estado/9.jpeg",
     "/footer-estado/10.jpeg",
   ];
+  if (data && franquias == null) {
+    const SP = data.data.franquia
+      .map((value) => {
+        if (value.estado == "SP") {
+          if (value.subdomain == "rio-das-ostras")
+            return { label: value.name, value: "roemacae" };
+          if (value.subdomain == "roemacae")
+            return { label: "Macaé", value: "roemacae" };
+          return { label: value.name, value: value.subdomain };
+        }
+      })
+      .filter((item) => !!item);
+    const RJ = data.data.franquia
+      .map((value) => {
+        if (value.estado == "RJ") {
+          if (value.subdomain == "rio-das-ostras")
+            return { label: value.name, value: "roemacae" };
+          if (value.subdomain == "roemacae")
+            return { label: "Macaé", value: "roemacae" };
+          return { label: value.name, value: value.subdomain };
+        }
+        return false;
+      })
+      .filter((item) => !!item);
 
+    setFranquias([
+      { label: "SP", options: SP },
+      { label: "RJ", options: RJ },
+    ]);
+  }
   return (
     <div className="w-full flex estadoClass  flex-col justify-center items-center  flex-1 h-screen bg-cover">
       {data && (
@@ -105,14 +101,7 @@ const SelectEstado = () => {
             </div>
             {data && (
               <Select
-                /*    options={groupedOptions} */
-                options={data.data.franquia.map((value) => {
-                  if (value.subdomain == "rio-das-ostras")
-                    return { label: value.name, value: "roemacae" };
-                  if (value.subdomain == "roemacae")
-                    return { label: "Macaé", value: "roemacae" };
-                  return { label: value.name, value: value.subdomain };
-                })}
+                options={franquias}
                 onChange={(value) => setEstado(value)}
                 placeholder="Selecione a Facilitoy mais proxima de você"
                 styles={{

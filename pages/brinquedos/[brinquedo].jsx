@@ -267,7 +267,7 @@ export default function Example({ subdomain }) {
                         product.is_unavailable
                           ? "bg-gray-600/30"
                           : "bg-red-500",
-                        "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent  bg-red-500 py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                        "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent   py-3 px-8 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                       )}
                     >
                       Alugar
@@ -285,7 +285,7 @@ export default function Example({ subdomain }) {
                         product.is_unavailable
                           ? "bg-gray-600/30"
                           : "bg-[#12bcc6]",
-                        "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent  bg-[#12bcc6]  py-3 px-8 text-base font-medium text-white hover:bg-[#0e858b]  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                        "flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent    py-3 px-8 text-base font-medium text-white hover:bg-[#0e858b]  focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                       )}
                     >
                       Adicionar ao carrinho

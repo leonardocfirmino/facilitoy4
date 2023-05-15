@@ -114,7 +114,10 @@ const Blog = ({ subdomain }) => {
           </div>
         )}
         {data && data.data.product?.length > 0 ? (
-          <HomeCarrousel2 data={data.data.product} />
+          <HomeCarrousel2
+            data={data.data.product}
+            vendidos={data.data.home_vendidos}
+          />
         ) : (
           <div className=" h-60 flex justify-center items-center">
             <SyncLoader color="#ff2336" size={30} />

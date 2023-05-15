@@ -37,6 +37,20 @@ export default async function handler(req, res) {
             name
           }
         }
+        home_vendidos(where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}}, order_by: {position:asc}) {
+          product {
+            product_image {
+              src
+            }
+            is_unavailable
+            product_images {
+              src
+            }
+            slug
+            price_one
+            name
+          }
+        }
       }`,
     },
     {

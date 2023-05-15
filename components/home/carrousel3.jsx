@@ -48,8 +48,7 @@ export default function HomeCarrousel2({ data }) {
           <SwiperSlide key={index}>
             <div
               className={classOrganizer(
-                product.product.is_unavailable &&
-                  "pointer-events-none saturate-50"
+                product.product.is_unavailable && " saturate-50"
               )}
             >
               <div className="relative">
@@ -86,7 +85,7 @@ export default function HomeCarrousel2({ data }) {
                   className={classOrganizer(
                     !product.product.is_unavailable
                       ? "bg-red-600 hover:bg-red-500 cursor-pointer"
-                      : "bg-gray-400 hover:bg-gray-500 pointer-events-none",
+                      : "bg-gray-400 hover:bg-gray-500 ",
                     "relative  flex items-center justify-center rounded-md border border-transparent  py-2 px-8 text-sm font-medium text-white "
                   )}
                 >

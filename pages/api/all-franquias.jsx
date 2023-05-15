@@ -7,6 +7,7 @@ export default async function handler(req, res) {
         franquia {
           name
           subdomain
+          estado
         }
        
       }`,
