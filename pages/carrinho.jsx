@@ -95,7 +95,11 @@ const CarrinhoPage = ({ subdomain }) => {
           frete_value: "${cep.value}", 
           cep: "${cep.cep}", 
           franquia_id: "${response.data.franquia_id}",
-          cupon_users: {data: {cupon_id: "${cupon.id}"}},
+          ${
+            cupon != undefined
+              ? 'cupon_users: {data: {cupon_id: "${cupon.id}"}},'
+              : ""
+          }
           carrinho_produtos: {data: ${finalProducts}}}) {
             id
           }
@@ -186,7 +190,14 @@ const CarrinhoPage = ({ subdomain }) => {
                           Frete
                         </dt>
                         <dd className="text-base font-medium text-gray-900">
-                          R$ {cep.value}
+                          {data?.data.franquia[0].frete_gratis_min <
+                          getTotalPrice(data) ? (
+                            <span className="text-semibold text-green-400">
+                              Grátis
+                            </span>
+                          ) : (
+                            "R$" + cep.value
+                          )}
                         </dd>
                       </div>
                     </dl>

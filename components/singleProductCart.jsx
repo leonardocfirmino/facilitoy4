@@ -64,10 +64,6 @@ export default function SingleProductCart({ product }) {
               R$ {product.time.price * product.quantity}
             </p>
           </div>
-
-          <div className="mt-4 flex items-center sm:absolute sm:top-0 sm:left-1/2 sm:mt-0 sm:block">
-            <NumberInput item={product} input={selectQuantidade} />
-          </div>
         </div>
       </div>
     </li>
