@@ -27,6 +27,7 @@ export default async function handler(req, res) {
     });
 
     const orderStatus = await mercadopago.payment.get(req.body.data.id);
+
     console.log(orderStatus);
     const response = await axios.post(
       process.env.HASURA_URL,
@@ -44,7 +45,28 @@ export default async function handler(req, res) {
         }"}}}}, _set: {is_unavailable: ${
           orderStatus.body.status == "approved" ? true : false
         }}) {
-          affected_rows
+          returning {
+            id
+            user {
+              email
+            }
+            carrinho_produtos {
+              preco
+              tempo
+              product {
+                name
+                product_images {
+                  src
+                }
+              }
+            }
+            franquium {
+              subdomain
+              user {
+                email
+              }
+            }
+          }
         }
       }`,
       },
@@ -54,7 +76,16 @@ export default async function handler(req, res) {
         },
       }
     );
-
+    if (orderStatus.body.status == "approved") {
+      await axios.post(
+        process.env.NEXT_PUBLIC_PREFIX +
+          process.env.NEXT_PUBLIC_SITE_URL +
+          "/api/email-send",
+        {
+          pedido: response.data.data.update_user_carrinho.returning[0],
+        }
+      );
+    }
     res.status(200).json(response.data);
   }
   res.status(200).json("oi");

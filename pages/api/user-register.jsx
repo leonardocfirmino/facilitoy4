@@ -19,6 +19,22 @@ export default async function handler(req, res) {
       },
     }
   );
+  const listId = "f3MH0";
+  const saveContact = await axios.post(
+    "https://api.getresponse.com/v3/contacts",
+    {
+      name: form.name.trim(),
+      campaign: {
+        campaignId: listId,
+      },
+      email: form.email.trim(),
+    },
+    {
+      headers: {
+        "X-Auth-Token": "api-key nxzb7pzd0ipzew62pivdc4dmsyvktdlo",
+      },
+    }
+  );
   if (response.data.errors != undefined) {
     return res.status(500).json(response.data.errors);
   }

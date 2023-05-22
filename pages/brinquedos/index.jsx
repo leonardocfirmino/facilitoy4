@@ -23,14 +23,38 @@ import Empty from "../../components/Empty";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Navigation, Scrollbar, A11y } from "swiper";
+import Pagination from "rc-pagination";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 function classOrganizer(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+const localeInfo = {
+  // Options.jsx
+  items_per_page: "/ page",
+  jump_to: "Ir até",
+  jump_to_confirm: "confirmar",
+  page: "Página",
+
+  // Pagination.jsx
+  prev_page: "Página anterior",
+  next_page: "Próxima página",
+  prev_5: "Voltar 5 páginas",
+  next_5: "Pular 5 Páginas",
+  prev_3: "Voltar 3 Páginas",
+  next_3: "Pular 3 Páginas",
+  page_size: "Támanho da página",
+};
 const IndexBrinquedo = ({ subdomain }) => {
+  const [pagination, setPagination] = useState(1);
+  const [actualPosts, setActualPosts] = useState(0);
+  const onChange = (page) => {
+    mutate();
+    setActualPosts((page - 1) * 20);
+    setPagination(page);
+  };
   const { data: user } = useSession();
   const router = useRouter();
   const [ages, setAges] = useState([]);
@@ -59,6 +83,7 @@ const IndexBrinquedo = ({ subdomain }) => {
       age: ageFilter,
       name: router.query.search,
       subdomain: subdomain,
+      offset: actualPosts,
       category_id: categoriaFilter,
       order_by: orderBy,
     },
@@ -157,7 +182,7 @@ const IndexBrinquedo = ({ subdomain }) => {
         </div>
       </div>
       <div className="py-8 flex flex-col">
-        <div className="mb-4 order-3 mt-4 lg:mt-0 lg:order-1  w-11/12 mx-auto">
+        <div className="mb-4 order-3 mt-4 lg:mt-4 lg:order-1  w-11/12 mx-auto">
           {data && (
             <Swiper
               spaceBetween={2}
@@ -429,6 +454,22 @@ const IndexBrinquedo = ({ subdomain }) => {
             </div>
           )}
         </section>
+      </div>
+      <div className="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
+        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-end px-4">
+          <div>
+            {data && (
+              <Pagination
+                locale={localeInfo}
+                onChange={onChange}
+                hideOnSinglePage={true}
+                current={pagination}
+                pageSize={20}
+                total={data.data.product_aggregate.aggregate.count}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </Layout>
   );

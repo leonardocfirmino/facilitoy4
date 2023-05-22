@@ -35,7 +35,7 @@ const localeInfo = {
 };
 const Home = ({ sessions }) => {
   const user = JSON.parse(sessions);
-  const [pagination, setPagination] = useState();
+  const [pagination, setPagination] = useState(1);
   const [actualPosts, setActualPosts] = useState(0);
   const onChange = (page) => {
     mutate();
@@ -202,6 +202,7 @@ const Home = ({ sessions }) => {
       setFiltro(query);
     }, 1000);
   };
+
   return (
     <LayoutAdm session={user}>
       <ToastContainer
@@ -462,10 +463,9 @@ const Home = ({ sessions }) => {
                   <Pagination
                     locale={localeInfo}
                     onChange={onChange}
-                    hideOnSinglePage={true}
                     current={pagination}
                     pageSize={30}
-                    total={data.product_aggregate.aggregate.count}
+                    total={data?.product_aggregate.aggregate.count}
                   />
                 )}
               </div>
