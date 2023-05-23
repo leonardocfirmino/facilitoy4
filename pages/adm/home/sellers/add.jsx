@@ -100,7 +100,7 @@ export default function CreateBanner({ sessions }) {
                 className="w-8 h-8"
                 src={
                   "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                  value.product_images[0].src
+                  value.product_images[0]?.src
                 }
               />
               <h1>{value.name}</h1>
