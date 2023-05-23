@@ -5,6 +5,7 @@ const cepSlice = createSlice({
   initialState: {
     cep: null,
     value: 0,
+    logradouro: null,
     take_in_local: false,
     cidade: null,
     bairro: null,
@@ -14,6 +15,7 @@ const cepSlice = createSlice({
       state.cep = action.payload.cep;
       state.value = action.payload.value;
       state.bairro = action.payload.bairro;
+      state.logradouro = action.payload.logradouro;
       state.cidade = action.payload.cidade;
     },
     setTakeInLocal: (state, action) => {

@@ -29,5 +29,9 @@ export default async function handler(req, res) {
 
   return res
     .status(200)
-    .json({ cep: cepBanco.data.data.cep_user[0], isNull: false });
+    .json({
+      cep: cepBanco.data.data.cep_user[0],
+      logradouro: viaCep.data.logradouro,
+      isNull: false,
+    });
 }

@@ -11,9 +11,11 @@ import useSWR from "swr";
 import Recomendados from "../components/Recomendados";
 import Cupon from "../components/Cupon";
 import { useState } from "react";
+import { useRef } from "react";
 const CarrinhoPage = ({ subdomain }) => {
   const session = useSession();
   const router = useRouter();
+  const enderecoRef = useRef();
   const [cupon, setCupon] = useState();
   const products = useSelector((state) => state.cart);
   const cep = useSelector((state) => state.cep);
@@ -41,7 +43,8 @@ const CarrinhoPage = ({ subdomain }) => {
       (data?.data.franquia[0].frete_gratis_min <= productValues ? 0 : cep.value)
     );
   };
-  const createCheckout = async () => {
+  const createCheckout = async (form) => {
+    form.preventDefault();
     if (session.status == "unauthenticated")
       return router.push(
         "/login?callbackUrl=" +
@@ -91,6 +94,9 @@ const CarrinhoPage = ({ subdomain }) => {
         query: `mutation MyMutation2 {
           insert_user_carrinho_one(object: {total: "${getTotalPrice()}", 
           status: "pending", 
+          endereco: "${form.target.endereco.value}", 
+          numero: "${form.target.numero.value}", 
+          complemento: "${form.target.complemento.value}", 
           mercado_order_id: "${response.data.uuid}", 
           frete_value: "${cep.value}", 
           cep: "${cep.cep}", 
@@ -130,7 +136,7 @@ const CarrinhoPage = ({ subdomain }) => {
             Seu Carrinho
           </h1>
 
-          <form className="mt-12">
+          <form onSubmit={(form) => createCheckout(form)} className="mt-12">
             <div>
               <h2 className="sr-only">Items in your shopping cart</h2>
 
@@ -154,12 +160,55 @@ const CarrinhoPage = ({ subdomain }) => {
                 </div>
               )}
             </div>
-            <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
-              <CepChecker subdomain={subdomain} />
+            <div className="grid grid-cols-1 xl:grid-cols-2">
+              <div className=" flex-col justify-end w-full gap-4 mt-10 flex">
+                <div className="w-[80%]   flex flex-col justify-center pb-4">
+                  <h1 className="text-md font-semibold px-1 pb-2">Endereço</h1>
+                  <input
+                    className="border-2 rounded-md px-2 py-1 border-gray-300"
+                    type="text"
+                    defaultValue={cep.logradouro}
+                    required
+                    placeholder="Seu endereço"
+                    name="endereco"
+                  />
+                </div>
+                <div className="w-[80%]   flex flex-col justify-center pb-4">
+                  <h1 className="text-md font-semibold px-1 pb-2">Número</h1>
+                  <input
+                    className="border-2 rounded-md px-2 py-1 border-gray-300"
+                    type="text"
+                    required
+                    placeholder="Seu numero"
+                    name="numero"
+                  />
+                </div>
+                <div className="w-[80%]   flex flex-col justify-center pb-4">
+                  <h1 className="text-md font-semibold px-1 pb-2">
+                    Complemento
+                  </h1>
+                  <input
+                    className="border-2 rounded-md px-2 py-1 border-gray-300"
+                    type="text"
+                    placeholder="Complemento"
+                    name="complemento"
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
+                  <CepChecker subdomain={subdomain} />
+                </div>
+                <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
+                  <Cupon
+                    cupon={cupon}
+                    products={products}
+                    setCupon={setCupon}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
-              <Cupon cupon={cupon} products={products} setCupon={setCupon} />
-            </div>
+
             {/* Order summary */}
             <div className="mt-10  ">
               <div className="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
@@ -226,10 +275,29 @@ const CarrinhoPage = ({ subdomain }) => {
                   </dl>
                 </div>
               </div>
-              <div className="mt-10">
+              <div className="flex mt-4 justify-center gap-1 text-gray-500 items-center w-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                  />
+                </svg>
+                <h1 className=" text-center font-semibold">
+                  Realize o seu cadastro para finalizar a compra!
+                </h1>
+              </div>
+
+              <div className="mt-4">
                 <button
-                  type="button"
-                  onClick={() => createCheckout()}
+                  type="submit"
                   className="w-full rounded-md border border-transparent bg-red-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                 >
                   Finalizar compra

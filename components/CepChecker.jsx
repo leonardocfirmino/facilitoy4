@@ -52,6 +52,7 @@ export default function CepChecker({ subdomain }) {
           cep: cep.replace("-", ""),
           value: response.data.cep.valor,
           cidade: response.data.cep.cidade,
+          logradouro: response.data.logradouro,
           tempo: response.data.cep.tempo,
           bairro: response.data.cep.bairro,
         })
@@ -60,6 +61,7 @@ export default function CepChecker({ subdomain }) {
         cep: cep.replace("-", ""),
         value: response.data.cep.valor,
         tempo: response.data.cep.tempo,
+        logradouro: response.data.logradouro,
         cidade: response.data.cep.cidade,
         bairro: response.data.cep.bairro,
       });

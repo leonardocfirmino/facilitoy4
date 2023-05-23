@@ -32,6 +32,9 @@ export default function CreateBanner({ sessions }) {
         id
         frete_value
         status
+        endereco
+        numero
+        complemento
         total
         cep
         payment_method
@@ -72,8 +75,8 @@ export default function CreateBanner({ sessions }) {
   }
 
   useEffect(() => {
-    endereco("16400697");
-  }, []);
+    if (data) endereco(data.user_carrinho[0].cep);
+  }, [data]);
   return (
     <LayoutAdm session={user}>
       <ToastContainer
@@ -177,6 +180,16 @@ export default function CreateBanner({ sessions }) {
                     <h1 className="text-xl font-semibold  pb-2">Endereço</h1>
                     <p>{cep}</p>
                   </div>
+                  {data.user_carrinho[0].endereco != null && (
+                    <div className="w-full flex flex-col px-1 justify-center pb-4">
+                      <h1 className="text-xl font-semibold  pb-2">
+                        Endereço informado
+                      </h1>
+                      <p>Rua: {data.user_carrinho[0].endereco}</p>
+                      <p>Número: {data.user_carrinho[0].numero}</p>
+                      <p>Complemento: {data.user_carrinho[0].complemento}</p>
+                    </div>
+                  )}
                   <div className="w-full flex flex-col px-1 justify-center pb-4">
                     <h1 className="text-xl font-semibold  pb-2">
                       Método de pagamento
