@@ -11,7 +11,7 @@ export default async function handler(req, res) {
           image_src
           id
         }
-        product(order_by: {carrinho_produtos_aggregate: {count: desc}}, where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}, _and: {is_active: {_eq: true}}}) {
+        product(order_by: {carrinho_produtos_aggregate: {count: desc}}, where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}, _and: {is_active: {_eq: true}, _and: {is_unavailable: {_eq: false}}}}) {
           name
           price_one
           is_unavailable
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
           }
           slug
         }
-        home_recomendados(where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}}, order_by: {position:asc}) {
+        home_recomendados(where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}},_and: {product: {is_unavailable: {_eq: false}}}}, order_by: {position:asc}) {
           product {
             product_image {
               src
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
             name
           }
         }
-        home_vendidos(where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}}, order_by: {position:asc}) {
+        home_vendidos(where: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}},_and: {product: {is_unavailable: {_eq: false}}}}, order_by: {position:asc}) {
           product {
             product_image {
               src
