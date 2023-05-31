@@ -76,7 +76,7 @@ export default async function handler(req, res) {
         },
       }
     );
-    /* if (orderStatus.body.status == "approved") {
+    if (orderStatus.body.status == "approved") {
       await axios.post(
         process.env.NEXT_PUBLIC_PREFIX +
           process.env.NEXT_PUBLIC_SITE_URL +
@@ -85,7 +85,7 @@ export default async function handler(req, res) {
           pedido: response.data.data.update_user_carrinho.returning[0],
         }
       );
-    } */
+    }
     res.status(200).json(response.data);
   }
   res.status(200).json("oi");
