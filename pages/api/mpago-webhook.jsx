@@ -37,13 +37,6 @@ export default async function handler(req, res) {
         }"}}, _set: {payment_method: "${
           orderStatus.body.payment_type_id
         }",status: "${orderStatus.body.status}"}) {
-          affected_rows
-        }
-        update_product(where: {carrinho_produtos: {user_carrinho: {mercado_order_id: {_eq: "${
-          orderStatus.body.metadata.id
-        }"}}}}, _set: {is_unavailable: ${
-          orderStatus.body.status == "approved" ? true : false
-        }}) {
           returning {
             id
             user {
@@ -66,6 +59,13 @@ export default async function handler(req, res) {
               }
             }
           }
+        }
+        update_product(where: {carrinho_produtos: {user_carrinho: {mercado_order_id: {_eq: "${
+          orderStatus.body.metadata.id
+        }"}}}}, _set: {is_unavailable: ${
+          orderStatus.body.status == "approved" ? true : false
+        }}) {
+          affected_rows
         }
       }`,
       },
