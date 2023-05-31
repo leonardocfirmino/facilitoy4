@@ -5,11 +5,13 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import formatPhoneNumber from "../helpers/formatPhoneNumber";
+
 import axios from "axios";
 import { useState } from "react";
 export default function Login({ subdomain }) {
   const router = useRouter();
   const [tel, setTel] = useState("");
+  const [cpf, setCpf] = useState("");
   const LoginMethod = async (form) => {
     form.preventDefault();
     const res = await axios.post(
@@ -22,6 +24,7 @@ export default function Login({ subdomain }) {
         email: form.target.email.value,
         phone_number: cleanNumber(form.target.phone.value),
         name: form.target.name.value,
+        cpf: cleanCpf(form.target.cpf.value),
         password: form.target.password.value,
       }
     );
@@ -42,11 +45,39 @@ export default function Login({ subdomain }) {
       email: form.target.email.value,
       password: form.target.password.value,
     });
-    router.push("/");
+    router.push("/carrinho");
+  };
+  const handleChange = (event) => {
+    const { value } = event.target;
+
+    // Remove caracteres não numéricos
+    const numericValue = value.replace(/\D/g, "");
+
+    // Aplica a máscara do CPF
+    let maskedValue = "";
+    if (numericValue.length > 0) {
+      maskedValue += numericValue.substr(0, 3);
+    }
+    if (numericValue.length > 3) {
+      maskedValue += "." + numericValue.substr(3, 3);
+    }
+    if (numericValue.length > 6) {
+      maskedValue += "." + numericValue.substr(6, 3);
+    }
+    if (numericValue.length > 9) {
+      maskedValue += "-" + numericValue.substr(9, 2);
+    }
+
+    setCpf(maskedValue);
   };
   const cleanNumber = (value) => {
     value = value.replaceAll("(", "");
     value = value.replaceAll(")", "");
+    value = value.replaceAll("-", "");
+    return value.trim();
+  };
+  const cleanCpf = (value) => {
+    value = value.replaceAll(".", "");
     value = value.replaceAll("-", "");
     return value.trim();
   };
@@ -109,6 +140,23 @@ export default function Login({ subdomain }) {
                       id="email"
                       required
                       placeholder="email@gmail.com"
+                      className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md    focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                  </div>
+                  <div className="mt-6">
+                    <label
+                      htmlFor="cpf"
+                      className="block mb-2 text-sm text-gray-600 "
+                    >
+                      CPF
+                    </label>
+                    <input
+                      type="text"
+                      name="cpf"
+                      required
+                      value={cpf}
+                      onChange={handleChange}
+                      placeholder="999.999.999-99"
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md    focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>

@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css";
+import Link from "next/link";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 export default function HomeCarrousel1({ data }) {
@@ -40,22 +41,24 @@ export default function HomeCarrousel1({ data }) {
           if (value.name != "Geral")
             return (
               <SwiperSlide key={index}>
-                <a
+                <Link
                   href={"/brinquedos/?categoria=" + value.id}
-                  className="relative text-center  gap-2 flex flex-col items-center justify-start text-gray-600"
+                  className="relative cursor-pointer text-center  gap-2 flex flex-col items-center justify-start text-gray-600"
                 >
-                  <img
-                    src={
-                      "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                      value.image_src
-                    }
-                    className="rounded-full"
-                    alt=""
-                  />
-                  <h1 className="text-sm lg:text-md h-10 text-center font-bold">
-                    {value.name}
-                  </h1>
-                </a>
+                  <a>
+                    <img
+                      src={
+                        "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                        value.image_src
+                      }
+                      className="rounded-full"
+                      alt=""
+                    />
+                    <h1 className="text-sm lg:text-md h-10 text-center font-bold">
+                      {value.name}
+                    </h1>
+                  </a>
+                </Link>
               </SwiperSlide>
             );
         })}

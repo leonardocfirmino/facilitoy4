@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     process.env.HASURA_URL,
     {
       query: `{
-        product(where: {slug: {_eq: "${req.body.slug}"}, _and: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}, _and: {is_active: {_eq: true}}}}) {
+        product(where: {slug: {_eq: "${req.body.slug}"}, _and: {user: {franquia: {subdomain: {_eq: "${subdomain}"}}}, _and: {is_active: {_eq: true}}}}, limit: 1) {
           details
           description
           created_at
@@ -13,6 +13,7 @@ export default async function handler(req, res) {
           youtube_link
           name
           price_one
+          slug
           is_unavailable
           price_two
           price_three

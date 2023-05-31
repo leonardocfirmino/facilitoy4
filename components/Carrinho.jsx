@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default function Carrinho({ products }) {
   return (
-    <Link href="/carrinho">
+    <Link href="/carrinho" legacyBehavior>
       <a className="flex divide-x-2 order-3 lg:order-4  justify-center">
         <div className="flex items-center text-gray-300">
           <svg

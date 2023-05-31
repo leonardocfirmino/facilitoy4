@@ -12,6 +12,7 @@ import Recomendados from "../components/Recomendados";
 import Cupon from "../components/Cupon";
 import { useState } from "react";
 import { useRef } from "react";
+import { toast } from "react-toastify";
 const CarrinhoPage = ({ subdomain }) => {
   const session = useSession();
   const router = useRouter();
@@ -19,6 +20,7 @@ const CarrinhoPage = ({ subdomain }) => {
   const [cupon, setCupon] = useState();
   const products = useSelector((state) => state.cart);
   const cep = useSelector((state) => state.cep);
+
   const fetcher = async (query) => axios.post("/api/get-franquia", query);
 
   const { data, mutate } = useSWR({ subdomain }, fetcher, {
@@ -45,6 +47,9 @@ const CarrinhoPage = ({ subdomain }) => {
   };
   const createCheckout = async (form) => {
     form.preventDefault();
+    if (!cep.take_in_local && cep.cep == null) {
+      return toast.info("Preencha todos os campos antes de finalizar");
+    }
     if (session.status == "unauthenticated")
       return router.push(
         "/login?callbackUrl=" +
@@ -146,10 +151,7 @@ const CarrinhoPage = ({ subdomain }) => {
                   className="divide-y divide-gray-200 border-t border-b border-gray-200"
                 >
                   {products.map((product, productIdx) => (
-                    <SingleProductCart
-                      key={product.product.id}
-                      product={product}
-                    />
+                    <SingleProductCart key={productIdx} product={product} />
                   ))}
                 </ul>
               ) : (
@@ -161,8 +163,9 @@ const CarrinhoPage = ({ subdomain }) => {
               )}
             </div>
             <div className="grid grid-cols-1 xl:grid-cols-2">
-              <div className=" flex-col justify-end w-full gap-4 mt-10 flex">
-                <div className="w-[80%]   flex flex-col justify-center pb-4">
+              <div className=" flex-col justify-end w-full gap-1 mt-10 flex">
+                <h1 className="font-semibold pb-3">Dados de entrega: </h1>
+                <div className="w-[80%]  pl-1 flex flex-col justify-center pb-4">
                   <h1 className="text-md font-semibold px-1 pb-2">Endereço</h1>
                   <input
                     className="border-2 rounded-md px-2 py-1 border-gray-300"
@@ -173,7 +176,7 @@ const CarrinhoPage = ({ subdomain }) => {
                     name="endereco"
                   />
                 </div>
-                <div className="w-[80%]   flex flex-col justify-center pb-4">
+                <div className="w-[80%]  pl-1 flex flex-col justify-center pb-4">
                   <h1 className="text-md font-semibold px-1 pb-2">Número</h1>
                   <input
                     className="border-2 rounded-md px-2 py-1 border-gray-300"
@@ -183,7 +186,7 @@ const CarrinhoPage = ({ subdomain }) => {
                     name="numero"
                   />
                 </div>
-                <div className="w-[80%]   flex flex-col justify-center pb-4">
+                <div className="w-[80%] pl-1  flex flex-col justify-center pb-4">
                   <h1 className="text-md font-semibold px-1 pb-2">
                     Complemento
                   </h1>
@@ -300,7 +303,7 @@ const CarrinhoPage = ({ subdomain }) => {
                   type="submit"
                   className="w-full rounded-md border border-transparent bg-red-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                 >
-                  Finalizar compra
+                  Finalizar locação
                 </button>
               </div>
 

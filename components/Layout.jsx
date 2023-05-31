@@ -300,12 +300,11 @@ export default function Layout({ children, subdomain }) {
           <div className="hidden xl:flex gap-2 lg:gap-4 py-6 container mx-auto md:flex-row md:items-center md:justify-center">
             <div className="flex lg:order-1 w-48 h-24  justify-center  items-center">
               <div>
-                <a
-                  href="/"
-                  className="text-gray-800 text-xl font-bold md:text-2xl"
-                >
-                  <img src="/logo.webp" className=" " alt="" />
-                </a>
+                <Link href="/">
+                  <a className="text-gray-800 text-xl font-bold md:text-2xl">
+                    <img src="/logo.webp" className=" " alt="" />
+                  </a>
+                </Link>
               </div>
             </div>
             <div className="flex lg:order-3 order-2 items-center gap-2">
@@ -333,7 +332,7 @@ export default function Layout({ children, subdomain }) {
                   <Link
                     legacyBehavior
                     prefetch={false}
-                    href={"/login?callbackUrl=" + callback}
+                    href={`/login?callbackUrl=${callback}`}
                   >
                     <a className="flex w-48 justify-center">
                       <span className="hidden lg:block">
@@ -378,12 +377,11 @@ export default function Layout({ children, subdomain }) {
               </button>
               <div className="flex lg:order-1 w-28 h-14 lg:w-48 lg:h-24 justify-center  items-center">
                 <div>
-                  <a
-                    href="/"
-                    className="text-gray-800 text-xl font-bold md:text-2xl"
-                  >
-                    <img src="/logo.webp" className=" " alt="" />
-                  </a>
+                  <Link href="/">
+                    <a className="text-gray-800 text-xl font-bold md:text-2xl">
+                      <img src="/logo.webp" className=" " alt="" />
+                    </a>
+                  </Link>
                 </div>
               </div>
               <div className="flex xl:order-3 order-2 items-center gap-2">
@@ -394,7 +392,7 @@ export default function Layout({ children, subdomain }) {
                     href={
                       session.data != undefined
                         ? "/perfil"
-                        : "/login?callbackUrl=" + callback
+                        : `/login?callbackUrl=${callback}`
                     }
                   >
                     <a className="flex lg:w-48 justify-center">
@@ -474,26 +472,21 @@ export default function Layout({ children, subdomain }) {
               </Transition>
             </Menu>
 
-            <a
-              href="/#sobre"
-              className="py-3 hover:text-gray-400 duration-300 px-4"
-            >
-              QUem Somos
-            </a>
-
-            <a
-              href="/#faq"
-              className="py-3 hover:text-gray-400 duration-300 px-4"
-            >
-              DÚVIDAS FREQUENTES
-            </a>
-
-            <a
-              href="/#razoes"
-              className="py-3 hover:text-gray-400 duration-300 px-4"
-            >
-              Por que alugar?
-            </a>
+            <Link href="/#sobre">
+              <a className="py-3 hover:text-gray-400 duration-300 px-4">
+                Quem Somos
+              </a>
+            </Link>
+            <Link href="/#faq">
+              <a className="py-3 hover:text-gray-400 duration-300 px-4">
+                DÚVIDAS FREQUENTES
+              </a>
+            </Link>
+            <Link href="/#razoes">
+              <a className="py-3 hover:text-gray-400 duration-300 px-4">
+                Por que alugar?
+              </a>
+            </Link>
           </div>
         </div>
         <main className="flex-1">{children}</main>

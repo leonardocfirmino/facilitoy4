@@ -35,7 +35,7 @@ export default async function handler(req, res) {
           name
           id
         }
-        category {
+        category (where: {user: {franquia: {subdomain: {_ilike: "%${req.body.subdomain}%"}}}}){
           id
           image_src
           name

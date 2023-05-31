@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     process.env.HASURA_URL,
     {
       query: `mutation MyMutation {
-        insert_user_one(object: {email: "${form.email.trim()}", name: "${form.name.trim()}", password: "${password}", phone_number: "${form.phone_number.trim()}"}) {
+        insert_user_one(object: {email: "${form.email.trim()}", cpf: "${form.cpf.trim()}" name: "${form.name.trim()}", password: "${password}", phone_number: "${form.phone_number.trim()}"}) {
           id
         }
       }

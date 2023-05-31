@@ -28,6 +28,7 @@ import Pagination from "rc-pagination";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Link from "next/link";
 function classOrganizer(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -415,13 +416,15 @@ const IndexBrinquedo = ({ subdomain }) => {
                         </div>
                         <div className="pt-10 pb-4 text-center">
                           <h3 className="text-sm h-10 font-medium text-gray-900">
-                            <a href={"/brinquedos/" + product.slug}>
-                              <span
-                                aria-hidden="true"
-                                className="absolute  inset-0"
-                              />
-                              {product.name}
-                            </a>
+                            <Link href={"/brinquedos/" + product.slug}>
+                              <a>
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute  inset-0"
+                                />
+                                {product.name}
+                              </a>
+                            </Link>
                           </h3>
 
                           <p className="mt-4 text-base font-medium text-red-600">
@@ -429,17 +432,20 @@ const IndexBrinquedo = ({ subdomain }) => {
                           </p>
                         </div>
                         <div className="mt-6">
-                          <a
-                            href={"/brinquedos/" + product.slug}
-                            className={classOrganizer(
-                              !product.is_unavailable
-                                ? "bg-red-600 hover:bg-red-500 cursor-pointer"
-                                : "bg-gray-400 hover:bg-gray-500 pointer-events-none",
-                              "relative  flex items-center justify-center rounded-md border border-transparent  py-2 px-8 text-sm font-medium text-white "
-                            )}
-                          >
-                            {product.is_unavailable ? "Indisponível" : "Alugar"}
-                          </a>
+                          <Link href={"/brinquedos/" + product.slug}>
+                            <a
+                              className={classOrganizer(
+                                !product.is_unavailable
+                                  ? "bg-red-600 hover:bg-red-500 cursor-pointer"
+                                  : "bg-gray-400 hover:bg-gray-500 pointer-events-none",
+                                "relative  flex items-center justify-center rounded-md border border-transparent  py-2 px-8 text-sm font-medium text-white "
+                              )}
+                            >
+                              {product.is_unavailable
+                                ? "Indisponível"
+                                : "Alugar"}
+                            </a>
+                          </Link>
                         </div>
                       </div>
                     )

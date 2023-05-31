@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { editTime } from "../redux/features/cartSlice";
+import Link from "next/link";
 export default function SingleProductCart({ product }) {
   const selectQuantidade = useRef(product.quantity);
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function SingleProductCart({ product }) {
       label: value.tempo,
     };
   });
+  console.log(product);
   return (
     <li key={product.product.id} className="flex py-6 sm:py-10">
       <div className="flex-shrink-0">
@@ -34,12 +36,11 @@ export default function SingleProductCart({ product }) {
           <div className="flex justify-between sm:grid sm:grid-cols-2">
             <div className="pr-6">
               <h3 className="text-sm">
-                <a
-                  href={product.product.slug}
-                  className="font-medium text-gray-700 hover:text-gray-800"
-                >
-                  {product.product.name}
-                </a>
+                <Link href={product.product.slug}>
+                  <a className="font-medium text-gray-700 hover:text-gray-800">
+                    {product.product.name}
+                  </a>
+                </Link>
               </h3>
               <p className="mt-1 text-sm text-gray-500">{product.color}</p>
               <Select

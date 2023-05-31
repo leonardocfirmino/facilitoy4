@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
+import Link from "next/link";
 function classOrganizer(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -52,24 +53,23 @@ export default function HomeCarrousel2({ data }) {
               )}
             >
               <div className="relative">
-                <a
-                  href={product.product.slug}
-                  className="relative h-72 w-full overflow-hidden rounded-lg"
-                >
-                  <Image
-                    width={256}
-                    height={256}
-                    alt={product.name}
-                    className=" "
-                    src={
-                      product.product.product_image == null
-                        ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                          product.product.product_images[0].src
-                        : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                          product.product.product_image.src
-                    }
-                  />
-                </a>
+                <Link href={"/brinquedos/" + product.product.slug}>
+                  <a className="relative h-72 w-full overflow-hidden rounded-lg">
+                    <Image
+                      width={256}
+                      height={256}
+                      alt={product.name}
+                      className=" "
+                      src={
+                        product.product.product_image == null
+                          ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                            product.product.product_images[0].src
+                          : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
+                            product.product.product_image.src
+                      }
+                    />
+                  </a>
+                </Link>
                 <div className="relative text-center mt-4">
                   <h3 className="text-sm font-medium h-12 text-gray-900">
                     {product.product.name}
@@ -80,17 +80,18 @@ export default function HomeCarrousel2({ data }) {
                 </div>
               </div>
               <div className="mt-6">
-                <a
-                  href={"/brinquedos/" + product.product.slug}
-                  className={classOrganizer(
-                    !product.product.is_unavailable
-                      ? "bg-red-600 hover:bg-red-500 cursor-pointer"
-                      : "bg-gray-400 hover:bg-gray-500 ",
-                    "relative  flex items-center justify-center rounded-md border border-transparent  py-2 px-8 text-sm font-medium text-white "
-                  )}
-                >
-                  {product.product.is_unavailable ? "Indisponível" : "Alugar"}
-                </a>
+                <Link href={"/brinquedos/" + product.product.slug}>
+                  <a
+                    className={classOrganizer(
+                      !product.product.is_unavailable
+                        ? "bg-red-600 hover:bg-red-500 cursor-pointer"
+                        : "bg-gray-400 hover:bg-gray-500 ",
+                      "relative  flex items-center justify-center rounded-md border border-transparent  py-2 px-8 text-sm font-medium text-white "
+                    )}
+                  >
+                    {product.product.is_unavailable ? "Indisponível" : "Alugar"}
+                  </a>
+                </Link>
               </div>
             </div>
           </SwiperSlide>

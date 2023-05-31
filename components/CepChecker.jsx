@@ -66,7 +66,19 @@ export default function CepChecker({ subdomain }) {
         bairro: response.data.cep.bairro,
       });
     }
-    if (response.data.isNull) setShowValor({ isNull: true });
+    if (response.data.isNull) {
+      setShowValor({ isNull: true });
+      dispatch(
+        addCep({
+          cep: null,
+          value: 0,
+          logradouro: null,
+          take_in_local: false,
+          cidade: null,
+          bairro: null,
+        })
+      );
+    }
   };
   const handleIsLocal = (value) => {
     setIsTakeInLocal(value);
@@ -176,9 +188,12 @@ export default function CepChecker({ subdomain }) {
                 </RadioGroup.Option>
               ) : (
                 <div className="flex border-gray-200 z-10 border justify-center py-4 flex-col gap-2 items-center">
-                  <h1 className="font-semibold">Endereço inválido</h1>
-                  <p className="text-sm">
-                    Não realizamos entregas neste endereço
+                  <h1 className="font-semibold text-sm w-60 text-center">
+                    Que pena, esta unidade não atende sua região.
+                  </h1>
+                  <p className="text-xs w-60 text-center">
+                    Caso deseje, você pode selecionar a opção de retirada
+                    gratuita em nossa loja.
                   </p>
                 </div>
               )
