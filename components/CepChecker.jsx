@@ -10,8 +10,9 @@ function classOrganizer(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 import { RadioGroup } from "@headlessui/react";
-export default function CepChecker({ subdomain }) {
+export default function CepChecker({ subdomain, endereco }) {
   const storeCep = useSelector((state) => state.cep);
+
   const [cep, setCep] = useState(storeCep.cep);
   const dispatch = useDispatch();
 
@@ -189,7 +190,7 @@ export default function CepChecker({ subdomain }) {
               ) : (
                 <div className="flex border-gray-200 z-10 border justify-center py-4 flex-col gap-2 items-center">
                   <h1 className="font-semibold text-sm w-60 text-center">
-                    Que pena, esta unidade não atende sua região.
+                    Que pena... Esta unidade não atende sua região.
                   </h1>
                   <p className="text-xs w-60 text-center">
                     Caso deseje, você pode selecionar a opção de retirada
@@ -234,7 +235,7 @@ export default function CepChecker({ subdomain }) {
                           "block text-sm font-medium"
                         )}
                       >
-                        Retirar no local
+                        Retirar no local - Grátis
                       </RadioGroup.Label>
                       <RadioGroup.Description
                         as="span"
@@ -243,7 +244,7 @@ export default function CepChecker({ subdomain }) {
                           "block text-sm"
                         )}
                       >
-                        Grátis
+                        {endereco}
                       </RadioGroup.Description>
                     </span>
                   </>

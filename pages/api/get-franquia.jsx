@@ -7,6 +7,7 @@ export default async function handler(req, res) {
         franquia(where: {subdomain: {_eq: "${req.body.subdomain}"}}) {
           name
           cep
+          endereco_completo
           take_in_local
           frete_gratis_min
         }

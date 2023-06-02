@@ -83,7 +83,8 @@ export default async function handler(req, res) {
           "/api/email-send",
         {
           pedido: response.data.data.update_user_carrinho.returning[0],
-        }
+        },
+        { timeout: 15000 }
       );
     }
     res.status(200).json(response.data);

@@ -9,10 +9,12 @@ import Switch from "react-switch";
 import axios from "axios";
 import request from "graphql-request";
 import { ToastContainer, toast } from "react-toastify";
+import formatPhoneNumber from "../../helpers/formatPhoneNumber";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 const Config = ({ sessions }) => {
   const user = JSON.parse(sessions);
-
+  const [tel, setTel] = useState("");
   console.log(user);
   const fetcher = async (query) =>
     request(
@@ -28,6 +30,8 @@ const Config = ({ sessions }) => {
       franquia {
         name
         id
+        contato
+        endereco_completo
         frete_gratis_min
         take_in_local
       }
@@ -79,6 +83,18 @@ const Config = ({ sessions }) => {
   };
   const saveFrete = async (id, form) => {
     form.preventDefault();
+    const phone =
+      tel.length < 8
+        ? null
+        : `,contato: "${tel
+            .replaceAll("(", "")
+            .replaceAll(")", "")
+            .replaceAll("-", "")
+            .trim()}",`;
+    const endereco =
+      form.target.endereco.value.length < 8
+        ? ""
+        : `endereco_completo: "${form.target.endereco.value}"`;
     try {
       await axios.post(
         process.env.NEXT_PUBLIC_PREFIX +
@@ -87,7 +103,7 @@ const Config = ({ sessions }) => {
 
         {
           query: `mutation {
-            update_franquia_by_pk(pk_columns: {id: "${id}"}, _set: {frete_gratis_min: ${form.target.valor.value}}) {
+            update_franquia_by_pk(pk_columns: {id: "${id}"}, _set: {frete_gratis_min: ${form.target.valor.value} ${phone} ${endereco}}) {
           id
         }
       }`,
@@ -121,6 +137,9 @@ const Config = ({ sessions }) => {
       });
     }
   };
+  if (data && tel == "") {
+    setTel(data.franquia[0].contato ?? "");
+  }
   return (
     <LayoutAdm session={user}>
       <ToastContainer
@@ -135,54 +154,112 @@ const Config = ({ sessions }) => {
         pauseOnHover
       />
       {data && (
-        <div className="max-w-7xl py-6 mx-auto px-4 sm:px-6 md:px-8">
-          <div className="w-full py-10">
+        <form
+          onSubmit={(form) => saveFrete(data?.franquia[0].id, form)}
+          className="max-w-7xl  py-6 mx-auto px-4 sm:px-6 md:px-8"
+        >
+          <div className="w-full pb-6">
             <h1 className="font-bold text-gray-700 text-4xl">Configuração</h1>
           </div>
-          <div className="w-full py-2">
-            <h1 className="font-bold px-4 text-gray-700 text-3xl">
-              {data?.franquia[0].name}
-            </h1>
-          </div>
-          <div className="flex flex-col px-6">
-            <label className="font-semibold mt-4 text-md py-2">
-              Permitir retirada no local
-            </label>
-            <Switch
-              onChange={() =>
-                changeActive(
-                  data?.franquia[0].id,
-                  data?.franquia[0].take_in_local
-                )
-              }
-              checked={data?.franquia[0].take_in_local}
-            />
-            <form onSubmit={(form) => saveFrete(data?.franquia[0].id, form)}>
-              <div className="w-full max-w-sm mt-6 flex items-start">
-                <div className="w-full   flex flex-col justify-center pb-4">
-                  <h1 className="text-xl font-semibold px-1 pb-2">
-                    Valor mínimo para frete grátis
-                  </h1>
+          <div className="flex gap-10">
+            <div className="w-full">
+              <div className="w-full py-2">
+                <h1 className="font-bold px-4 text-gray-700 text-2xl">
+                  Dados sobre entrega
+                </h1>
+              </div>
+              <div className="flex flex-col px-6">
+                <label className="font-semibold mt-4 text-md py-2">
+                  Permitir retirada no local
+                </label>
+                <Switch
+                  onChange={() =>
+                    changeActive(
+                      data?.franquia[0].id,
+                      data?.franquia[0].take_in_local
+                    )
+                  }
+                  checked={data?.franquia[0].take_in_local}
+                />
 
-                  <input
-                    className="border-2 rounded-md px-2 py-1 border-gray-300"
-                    type="number"
-                    defaultValue={data?.franquia[0].frete_gratis_min}
-                    required
-                    placeholder="Digite o valor da mínimo"
-                    name="valor"
-                  />
-                  <p className="text-sm px-2 text-gray-400">
-                    O valor 0 significa que o frete grátis está desativado.
-                  </p>
+                <div className="w-full max-w-sm mt-6 flex items-start">
+                  <div className="w-full   flex flex-col justify-center pb-4">
+                    <h1 className="text-xl font-semibold px-1 pb-2">
+                      Valor mínimo para frete grátis
+                    </h1>
+
+                    <input
+                      className="border-2 rounded-md px-2 py-1 border-gray-300"
+                      type="number"
+                      defaultValue={data?.franquia[0].frete_gratis_min}
+                      required
+                      placeholder="Digite o valor da mínimo"
+                      name="valor"
+                    />
+                    <p className="text-sm px-2 text-gray-400">
+                      O valor 0 significa que o frete grátis está desativado.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <button className="px-4 w-20 py-2 text-white bg-green-500 hover:bg-green-600 rounded-md font-bold">
-                Salvar
-              </button>
-            </form>
+            </div>
+            <div className="w-full">
+              <div className="w-full py-2">
+                <h1 className="font-bold px-4 text-gray-700 text-2xl">
+                  Dados da franquia
+                </h1>
+              </div>
+              <div className="flex flex-col px-6">
+                <div className="w-full max-w-md mt-6 flex items-start">
+                  <div className="w-full   flex flex-col justify-center pb-4">
+                    <h1 className="text-xl font-semibold px-1 pb-2">
+                      Whatsapp para contato
+                    </h1>
+
+                    <input
+                      className="border-2 rounded-md px-2 py-1 border-gray-300"
+                      defaultValue={data?.franquia[0].contato}
+                      value={tel}
+                      onChange={(e) =>
+                        setTel(formatPhoneNumber(e.target.value))
+                      }
+                      placeholder="(99) 99999-9999"
+                      name="contato"
+                    />
+                    <p className="text-sm px-2 text-gray-400">
+                      Número que será utilizado no botão do Whatsapp
+                    </p>
+                  </div>
+                </div>
+                <div className="w-full max-w-md  mt-6 flex items-start">
+                  <div className="w-full   flex flex-col justify-center pb-4">
+                    <h1 className="text-xl font-semibold px-1 pb-2">
+                      Endereço completo
+                    </h1>
+
+                    <input
+                      className="border-2  rounded-md px-2 py-1 border-gray-300"
+                      defaultValue={data?.franquia[0].endereco_completo}
+                      placeholder="Cep 04.016-032 – Vila Mariana – São Paulo – SP"
+                      name="endereco"
+                    />
+                    <p className="text-sm px-2 text-gray-400">
+                      Endereço aparecerá no rodapé do site
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+          <div className="w-full  flex mt-3">
+            <button
+              type="submit"
+              className="py-2 px-4 bg-green-500 hover:bg-green-600 rounded-xl font-bold text-white"
+            >
+              Salvar
+            </button>
+          </div>
+        </form>
       )}
     </LayoutAdm>
   );

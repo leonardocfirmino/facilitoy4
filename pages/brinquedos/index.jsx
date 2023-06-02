@@ -148,22 +148,35 @@ const IndexBrinquedo = ({ subdomain }) => {
     setSelectValue(getCategoryById(router.query.categoria, data.data.category));
   }
   const sortOptions = [
-    { name: "Mais novos", href: "order_by: {created_at: desc}", current: true },
-    { name: "Nome ascendente", href: "order_by: {name: asc}", current: false },
+    {
+      name: "Disponíveis",
+      href: "order_by: {is_unavailable:asc}",
+      current: true,
+    },
+    {
+      name: "Mais novos",
+      href: "order_by: {is_unavailable:asc, created_at: desc}",
+      current: false,
+    },
+    {
+      name: "Nome ascendente",
+      href: "order_by: {is_unavailable:asc, name: asc}",
+      current: false,
+    },
     {
       name: "Nome decrescente",
-      href: "order_by: {name: desc}",
+      href: "order_by: {is_unavailable:asc, name: desc}",
       current: false,
     },
 
     {
       name: "Preço: menor ao maior",
-      href: "order_by: {price_one: asc}",
+      href: "order_by: {is_unavailable:asc, price_one: asc}",
       current: false,
     },
     {
       name: "Price: maior ao menor",
-      href: "order_by: {price_one: desc}",
+      href: "order_by: {is_unavailable:asc, price_one: desc}",
       current: false,
     },
   ];

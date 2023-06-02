@@ -13,6 +13,8 @@ import Cupon from "../components/Cupon";
 import { useState } from "react";
 import { useRef } from "react";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import Contato from "../components/Contato";
 const CarrinhoPage = ({ subdomain }) => {
   const session = useSession();
   const router = useRouter();
@@ -48,6 +50,9 @@ const CarrinhoPage = ({ subdomain }) => {
   const createCheckout = async (form) => {
     form.preventDefault();
     if (!cep.take_in_local && cep.cep == null) {
+      return toast.info("Esta unidade não atende no cep informado");
+    }
+    if (!cep.take_in_local && form.target.numero.value == "") {
       return toast.info("Preencha todos os campos antes de finalizar");
     }
     if (session.status == "unauthenticated")
@@ -126,6 +131,7 @@ const CarrinhoPage = ({ subdomain }) => {
     );
     checkout.open();
   };
+
   const cuponDiscount = (cupon) => {
     if (cupon == undefined) return 0;
     if (cupon.is_percentage == true) {
@@ -133,6 +139,7 @@ const CarrinhoPage = ({ subdomain }) => {
     }
     return cupon.discount;
   };
+  console.log(session);
   return (
     <Layout subdomain={subdomain}>
       <div className="bg-white">
@@ -171,7 +178,6 @@ const CarrinhoPage = ({ subdomain }) => {
                     className="border-2 rounded-md px-2 py-1 border-gray-300"
                     type="text"
                     defaultValue={cep.logradouro}
-                    required
                     placeholder="Seu endereço"
                     name="endereco"
                   />
@@ -181,7 +187,6 @@ const CarrinhoPage = ({ subdomain }) => {
                   <input
                     className="border-2 rounded-md px-2 py-1 border-gray-300"
                     type="text"
-                    required
                     placeholder="Seu numero"
                     name="numero"
                   />
@@ -200,7 +205,12 @@ const CarrinhoPage = ({ subdomain }) => {
               </div>
               <div>
                 <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
-                  <CepChecker subdomain={subdomain} />
+                  {data && (
+                    <CepChecker
+                      subdomain={subdomain}
+                      endereco={data.data.franquia[0].endereco_completo}
+                    />
+                  )}
                 </div>
                 <div className="sm:flex-row flex-col justify-end w-full gap-4 mt-10 flex">
                   <Cupon
@@ -214,6 +224,9 @@ const CarrinhoPage = ({ subdomain }) => {
 
             {/* Order summary */}
             <div className="mt-10  ">
+              {session.status == "authenticated" && (
+                <Contato user={session.data.user} />
+              )}
               <div className="rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:p-8">
                 <h2 className="sr-only">Order summary</h2>
 
@@ -276,27 +289,53 @@ const CarrinhoPage = ({ subdomain }) => {
                       </dd>
                     </div>
                   </dl>
+                  <dl className="-my-4 divide-y divide-gray-200 text-sm">
+                    <div className="flex items-center justify-end py-4">
+                      <dt className="text-xs flex items-center gap-1 font-medium text-faciBlue">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-5 h-5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                          />
+                        </svg>
+
+                        <span>Parcele em seu cartão de crédito</span>
+                      </dt>
+                    </div>
+                  </dl>
                 </div>
               </div>
-              <div className="flex mt-4 justify-center gap-1 text-gray-500 items-center w-full">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-                  />
-                </svg>
-                <h1 className=" text-center font-semibold">
-                  Realize o seu cadastro para finalizar a compra!
-                </h1>
-              </div>
+
+              {session.status != "authenticated" && (
+                <div className="flex mt-4 justify-center gap-1 text-gray-500 items-center w-full">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                    />
+                  </svg>
+
+                  <h1 className=" text-center font-semibold">
+                    Realize o seu cadastro para finalizar a compra!
+                  </h1>
+                </div>
+              )}
 
               <div className="mt-4">
                 <button

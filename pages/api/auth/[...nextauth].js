@@ -31,6 +31,7 @@ export const authOptions = {
               role
               email
               name
+          
               password
               id
             }
@@ -71,6 +72,7 @@ export const authOptions = {
         sub: String(token.sub),
         name: token.name,
         email: token.email,
+
         role: token.role,
         iat: Date.now() / 1000,
         exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
@@ -96,6 +98,7 @@ export const authOptions = {
       });
       session.id = token.id;
       session.user.id = token.id;
+
       session.user.role = token.role;
       session.token = encodedToken;
       return Promise.resolve(session);
@@ -110,6 +113,7 @@ export const authOptions = {
         token.sub = user.id;
 
         token.role = user.role;
+        token.phone = user.phone;
       }
       return Promise.resolve(token);
     },

@@ -8,6 +8,7 @@ import formatPhoneNumber from "../helpers/formatPhoneNumber";
 
 import axios from "axios";
 import { useState } from "react";
+import Link from "next/link";
 export default function Login({ subdomain }) {
   const router = useRouter();
   const [tel, setTel] = useState("");
@@ -95,12 +96,12 @@ export default function Login({ subdomain }) {
         pauseOnHover
       />
       <div className="bg-gray-100 ">
-        <div className="flex justify-center h-screen">
+        <div className="flex justify-center min-h-screen">
           <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
             <div className="flex-1">
               <div className="text-center">
                 <h2 className=" flex justify-center font-bold text-center text-gray-700 dark:text-white">
-                  <img className="w-56" src="/logo.webp" alt="" />
+                  <img className="w-40" src="/logo.webp" alt="" />
                 </h2>
                 <p className="mt-3 text-gray-500 ">
                   Preencha os dados para criar sua conta
@@ -127,7 +128,7 @@ export default function Login({ subdomain }) {
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md    focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-3">
                     <label
                       htmlFor="email"
                       className="block mb-2 text-sm text-gray-600 "
@@ -143,7 +144,7 @@ export default function Login({ subdomain }) {
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md    focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-3">
                     <label
                       htmlFor="cpf"
                       className="block mb-2 text-sm text-gray-600 "
@@ -160,7 +161,7 @@ export default function Login({ subdomain }) {
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md    focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-3">
                     <div className="flex justify-between mb-2">
                       <label
                         htmlFor="password"
@@ -181,7 +182,7 @@ export default function Login({ subdomain }) {
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-3">
                     <div className="flex justify-between mb-2">
                       <label
                         htmlFor="password"
@@ -194,10 +195,33 @@ export default function Login({ subdomain }) {
                       type="password"
                       name="password"
                       required
+                      minLength={6}
                       id="password"
                       placeholder="**********"
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
+                  </div>
+                  <div className="relative flex items-center justify-center mt-3">
+                    <div className="flex h-6 items-center">
+                      <input
+                        name="termos"
+                        required
+                        type="checkbox"
+                        className="h-5 w-5 form-checkbox rounded border-gray-300 text-faciBlue focus:ring-faciBlue"
+                      />
+                    </div>
+                    <div className="ml-3 text-xs leading-6">
+                      <span className="text-gray-500">
+                        Concordo com os{" "}
+                        <Link href={"/termos"}>
+                          <a className="underline">Termos e Condições</a>
+                        </Link>{" "}
+                        e{" "}
+                        <Link href={"/politica"}>
+                          <a className="underline">Política de privacidade</a>
+                        </Link>
+                      </span>
+                    </div>
                   </div>
 
                   <div className="mt-6">

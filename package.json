@@ -50,6 +50,8 @@
     "react-toastify": "^9.0.8",
     "react-tooltip": "^5.3.2",
     "react-xarrows": "^2.0.2",
+    "redux-persist": "^6.0.0",
+    "redux-state-sync": "^3.1.4",
     "sweetalert2": "^11.4.37",
     "swiper": "^8.4.5",
     "swr": "^2.1.1"

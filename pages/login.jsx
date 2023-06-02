@@ -54,20 +54,6 @@ export default function Login() {
       />
       <div className="bg-gray-100 ">
         <div className="flex justify-center h-screen">
-          <div
-            className="hidden bg-cover lg:block lg:w-2/3"
-            style={{
-              backgroundImage: "url('/bg-login.jpg')",
-            }}
-          >
-            <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-              <div>
-                <h2 className="w-56 font-bold text-white">
-                  <img src="/logo branca.webp" alt="" />
-                </h2>
-              </div>
-            </div>
-          </div>
           <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
             <div className="flex-1">
               <div className="text-center">
@@ -144,6 +130,20 @@ export default function Login() {
                     </div>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+          <div
+            className="hidden bg-cover lg:block lg:w-2/3"
+            style={{
+              backgroundImage: "url('/bg-login.jpg')",
+            }}
+          >
+            <div className="flex justify-end items-center h-full px-20 bg-gray-900 bg-opacity-40">
+              <div>
+                <h2 className="w-56 font-bold text-white">
+                  <img src="/logo branca.webp" alt="" />
+                </h2>
               </div>
             </div>
           </div>
