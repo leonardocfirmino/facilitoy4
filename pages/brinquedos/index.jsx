@@ -71,13 +71,18 @@ const IndexBrinquedo = ({ subdomain }) => {
     );
   const [ageFilter, setAgeFilter] = useState("");
   const [categoriaFilter, setCategoriaFilter] = useState("");
-  const [orderBy, setOrderBy] = useState("order_by: {created_at: desc}");
+  const [orderBy, setOrderBy] = useState("order_by: {is_unavailable:asc}");
   const [select, setSelect] = useState(null);
   const [selectValue, setSelectValue] = useState(null);
   useEffect(() => {
-    if (router.query.age != undefined) setAgeFilter(router.query.age);
-    if (router.query.categoria != undefined)
+    if (router.query.age != undefined) {
+      setAgeFilter(router.query.age);
+      mutate();
+    }
+    if (router.query.categoria != undefined) {
       setCategoriaFilter(router.query.categoria);
+      mutate();
+    }
   }, [router.query.age, router.query.categoria]);
   const { data, mutate } = useSWR(
     {
@@ -180,6 +185,7 @@ const IndexBrinquedo = ({ subdomain }) => {
       current: false,
     },
   ];
+
   return (
     <Layout subdomain={subdomain}>
       <div
