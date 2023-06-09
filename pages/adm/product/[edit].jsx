@@ -251,8 +251,8 @@ export default function EditBanner({ sessions }) {
                     name="categoria"
                     required
                     defaultValue={{
-                      value: data?.category[0].id,
-                      label: data?.category[0].name,
+                      value: data?.product[0].category.id,
+                      label: data?.product[0].category.name,
                     }}
                     options={data?.category.map((value) => {
                       return { label: value.name, value: value.id };
