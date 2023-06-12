@@ -95,6 +95,11 @@ const Config = ({ sessions }) => {
       form.target.endereco.value.length < 8
         ? ""
         : `endereco_completo: "${form.target.endereco.value}"`;
+    const google =
+      form.target.pixel_google.value.length < 8
+        ? ""
+        : `,pixel_google: "${form.target.pixel_google.value}"`;
+
     try {
       await axios.post(
         process.env.NEXT_PUBLIC_PREFIX +
@@ -103,7 +108,7 @@ const Config = ({ sessions }) => {
 
         {
           query: `mutation {
-            update_franquia_by_pk(pk_columns: {id: "${id}"}, _set: {frete_gratis_min: ${form.target.valor.value} ${phone} ${endereco}}) {
+            update_franquia_by_pk(pk_columns: {id: "${id}"}, _set: {frete_gratis_min: ${form.target.valor.value} ${phone} ${endereco} ${google} }) {
           id
         }
       }`,
@@ -245,6 +250,32 @@ const Config = ({ sessions }) => {
                     />
                     <p className="text-sm px-2 text-gray-400">
                       Endereço aparecerá no rodapé do site
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="w-full py-2">
+                <h1 className="font-bold px-4 text-gray-700 text-2xl">
+                  Tag Google
+                </h1>
+              </div>
+              <div className="flex flex-col px-6">
+                <div className="w-full max-w-md mt-6 flex items-start">
+                  <div className="w-full   flex flex-col justify-center pb-4">
+                    <h1 className="text-xl font-semibold px-1 pb-2">
+                      Código tag Google
+                    </h1>
+
+                    <input
+                      className="border-2 rounded-md px-2 py-1 border-gray-300"
+                      defaultValue={data?.franquia[0].pixel_google}
+                      placeholder="Código aqui"
+                      name="pixel_google"
+                    />
+                    <p className="text-sm px-2 text-gray-400">
+                      Pixel para o google
                     </p>
                   </div>
                 </div>

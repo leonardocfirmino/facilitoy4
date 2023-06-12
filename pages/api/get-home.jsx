@@ -13,6 +13,7 @@ export default async function handler(req, res) {
         franquia(where: {subdomain: {_eq: "${subdomain}"}}){
           contato
           endereco_completo
+          pixel_google
         }
       }`,
     },

@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MoonLoader } from "react-spinners";
 import Select from "react-select";
-
+import Moment from "react-moment";
 import useSWR from "swr";
 import request from "graphql-request";
 import { useRouter } from "next/router";
@@ -179,6 +179,12 @@ export default function CreateBanner({ sessions }) {
                   <div className="w-full flex flex-col px-1 justify-center pb-4">
                     <h1 className="text-xl font-semibold  pb-2">Endereço</h1>
                     <p>{cep}</p>
+                    <p>
+                      Data:{" "}
+                      <Moment format="DD/MM/YYYY hh:mm">
+                        {data.user_carrinho[0].created_at}
+                      </Moment>
+                    </p>
                   </div>
                   {data.user_carrinho[0].endereco != null && (
                     <div className="w-full flex flex-col px-1 justify-center pb-4">

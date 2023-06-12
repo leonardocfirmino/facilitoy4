@@ -14,6 +14,7 @@ import axios from "axios";
 import useSWR from "swr";
 import { useSelector } from "react-redux";
 import formatPhoneNumber from "../helpers/formatPhoneNumber";
+import TagManager from "react-gtm-module";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -38,7 +39,19 @@ export default function Layout({ children, subdomain }) {
   const items = useSelector((state) => state.cart);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [actualMenu, setActualMenu] = useState(router.pathname);
-
+  const [tagEnabled, setTagEnabled] = useState(false);
+  if (data && !tagEnabled) {
+    if (
+      data.data.franquia[0].pixel_google != null ||
+      data.data.franquia[0].pixel_google.length > 3
+    ) {
+      const tagManagerArgs = {
+        gtmId: data.data.franquia[0].pixel_google,
+      };
+      TagManager.initialize(tagManagerArgs);
+      setTagEnabled(true);
+    }
+  }
   return (
     <div>
       <CookieConsent
