@@ -43,7 +43,7 @@ export default function Layout({ children, subdomain }) {
   if (data && !tagEnabled) {
     if (
       data.data.franquia[0].pixel_google != null ||
-      data.data.franquia[0].pixel_google.length > 3
+      data.data.franquia[0]?.pixel_google?.length > 3
     ) {
       const tagManagerArgs = {
         gtmId: data.data.franquia[0].pixel_google,
