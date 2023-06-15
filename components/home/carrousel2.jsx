@@ -104,9 +104,9 @@ export default function HomeCarrousel2({ data, vendidos }) {
                             src={
                               product.product_image == null
                                 ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                                  product.product_images[0].src
+                                  product.product_images[0]?.src
                                 : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                                  product.product_image.src
+                                  product.product_image?.src
                             }
                           />
                         </a>
@@ -228,9 +228,9 @@ export default function HomeCarrousel2({ data, vendidos }) {
                             src={
                               product.product_image == null
                                 ? "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                                  product.product_images[0].src
+                                  product.product_images[0]?.src
                                 : "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
-                                  product.product_image.src
+                                  product.product_image?.src
                             }
                           />
                         </a>
