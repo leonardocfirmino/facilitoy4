@@ -94,10 +94,24 @@ const SelectEstado = () => {
       })
       .filter((item) => !!item);
 
+    const ES = data.data.franquia
+      .map((value) => {
+        if (value.estado == "ES") {
+          if (value.subdomain == "rio-das-ostras")
+            return { label: value.name, value: "roemacae" };
+          if (value.subdomain == "roemacae")
+            return { label: "Macaé", value: "roemacae" };
+          return { label: value.name, value: value.subdomain };
+        }
+        return false;
+      })
+      .filter((item) => !!item);
+
     setFranquias([
       { label: "SP", options: SP },
       { label: "RJ", options: RJ },
       { label: "MT", options: MT },
+      { label: "ES", options: ES },
     ]);
   }
   return (
