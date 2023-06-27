@@ -81,6 +81,9 @@ const CarrinhoPage = ({ subdomain }) => {
         total: getTotalPrice() - cep.value,
       }
     );
+    if (response.data.indisponivel) {
+      return toast.error("Algum produto do seu carrinho não está disponível");
+    }
 
     const checkout = mercadopago.checkout({
       preference: {
@@ -360,7 +363,7 @@ const CarrinhoPage = ({ subdomain }) => {
             </div>
           </form>
         </div>
-        <Recomendados />
+        {data && <Recomendados data={data.data.product} />}
       </div>
     </Layout>
   );

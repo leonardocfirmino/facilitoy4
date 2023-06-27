@@ -11,7 +11,15 @@ export default async function handler(req, res) {
           take_in_local
           frete_gratis_min
         }
-       
+        product(limit: 20,order_by: {carrinho_produtos_aggregate: {count:desc}}, where: {is_active: {_eq: true}, _and: {user: {franquia: {subdomain: {_eq: "${req.body.subdomain}"}}}}}) {
+          product_images {
+            src
+          }
+          slug
+          price_one
+          name
+          is_unavailable
+        }
       }`,
     },
     {

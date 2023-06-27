@@ -36,7 +36,7 @@ export default function SingleProductCart({ product }) {
           <div className="flex justify-between sm:grid sm:grid-cols-2">
             <div className="pr-6">
               <h3 className="text-sm">
-                <Link href={product.product.slug}>
+                <Link href={"brinquedos/" + product.product.slug}>
                   <a className="font-medium text-gray-700 hover:text-gray-800">
                     {product.product.name}
                   </a>

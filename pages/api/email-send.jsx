@@ -896,7 +896,7 @@ a[x-apple-data-detectors] {
 </html>
     `;
   };
-  const transporter = nodemailer.createTransport({
+  /* const transporter = nodemailer.createTransport({
     host: "mail.facilitoy.com.br",
     port: 465,
     secure: true,
@@ -921,7 +921,7 @@ a[x-apple-data-detectors] {
     text: "Veja os dados do pedido",
 
     html: templateEmailFranquiado(pedido),
-  });
+  }); */
 
   res.status(200).json("emails.data");
 }

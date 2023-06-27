@@ -16,7 +16,7 @@ import useSWR from "swr";
 import request from "graphql-request";
 import { useSession } from "next-auth/react";
 import ReactPlayer from "react-player/youtube";
-
+import TagManager from "react-gtm-module";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }

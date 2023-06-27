@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 var mercadopago = require("mercadopago");
 
 export default async function handler(req, res) {
+  let products_id = "[";
+  req.body.products.map((product) => (products_id += `"${product.id}",`));
+  products_id += "]";
   const franquia = await axios.post(
     process.env.HASURA_URL,
     {
@@ -12,7 +15,9 @@ export default async function handler(req, res) {
           id
           frete_gratis_min
         }
-       
+        product(where: {id: {_in: ${products_id}}}) {
+          is_unavailable
+        }
       }`,
     },
     {
@@ -21,6 +26,11 @@ export default async function handler(req, res) {
       },
     }
   );
+  if (
+    franquia.data.data.product.some((product) => product.is_unavailable == true)
+  ) {
+    return res.json({ indisponivel: true });
+  }
   const prodKey = franquia.data.data.franquia[0].mpago_key;
   const testeKey =
     "TEST-3584331251484724-102505-8141bc5a77ac68d1f65a123eb0b59866-476385198";
