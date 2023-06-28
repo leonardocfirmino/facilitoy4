@@ -106,9 +106,20 @@ const SelectEstado = () => {
         return false;
       })
       .filter((item) => !!item);
-
+    const SP_CAPITAL = data.data.franquia
+      .map((value) => {
+        if (value.estado == "SP CAPITAL") {
+          if (value.subdomain == "santos-guaruja")
+            return { label: "Santos", value: "santos-guaruja" };
+          return { label: value.name, value: value.subdomain };
+        }
+        return false;
+      })
+      .filter((item) => !!item);
+    SP_CAPITAL.push({ label: "Guaruja", value: "santos-guaruja" });
     setFranquias([
       { label: "SP", options: SP },
+      { label: "SP CAPITAL", options: SP_CAPITAL },
       { label: "RJ", options: RJ },
       { label: "MT", options: MT },
       { label: "ES", options: ES },
