@@ -17,6 +17,7 @@ import request from "graphql-request";
 import { useSession } from "next-auth/react";
 import ReactPlayer from "react-player/youtube";
 import TagManager from "react-gtm-module";
+import { useEffect } from "react";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -26,6 +27,7 @@ function classOrganizer(...classes) {
 
 export default function Example({ subdomain }) {
   const session = useSession();
+  const [uniqueData, setUniqueData] = useState(false);
   const router = useRouter();
   const fetcher = async (query) =>
     axios.post(
@@ -63,6 +65,27 @@ export default function Example({ subdomain }) {
     return (valorBruto - price).toFixed(2);
   }
   let setPrice = null;
+  useEffect(() => {
+    window.dataLayer = window.dataLayer || [];
+    function onProductClick(productObj) {
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: "select_item",
+        ecommerce: {
+          items: [
+            {
+              item_name: productObj.name,
+              item_id: productObj.id,
+              item_category: productObj.category.name,
+              price: productObj.price_one,
+            },
+          ],
+        },
+      });
+      setUniqueData(true);
+    }
+    if (data && !uniqueData) onProductClick(data.data.product[0]);
+  });
   if (data) {
     if (data.data.product.length == 0) {
       router.push("/");

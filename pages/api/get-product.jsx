@@ -16,6 +16,9 @@ export default async function handler(req, res) {
           slug
           is_unavailable
           price_two
+          category {
+            name
+          }
           price_three
           product_images {
             src
