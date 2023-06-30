@@ -90,7 +90,7 @@ const CarrinhoPage = ({ subdomain }) => {
         id: response.data.mpago.body.id,
       },
     });
-
+    console.log(products);
     let finalProducts = "[";
     products.map((value) => {
       finalProducts += `{product_id:"${value.id}", preco:"${value.time.price}", tempo:"${value.time.tempo}", quantity: "${value.quantity}"},`;
@@ -133,6 +133,22 @@ const CarrinhoPage = ({ subdomain }) => {
       }
     );
     checkout.open();
+    const gtmProducts = products.map((value, index) => {
+      return {
+        item_name: value.name,
+        item_id: value.id,
+        price: value.price_one,
+        index: index,
+        quantity: 1,
+      };
+    });
+    dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
+    dataLayer.push({
+      event: "begin_checkout",
+      ecommerce: {
+        items: gtmProducts,
+      },
+    });
   };
 
   const cuponDiscount = (cupon) => {

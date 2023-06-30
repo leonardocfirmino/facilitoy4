@@ -53,6 +53,24 @@ export default function Example({ subdomain }) {
       draggable: true,
       progress: undefined,
     });
+    dataLayer.push({ ecommerce: null });
+    dataLayer.push({
+      event: "add_to_cart",
+      ecommerce: {
+        items: [
+          {
+            item_name: product.name,
+            item_id: product.id,
+            price: product.price_one,
+
+            item_category: product.category.name,
+
+            index: 1,
+            quantity: 1,
+          },
+        ],
+      },
+    });
   };
 
   const [selectedTime, setSelectedTime] = useState(null);
@@ -71,6 +89,19 @@ export default function Example({ subdomain }) {
       dataLayer.push({ ecommerce: null });
       dataLayer.push({
         event: "select_item",
+        ecommerce: {
+          items: [
+            {
+              item_name: productObj.name,
+              item_id: productObj.id,
+              item_category: productObj.category.name,
+              price: productObj.price_one,
+            },
+          ],
+        },
+      });
+      dataLayer.push({
+        event: "view_item",
         ecommerce: {
           items: [
             {
