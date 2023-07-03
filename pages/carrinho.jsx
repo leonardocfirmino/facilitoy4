@@ -145,7 +145,12 @@ const CarrinhoPage = ({ subdomain }) => {
     dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
     dataLayer.push({
       event: "begin_checkout",
+
       ecommerce: {
+        transaction_id:
+          saveTransaction.data.data.insert_user_carrinho_one[0].id,
+        coupon: cupon,
+        currency: "EUR",
         items: gtmProducts,
       },
     });

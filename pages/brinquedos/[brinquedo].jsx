@@ -57,6 +57,7 @@ export default function Example({ subdomain }) {
     dataLayer.push({
       event: "add_to_cart",
       ecommerce: {
+        currency: "BRL",
         items: [
           {
             item_name: product.name,
@@ -89,26 +90,34 @@ export default function Example({ subdomain }) {
       dataLayer.push({ ecommerce: null });
       dataLayer.push({
         event: "select_item",
+
         ecommerce: {
+          currency: "BRL",
           items: [
             {
               item_name: productObj.name,
               item_id: productObj.id,
+
               item_category: productObj.category.name,
               price: productObj.price_one,
+              quantity: 1,
             },
           ],
         },
       });
       dataLayer.push({
         event: "view_item",
+
         ecommerce: {
+          currency: "BRL",
           items: [
             {
               item_name: productObj.name,
               item_id: productObj.id,
+
               item_category: productObj.category.name,
               price: productObj.price_one,
+              quantity: 1,
             },
           ],
         },
