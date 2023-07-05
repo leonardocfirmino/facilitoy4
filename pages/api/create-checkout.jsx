@@ -72,7 +72,9 @@ export default async function handler(req, res) {
       cost: req.body.cep.take_in_local ? 0 : req.body.cep.value,
       mode: "not_specified",
       free_shipping:
-        franquia.data.data.franquia[0].frete_gratis_min <= req.body.total,
+        franquia.data.data.franquia[0].frete_gratis_min == 0
+          ? false
+          : franquia.data.data.franquia[0].frete_gratis_min <= req.body.total,
       receiver_address: {
         zip_code: req.body.cep.cep == null ? "" : req.body.cep.cep,
       },

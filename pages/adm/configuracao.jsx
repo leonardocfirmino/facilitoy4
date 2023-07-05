@@ -143,7 +143,7 @@ const Config = ({ sessions }) => {
     }
   };
   if (data && tel == "") {
-    setTel(data.franquia[0].contato ?? "");
+    setTel(data.franquia[0].contato);
   }
   return (
     <LayoutAdm session={user}>

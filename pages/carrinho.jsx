@@ -44,7 +44,10 @@ const CarrinhoPage = ({ subdomain }) => {
 
     return (
       productValues +
-      (data?.data.franquia[0].frete_gratis_min <= productValues ? 0 : cep.value)
+      (data?.data.franquia[0].frete_gratis_min &&
+      data?.data.franquia[0].frete_gratis_min != 0 <= productValues
+        ? 0
+        : cep.value)
     );
   };
   const createCheckout = async (form) => {
@@ -55,6 +58,10 @@ const CarrinhoPage = ({ subdomain }) => {
     if (!cep.take_in_local && form.target.numero.value == "") {
       return toast.info("Preencha todos os campos antes de finalizar");
     }
+    if (!cep.take_in_local && form.target.endereco.value.length < 5) {
+      return toast.info("Preencha todos os campos antes de finalizar");
+    }
+
     if (session.status == "unauthenticated")
       return router.push(
         "/login?callbackUrl=" +
@@ -112,11 +119,12 @@ const CarrinhoPage = ({ subdomain }) => {
           complemento: "${form.target.complemento.value}", 
           mercado_order_id: "${response.data.uuid}", 
           frete_value: "${cep.value}", 
-          cep: "${cep.cep}", 
+          cep: "${cep.cep}",
+          take_in_local: "${cep.take_in_local}",
           franquia_id: "${response.data.franquia_id}",
           ${
             cupon != undefined
-              ? 'cupon_users: {data: {cupon_id: "${cupon.id}"}},'
+              ? `cupon_users: {data: {cupon_id: "${cupon.id}"}},`
               : ""
           }
           carrinho_produtos: {data: ${finalProducts}}}) {
@@ -142,13 +150,13 @@ const CarrinhoPage = ({ subdomain }) => {
         quantity: 1,
       };
     });
+    window.dataLayer = window.dataLayer || [];
     dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
     dataLayer.push({
       event: "begin_checkout",
 
       ecommerce: {
-        transaction_id:
-          saveTransaction.data.data.insert_user_carrinho_one[0].id,
+        transaction_id: saveTransaction.data.data.insert_user_carrinho_one.id,
         coupon: cupon,
         currency: "EUR",
         items: gtmProducts,
@@ -279,8 +287,9 @@ const CarrinhoPage = ({ subdomain }) => {
                           Frete
                         </dt>
                         <dd className="text-base font-medium text-gray-900">
-                          {data?.data.franquia[0].frete_gratis_min <
-                          getTotalPrice(data) ? (
+                          {data?.data.franquia[0].frete_gratis_min &&
+                          data?.data.franquia[0].frete_gratis_min !=
+                            0 < getTotalPrice(data) ? (
                             <span className="text-semibold text-green-400">
                               Grátis
                             </span>

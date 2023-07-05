@@ -55,6 +55,8 @@ export default function CreateBanner({ sessions }) {
         user {
           phone_number
           name
+          cpf
+          
           email
         }
       }
@@ -186,15 +188,19 @@ export default function CreateBanner({ sessions }) {
                       </Moment>
                     </p>
                   </div>
-                  {data.user_carrinho[0].endereco != null && (
-                    <div className="w-full flex flex-col px-1 justify-center pb-4">
-                      <h1 className="text-xl font-semibold  pb-2">
-                        Endereço informado
-                      </h1>
-                      <p>Rua: {data.user_carrinho[0].endereco}</p>
-                      <p>Número: {data.user_carrinho[0].numero}</p>
-                      <p>Complemento: {data.user_carrinho[0].complemento}</p>
-                    </div>
+                  {data.user_carrinho[0].endereco != null &&
+                    !data.user_carrinho[0].take_in_local && (
+                      <div className="w-full flex flex-col px-1 justify-center pb-4">
+                        <h1 className="text-xl font-semibold  pb-2">
+                          Endereço informado
+                        </h1>
+                        <p>Rua: {data.user_carrinho[0].endereco}</p>
+                        <p>Número: {data.user_carrinho[0].numero}</p>
+                        <p>Complemento: {data.user_carrinho[0].complemento}</p>
+                      </div>
+                    )}
+                  {data.user_carrinho[0].take_in_local && (
+                    <h1>Retirar no local</h1>
                   )}
                   <div className="w-full flex flex-col px-1 justify-center pb-4">
                     <h1 className="text-xl font-semibold  pb-2">
