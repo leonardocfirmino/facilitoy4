@@ -5,14 +5,18 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import formatPhoneNumber from "../helpers/formatPhoneNumber";
-
+import DatePicker from "react-date-picker";
 import axios from "axios";
 import { useState } from "react";
 import Link from "next/link";
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
 export default function Login({ subdomain }) {
   const router = useRouter();
   const [tel, setTel] = useState("");
   const [cpf, setCpf] = useState("");
+  const [date, setDate] = useState(new Date());
+  console.log(date.toISOString());
   const LoginMethod = async (form) => {
     form.preventDefault();
     const res = await axios.post(
@@ -25,6 +29,7 @@ export default function Login({ subdomain }) {
         email: form.target.email.value,
         phone_number: cleanNumber(form.target.phone.value),
         name: form.target.name.value,
+        data_nascimento: date.toISOString(),
         cpf: cleanCpf(form.target.cpf.value),
         password: form.target.password.value,
       }
@@ -159,6 +164,21 @@ export default function Login({ subdomain }) {
                       onChange={handleChange}
                       placeholder="999.999.999-99"
                       className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md    focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                  </div>
+                  <div className="mt-3">
+                    <label
+                      htmlFor="date"
+                      className="block mb-2 text-sm text-gray-600 "
+                    >
+                      Data de nascimento
+                    </label>
+                    <DatePicker
+                      onChange={setDate}
+                      value={date}
+                      locale="pt-BR"
+                      format="dd/MM/yyyy"
+                      className="block  w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md    focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
                   <div className="mt-3">

@@ -347,3 +347,6 @@ input::-webkit-inner-spin-button {
 .noArrow {
   -moz-appearance: textfield;
 }
+.react-date-picker__wrapper {
+  border: none !important;
+}

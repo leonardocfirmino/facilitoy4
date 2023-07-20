@@ -20,7 +20,7 @@ const groupByCidade = (bairros) =>
         nome: item.bairro,
         valor: item.valor,
         tempo: item.tempo,
-        id: item.ids,
+        id: item.id,
       });
     }
     return result;

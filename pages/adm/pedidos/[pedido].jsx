@@ -11,6 +11,7 @@ import Select from "react-select";
 import Moment from "react-moment";
 import useSWR from "swr";
 import request from "graphql-request";
+
 import { useRouter } from "next/router";
 export default function CreateBanner({ sessions }) {
   const user = JSON.parse(sessions);
@@ -56,7 +57,7 @@ export default function CreateBanner({ sessions }) {
           phone_number
           name
           cpf
-          
+          data_nascimento
           email
         }
       }
@@ -98,8 +99,8 @@ export default function CreateBanner({ sessions }) {
             {data && <h1>Pedido #{data.user_carrinho[0].id}</h1>}
           </div>
           {data && (
-            <form className="flex justify-around gap-4 ">
-              <div className="w-1/2">
+            <form className="grid grid-cols-2 justify-around gap-4 ">
+              <div className="w-full">
                 <div className="w-full  items-start">
                   <h1 className="text-xl font-semibold px-1 pb-2">
                     Brinquedos
@@ -142,13 +143,13 @@ export default function CreateBanner({ sessions }) {
                           if (value.product != null)
                             return (
                               <tr key={index}>
-                                <td className=" w-40 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                  <p className="w-40">{value.product.name}</p>
+                                <td className=" w-32 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                  <p className="w-32">{value.product.name}</p>
                                 </td>
 
                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                   <img
-                                    className="w-32  h-40"
+                                    className="w-20  h-20"
                                     src={
                                       value.product.product_images[0] !=
                                       undefined
@@ -218,7 +219,7 @@ export default function CreateBanner({ sessions }) {
                   </div>
                 </div>
               </div>
-              <div className="w-1/2 ">
+              <div className="w-full ">
                 <div className="w-full  items-start">
                   <h1 className="text-2xl font-bold px-1 pb-1">Cliente</h1>
                 </div>
@@ -234,6 +235,20 @@ export default function CreateBanner({ sessions }) {
                   <div className="w-full flex flex-col px-1 justify-center py-3">
                     <h1 className="text-xl font-semibold  pb-2">Email</h1>
                     <p>{data.user_carrinho[0].user.email}</p>
+                  </div>
+                  <div className="w-full flex flex-col px-1 justify-center py-3">
+                    <h1 className="text-xl font-semibold  pb-2">Cpf</h1>
+                    <p>{data.user_carrinho[0].user.cpf}</p>
+                  </div>
+                  <div className="w-full flex flex-col px-1 justify-center py-3">
+                    <h1 className="text-xl font-semibold  pb-2">
+                      Data de nascimento
+                    </h1>
+                    <p>
+                      <Moment format="DD/MM/YYYY ">
+                        {data.user_carrinho[0].user.data_nascimento}
+                      </Moment>
+                    </p>
                   </div>
                 </div>
               </div>
