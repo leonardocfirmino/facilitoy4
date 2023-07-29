@@ -9,6 +9,7 @@ import useSWR from "swr";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { validate } from "graphql";
 const SelectEstado = () => {
   const router = useRouter();
   const [franquias, setFranquias] = useState(null);
@@ -71,6 +72,9 @@ const SelectEstado = () => {
       .filter((item) => !!item);
     const RJ = data.data.franquia
       .map((value) => {
+        if (value.subdomain == "campos") {
+          return false;
+        }
         if (value.estado == "RJ") {
           if (value.subdomain == "rio-das-ostras")
             return { label: value.name, value: "roemacae" };
