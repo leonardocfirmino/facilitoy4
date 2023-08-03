@@ -97,6 +97,18 @@ const SelectEstado = () => {
         return false;
       })
       .filter((item) => !!item);
+    const MG = data.data.franquia
+      .map((value) => {
+        if (value.estado == "MG") {
+          if (value.subdomain == "rio-das-ostras")
+            return { label: value.name, value: "roemacae" };
+          if (value.subdomain == "roemacae")
+            return { label: "Macaé", value: "roemacae" };
+          return { label: value.name, value: value.subdomain };
+        }
+        return false;
+      })
+      .filter((item) => !!item);
 
     const ES = data.data.franquia
       .map((value) => {
@@ -126,6 +138,7 @@ const SelectEstado = () => {
       { label: "SP CAPITAL", options: SP_CAPITAL },
       { label: "RJ", options: RJ },
       { label: "MT", options: MT },
+      { label: "MG", options: MG },
       { label: "ES", options: ES },
     ]);
   }
