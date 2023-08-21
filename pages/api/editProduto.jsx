@@ -106,6 +106,7 @@ export default async function handler(req, res) {
       const link = slugify(req.body.name);
       const faixasAdd = toAdd(req.body.faixasAdd, req.body.id);
       const faixasDelete = toDelete(req.body.faixasToDelete, req.body.id);
+      console.log(req.body.principal);
       const result = await axios.post(
         `${process.env.HASURA_URL}`,
         {
@@ -114,9 +115,21 @@ export default async function handler(req, res) {
             ${imageToDelete}
             ${faixasAdd}
             ${faixasDelete}
-            update_product_by_pk(pk_columns: {id: "${req.body.id}"}, _set : {description: "${req.body.desc}", principal_image_id: "${req.body.principal}",
-              details: "${req.body.details}",youtube_link: "${req.body.video}",price_one: "${req.body.price_one}", price_two: "${req.body.price_two}",
-              price_three: "${req.body.price_three}", slug: "${link}", name: "${req.body.name}", category_id: "${req.body.category}"}) {
+            update_product_by_pk(pk_columns: {id: "${
+              req.body.id
+            }"}, _set : {description: "${req.body.desc}", ${
+            req.body.principal != "null"
+              ? `principal_image_id: "${req.body.principal}",`
+              : ""
+          } 
+              details: "${req.body.details}",youtube_link: "${
+            req.body.video
+          }",price_one: "${req.body.price_one}", price_two: "${
+            req.body.price_two
+          }",
+              price_three: "${req.body.price_three}", slug: "${link}", name: "${
+            req.body.name
+          }", category_id: "${req.body.category}"}) {
                 id
               }
           }`,
@@ -129,7 +142,7 @@ export default async function handler(req, res) {
       );
 
       if (result.data.errors != undefined) {
-        console.log(result.config);
+        console.log(result.data.errors);
         return res.status(500).json(req.body.name);
       }
       return res.status(200).json(result.data.data);

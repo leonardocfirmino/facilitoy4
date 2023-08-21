@@ -153,7 +153,15 @@ export default function EditBanner({ sessions }) {
     formData.append("price_one", form.target.price_one.value);
     formData.append("price_two", form.target.price_two.value);
     formData.append("price_three", form.target.price_three.value);
-    formData.append("principal", multipleImage.current.getPrincipal());
+    formData.append(
+      "principal",
+      multipleImage.current
+        .sendFilesToRemove()
+        .includes(multipleImage.current.getPrincipal())
+        ? null
+        : multipleImage.current.getPrincipal()
+    );
+
     multipleImage.current.sendFiles()?.map((value) => {
       formData.append("images", value);
     });
