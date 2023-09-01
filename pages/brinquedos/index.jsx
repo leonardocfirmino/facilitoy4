@@ -400,7 +400,20 @@ const IndexBrinquedo = ({ subdomain }) => {
         </Disclosure>
         <div className="w-4/6  mx-auto py-6 flex justify-between items-center">
           <h2>
-            Início / <span className="font-semibold">Brinquedos</span>
+            Início /{" "}
+            <span
+              className={classOrganizer(
+                router.query?.search?.length < 3 && "font-semibold"
+              )}
+            >
+              Brinquedos
+            </span>{" "}
+            {router.query?.search?.length > 3 && (
+              <span className="font-semibold uppercase">
+                {" "}
+                / {router.query.search}
+              </span>
+            )}
           </h2>
         </div>
         <section
@@ -416,8 +429,7 @@ const IndexBrinquedo = ({ subdomain }) => {
                       <div
                         key={product.id}
                         className={classOrganizer(
-                          product.is_unavailable &&
-                            "pointer-events-none saturate-50",
+                          product.is_unavailable && " saturate-50",
                           "group relative border-r border-b border-gray-200 p-4 sm:p-6"
                         )}
                       >
@@ -456,7 +468,7 @@ const IndexBrinquedo = ({ subdomain }) => {
                               className={classOrganizer(
                                 !product.is_unavailable
                                   ? "bg-red-600 hover:bg-red-500 cursor-pointer"
-                                  : "bg-gray-400 hover:bg-gray-500 pointer-events-none",
+                                  : "bg-gray-400 hover:bg-gray-500 ",
                                 "relative  flex items-center justify-center rounded-md border border-transparent  py-2 px-8 text-sm font-medium text-white "
                               )}
                             >

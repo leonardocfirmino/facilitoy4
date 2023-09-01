@@ -18,6 +18,7 @@ import { useSession } from "next-auth/react";
 import ReactPlayer from "react-player/youtube";
 import TagManager from "react-gtm-module";
 import { useEffect } from "react";
+import FormAvisarMe from "../../components/FormAvisarMe";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -305,14 +306,18 @@ export default function Example({ subdomain }) {
                       </span>
                     </RadioGroup>
                   </div>
-                  {
+                  {product.is_unavailable ? (
+                    <div className="sm:flex-row flex-col gap-4 mt-10 flex">
+                      <FormAvisarMe subdomain={subdomain} produto={product} />
+                    </div>
+                  ) : (
                     <div className="sm:flex-row flex-col gap-4 mt-10 flex">
                       <CepChecker subdomain={subdomain} />
                     </div>
-                  }
+                  )}
                   <div
                     className={classOrganizer(
-                      product.is_unavailable && "pointer-events-none",
+                      product.is_unavailable && "hidden",
                       "sm:flex-row  flex-col gap-4 mt-10 flex"
                     )}
                   >
@@ -362,7 +367,7 @@ export default function Example({ subdomain }) {
                   <h3 className="sr-only">Description</h3>
 
                   <div
-                    className="space-y-6 text-base text-gray-700"
+                    className="space-y-6 whitespace-pre-line text-base text-gray-700"
                     dangerouslySetInnerHTML={{ __html: product.description }}
                   />
                 </div>

@@ -14,6 +14,9 @@ export default async function handler(req, res) {
           name
           price_one
           slug
+    
+          
+          
           is_unavailable
           price_two
           category {

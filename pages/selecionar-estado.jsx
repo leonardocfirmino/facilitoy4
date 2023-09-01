@@ -136,6 +136,9 @@ const SelectEstado = () => {
       .filter((item) => !!item);
     const SP_CAPITAL = data.data.franquia
       .map((value) => {
+        if (value.subdomain == "pinheiros") {
+          return false;
+        }
         if (value.estado == "SP CAPITAL") {
           if (value.subdomain == "santos-guaruja")
             return { label: "Santos", value: "santos-guaruja" };

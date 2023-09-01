@@ -455,33 +455,36 @@ export default function Layout({ children, subdomain }) {
                 leaveTo="transform opacity-0 scale-95"
               >
                 <Menu.Items className="absolute left-0  mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
-                    {data &&
-                      data.data.faixa_etaria.map((value) => {
-                        return (
-                          <Menu.Item key={value.id}>
-                            {({ active }) => (
-                              <Link
-                                legacyBehavior
-                                prefetch={false}
-                                href={`/brinquedos?age=${value.id}`}
+                  {data &&
+                    data.data.faixa_etaria.map((value) => {
+                      return (
+                        <Menu.Item key={value.id}>
+                          {({ close }) => (
+                            <Link
+                              legacyBehavior
+                              prefetch={false}
+                              href={`/brinquedos?age=${value.id}${
+                                router.query?.search?.length > 3
+                                  ? `&search=${router.query.search}`
+                                  : ""
+                              }`}
+                            >
+                              <a
+                                onClick={close}
+                                className={classNames(
+                                  router.query?.age == value.id
+                                    ? "bg-gray-200 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
                               >
-                                <a
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
-                                    "block px-4 py-2 text-sm"
-                                  )}
-                                >
-                                  {value.name}
-                                </a>
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        );
-                      })}
-                  </div>
+                                {value.name}
+                              </a>
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      );
+                    })}
                 </Menu.Items>
               </Transition>
             </Menu>
