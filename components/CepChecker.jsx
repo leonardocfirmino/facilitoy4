@@ -42,7 +42,7 @@ export default function CepChecker({ subdomain, endereco }) {
         process.env.NEXT_PUBLIC_SITE_URL +
         "/api/cep-calc",
       {
-        cep: cep.replace("-", ""),
+        cep: cep.replaceAll("-", ""),
         subdomain: subdomain,
       }
     );
