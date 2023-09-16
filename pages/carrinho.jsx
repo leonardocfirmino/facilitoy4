@@ -288,8 +288,9 @@ const CarrinhoPage = ({ subdomain }) => {
                         </dt>
                         <dd className="text-base font-medium text-gray-900">
                           {data?.data.franquia[0].frete_gratis_min &&
-                          data?.data.franquia[0].frete_gratis_min !=
-                            0 < getTotalPrice(data) ? (
+                          data?.data.franquia[0].frete_gratis_min != 0 &&
+                          data?.data.franquia[0].frete_gratis_min <
+                            getTotalPrice(data) ? (
                             <span className="text-semibold text-green-400">
                               Grátis
                             </span>
