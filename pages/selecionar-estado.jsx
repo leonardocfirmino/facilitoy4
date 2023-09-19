@@ -147,6 +147,17 @@ const SelectEstado = () => {
         return false;
       })
       .filter((item) => !!item);
+    const PARA = data.data.franquia
+      .map((value) => {
+        if (value.subdomain == "pinheiros") {
+          return false;
+        }
+        if (value.estado == "PARA") {
+          return { label: value.name, value: value.subdomain };
+        }
+        return false;
+      })
+      .filter((item) => !!item);
     SP_CAPITAL.push({ label: "Guaruja", value: "santos-guaruja" });
     setFranquias([
       { label: "SP", options: SP },
@@ -156,6 +167,7 @@ const SelectEstado = () => {
       { label: "MT", options: MT },
       { label: "MG", options: MG },
       { label: "ES", options: ES },
+      { label: "PARÁ", options: PARA },
     ]);
   }
   return (
