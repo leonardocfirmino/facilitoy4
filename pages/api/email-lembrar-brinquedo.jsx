@@ -346,7 +346,7 @@ a[x-apple-data-detectors] {
 
   const franquiado = await transporter.sendMail({
     from: { name: "Facilitoy", address: "suporte@facilitoy.com.br" },
-    to: "asdfghjkl.rs70@gmail.com", //emailToSend.data.data.product[0].user.email,
+    to: emailToSend.data.data.product[0].user.email,
     subject: "Novo lembrete!",
     text: "Veja os dados do lembrete",
 
