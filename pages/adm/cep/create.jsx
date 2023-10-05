@@ -110,7 +110,7 @@ export default function CreateBanner({ sessions }) {
             <div className="w-full  items-start">
               <div className="w-full   flex flex-col justify-center pb-4">
                 <h1 className="text-xl font-semibold px-1 pb-2">
-                  CEP (Apenas bairros)
+                  Novo bairro (Apenas bairros)
                 </h1>
                 <Autocomplete
                   apiKey={"AIzaSyCLodMWPB7zeP4Xk2WJnZN5gfuQ7CpO5hk"}
