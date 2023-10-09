@@ -1,33 +1,33 @@
 /* eslint-disable @next/next/no-img-element */
-import Select from "react-select";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import axios from "axios";
-import useSWR from "swr";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { validate } from "graphql";
+import Select from "react-select"
+import { useState } from "react"
+import { useRouter } from "next/router"
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react"
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
+import axios from "axios"
+import useSWR from "swr"
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+import { validate } from "graphql"
 const SelectEstado = () => {
-  const router = useRouter();
-  const [franquias, setFranquias] = useState(null);
-  const [estado, setEstado] = useState();
-  const fetcher = async (query) =>
+  const router = useRouter()
+  const [franquias, setFranquias] = useState(null)
+  const [estado, setEstado] = useState()
+  const fetcher = async query =>
     axios.get(
       process.env.NEXT_PUBLIC_PREFIX +
         process.env.NEXT_PUBLIC_SITE_URL +
         "/api/all-franquias",
       query
-    );
+    )
 
-  const { data, mutate } = useSWR({}, fetcher);
+  const { data, mutate } = useSWR({}, fetcher)
   const groupStyles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-  };
+  }
   const groupBadgeStyles = {
     backgroundColor: "#EBECF0",
     borderRadius: "2em",
@@ -39,13 +39,13 @@ const SelectEstado = () => {
     minWidth: 1,
     padding: "0.16666666666667em 0.5em",
     textAlign: "center",
-  };
+  }
 
   const sendToSite = () => {
     router.push(
       `${process.env.NEXT_PUBLIC_PREFIX}${estado.value}.${process.env.NEXT_PUBLIC_SITE_URL}`
-    );
-  };
+    )
+  }
   const images = [
     "/footer-estado/1.jpg",
     "/footer-estado/2.jpg",
@@ -57,108 +57,111 @@ const SelectEstado = () => {
     "/footer-estado/8.jpeg",
     "/footer-estado/9.jpeg",
     "/footer-estado/10.jpeg",
-  ];
+  ]
   if (data && franquias == null) {
     const SP = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.estado == "SP") {
+          if (value.subdomain == "indaiatuba") {
+            return false
+          }
           if (value.subdomain == "rio-das-ostras")
-            return { label: value.name, value: "roemacae" };
+            return { label: value.name, value: "roemacae" }
           if (value.subdomain == "roemacae")
-            return { label: "Macaé", value: "roemacae" };
-          return { label: value.name, value: value.subdomain };
+            return { label: "Macaé", value: "roemacae" }
+          return { label: value.name, value: value.subdomain }
         }
       })
-      .filter((item) => !!item);
+      .filter(item => !!item)
     const RJ = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.subdomain == "campos") {
-          return false;
+          return false
         }
         if (value.estado == "RJ") {
           if (value.subdomain == "rio-das-ostras")
-            return { label: value.name, value: "roemacae" };
+            return { label: value.name, value: "roemacae" }
           if (value.subdomain == "roemacae")
-            return { label: "Macaé", value: "roemacae" };
-          return { label: value.name, value: value.subdomain };
+            return { label: "Macaé", value: "roemacae" }
+          return { label: value.name, value: value.subdomain }
         }
-        return false;
+        return false
       })
-      .filter((item) => !!item);
+      .filter(item => !!item)
     const MT = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.estado == "MT") {
           if (value.subdomain == "rio-das-ostras")
-            return { label: value.name, value: "roemacae" };
+            return { label: value.name, value: "roemacae" }
           if (value.subdomain == "roemacae")
-            return { label: "Macaé", value: "roemacae" };
-          return { label: value.name, value: value.subdomain };
+            return { label: "Macaé", value: "roemacae" }
+          return { label: value.name, value: value.subdomain }
         }
-        return false;
+        return false
       })
-      .filter((item) => !!item);
+      .filter(item => !!item)
     const MG = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.estado == "MG") {
           if (value.subdomain == "rio-das-ostras")
-            return { label: value.name, value: "roemacae" };
+            return { label: value.name, value: "roemacae" }
           if (value.subdomain == "roemacae")
-            return { label: "Macaé", value: "roemacae" };
-          return { label: value.name, value: value.subdomain };
+            return { label: "Macaé", value: "roemacae" }
+          return { label: value.name, value: value.subdomain }
         }
-        return false;
+        return false
       })
-      .filter((item) => !!item);
+      .filter(item => !!item)
     const GOIAS = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.estado == "GOIAS") {
           if (value.subdomain == "rio-das-ostras")
-            return { label: value.name, value: "roemacae" };
+            return { label: value.name, value: "roemacae" }
           if (value.subdomain == "roemacae")
-            return { label: "Macaé", value: "roemacae" };
-          return { label: value.name, value: value.subdomain };
+            return { label: "Macaé", value: "roemacae" }
+          return { label: value.name, value: value.subdomain }
         }
-        return false;
+        return false
       })
-      .filter((item) => !!item);
+      .filter(item => !!item)
 
     const ES = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.estado == "ES") {
           if (value.subdomain == "rio-das-ostras")
-            return { label: value.name, value: "roemacae" };
+            return { label: value.name, value: "roemacae" }
           if (value.subdomain == "roemacae")
-            return { label: "Macaé", value: "roemacae" };
-          return { label: value.name, value: value.subdomain };
+            return { label: "Macaé", value: "roemacae" }
+          return { label: value.name, value: value.subdomain }
         }
-        return false;
+        return false
       })
-      .filter((item) => !!item);
+      .filter(item => !!item)
     const SP_CAPITAL = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.subdomain == "pinheiros") {
-          return false;
+          return false
         }
         if (value.estado == "SP CAPITAL") {
           if (value.subdomain == "santos-guaruja")
-            return { label: "Santos", value: "santos-guaruja" };
-          return { label: value.name, value: value.subdomain };
+            return { label: "Santos", value: "santos-guaruja" }
+          return { label: value.name, value: value.subdomain }
         }
-        return false;
+        return false
       })
-      .filter((item) => !!item);
+      .filter(item => !!item)
     const PARA = data.data.franquia
-      .map((value) => {
+      .map(value => {
         if (value.subdomain == "pinheiros") {
-          return false;
+          return false
         }
         if (value.estado == "PARA") {
-          return { label: value.name, value: value.subdomain };
+          return { label: value.name, value: value.subdomain }
         }
-        return false;
+        return false
       })
-      .filter((item) => !!item);
-    SP_CAPITAL.push({ label: "Guaruja", value: "santos-guaruja" });
+      .filter(item => !!item)
+    SP_CAPITAL.push({ label: "Guaruja", value: "santos-guaruja" })
     setFranquias([
       { label: "SP", options: SP },
       { label: "SP CAPITAL", options: SP_CAPITAL },
@@ -168,7 +171,7 @@ const SelectEstado = () => {
       { label: "MG", options: MG },
       { label: "ES", options: ES },
       { label: "PARÁ", options: PARA },
-    ]);
+    ])
   }
   return (
     <div className="w-full flex estadoClass  flex-col justify-center items-center  flex-1 h-screen bg-cover">
@@ -185,7 +188,7 @@ const SelectEstado = () => {
             {data && (
               <Select
                 options={franquias}
-                onChange={(value) => setEstado(value)}
+                onChange={value => setEstado(value)}
                 placeholder="Selecione a Facilitoy mais proxima de você"
                 styles={{
                   control: (baseStyles, state) => ({
@@ -251,13 +254,13 @@ const SelectEstado = () => {
                       />
                     </a>
                   </SwiperSlide>
-                );
+                )
               })}
             </Swiper>
           </div>
         </>
       )}
     </div>
-  );
-};
-export default SelectEstado;
+  )
+}
+export default SelectEstado
