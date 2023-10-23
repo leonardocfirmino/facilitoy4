@@ -175,7 +175,7 @@ const SelectEstado = () => {
     SP_CAPITAL.push({ label: "Guaruja", value: "santos-guaruja" })
     setFranquias([
       { label: "SP", options: SP },
-      { label: "SP CAPITAL", options: SP_CAPITAL },
+      /* { label: "SP CAPITAL", options: SP_CAPITAL }, */
       { label: "RJ", options: RJ },
       { label: "GOIAS", options: GOIAS },
       { label: "MT", options: MT },
