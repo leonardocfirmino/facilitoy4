@@ -166,7 +166,7 @@ const SelectEstado = () => {
         if (value.subdomain == "pinheiros") {
           return false
         }
-        if (value.estado == "PARANA") {
+        if (value.estado == "PARANÁ") {
           return { label: value.name, value: value.subdomain }
         }
         return false
