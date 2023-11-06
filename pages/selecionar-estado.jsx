@@ -78,6 +78,9 @@ const SelectEstado = () => {
         if (value.subdomain == "campos") {
           return false
         }
+        if (value.subdomain == "resende") {
+          return false
+        }
         if (value.estado == "RJ") {
           if (value.subdomain == "rio-das-ostras")
             return { label: value.name, value: "roemacae" }
