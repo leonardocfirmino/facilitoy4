@@ -186,6 +186,17 @@ const SelectEstado = () => {
         return false
       })
       .filter(item => !!item)
+    const SC = data.data.franquia
+      .map(value => {
+        if (value.subdomain == "pinheiros") {
+          return false
+        }
+        if (value.estado == "SC") {
+          return { label: value.name, value: value.subdomain }
+        }
+        return false
+      })
+      .filter(item => !!item)
     SP_CAPITAL.push({ label: "Guaruja", value: "santos-guaruja" })
     setFranquias([
       { label: "SP", options: SP },
@@ -198,6 +209,7 @@ const SelectEstado = () => {
       { label: "PARÁ", options: PARA },
       { label: "PARANÁ", options: PARANA },
       { label: "SERGIPE", options: SERGIPE },
+      { label: "SANTA CATARINA", options: SC },
     ])
   }
   return (
