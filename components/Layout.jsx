@@ -1,45 +1,45 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-import { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import SearchBar from "./SearchBar";
-import CookieConsent, { Cookies } from "react-cookie-consent";
-import Carrinho from "./Carrinho";
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import axios from "axios";
-import useSWR from "swr";
-import { useSelector } from "react-redux";
-import formatPhoneNumber from "../helpers/formatPhoneNumber";
-import TagManager from "react-gtm-module";
+import Link from "next/link"
+import { useState } from "react"
+import { signOut, useSession } from "next-auth/react"
+import { useRouter } from "next/router"
+import SearchBar from "./SearchBar"
+import CookieConsent, { Cookies } from "react-cookie-consent"
+import Carrinho from "./Carrinho"
+import { Fragment } from "react"
+import { Menu, Transition } from "@headlessui/react"
+import { ChevronDownIcon } from "@heroicons/react/20/solid"
+import axios from "axios"
+import useSWR from "swr"
+import { useSelector } from "react-redux"
+import formatPhoneNumber from "../helpers/formatPhoneNumber"
+import TagManager from "react-gtm-module"
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ")
 }
 export default function Layout({ children, subdomain }) {
-  const router = useRouter();
-  const session = useSession();
-  const fetcher = async (url) =>
+  const router = useRouter()
+  const session = useSession()
+  const fetcher = async url =>
     axios.get(
       process.env.NEXT_PUBLIC_PREFIX +
         (subdomain ? subdomain + "." : null) +
         process.env.NEXT_PUBLIC_SITE_URL +
         url
-    );
-  const { data, mutate } = useSWR("/api/get-home", fetcher);
+    )
+  const { data, mutate } = useSWR("/api/get-home", fetcher)
   const callback =
     process.env.NEXT_PUBLIC_PREFIX +
     subdomain +
     "." +
     process.env.NEXT_PUBLIC_SITE_URL +
-    "/carrinho";
+    "/carrinho"
 
-  const items = useSelector((state) => state.cart);
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [actualMenu, setActualMenu] = useState(router.pathname);
-  const [tagEnabled, setTagEnabled] = useState(false);
+  const items = useSelector(state => state.cart)
+  const [mobileMenu, setMobileMenu] = useState(false)
+  const [actualMenu, setActualMenu] = useState(router.pathname)
+  const [tagEnabled, setTagEnabled] = useState(false)
   if (data && !tagEnabled) {
     if (
       data.data.franquia[0].pixel_google != null ||
@@ -47,9 +47,9 @@ export default function Layout({ children, subdomain }) {
     ) {
       const tagManagerArgs = {
         gtmId: data.data.franquia[0].pixel_google,
-      };
-      TagManager.initialize(tagManagerArgs);
-      setTagEnabled(true);
+      }
+      TagManager.initialize(tagManagerArgs)
+      setTagEnabled(true)
     }
   }
   return (
@@ -93,7 +93,7 @@ export default function Layout({ children, subdomain }) {
                   type="button"
                   id="closebtn"
                   onClick={() => {
-                    setMobileMenu(!mobileMenu);
+                    setMobileMenu(!mobileMenu)
                   }}
                   className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 >
@@ -161,11 +161,11 @@ export default function Layout({ children, subdomain }) {
                         <div
                           className="py-1"
                           onClick={() => {
-                            setMobileMenu(!mobileMenu);
+                            setMobileMenu(!mobileMenu)
                           }}
                         >
                           {data &&
-                            data.data.faixa_etaria.map((value) => {
+                            data.data.faixa_etaria.map(value => {
                               return (
                                 <Menu.Item key={value.id}>
                                   {({ active }) => (
@@ -187,7 +187,7 @@ export default function Layout({ children, subdomain }) {
                                     </Link>
                                   )}
                                 </Menu.Item>
-                              );
+                              )
                             })}
                         </div>
                       </Menu.Items>
@@ -196,7 +196,7 @@ export default function Layout({ children, subdomain }) {
 
                   <a
                     onClick={() => {
-                      setMobileMenu(!mobileMenu);
+                      setMobileMenu(!mobileMenu)
                     }}
                     href="/#sobre"
                     className={
@@ -223,7 +223,7 @@ export default function Layout({ children, subdomain }) {
                   <a
                     href="/#faq"
                     onClick={() => {
-                      setMobileMenu(!mobileMenu);
+                      setMobileMenu(!mobileMenu)
                     }}
                     className={
                       "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
@@ -249,7 +249,7 @@ export default function Layout({ children, subdomain }) {
                   <a
                     href="#razoes"
                     onClick={() => {
-                      setMobileMenu(!mobileMenu);
+                      setMobileMenu(!mobileMenu)
                     }}
                     className={
                       "text-gray-600 group uppercase flex items-center px-2 py-2 text-sm font-medium rounded-md"
@@ -285,21 +285,24 @@ export default function Layout({ children, subdomain }) {
       <div className="flex flex-col flex-1 ">
         <div className=" top-0 z-10 border-b-2 border-gray-300/40">
           <div className="bg-[#12bcc6] gap-2 lg:gap-4 w-full py-1 px-2 flex  items-center lg:flex-row flex-col justify-center lg:justify-around">
-            <a
+            <Link
               href={
                 process.env.NEXT_PUBLIC_PREFIX +
+                subdomain +
+                "." +
                 process.env.NEXT_PUBLIC_SITE_URL +
-                "/selecionar-estado"
+                "/?modal=true&open=true"
               }
-              className="bg-white rounded-full pr-2"
             >
-              <button className="bg-red-600 font-semibold uppercase text-white px-4 py-2 rounded-full text-xs">
-                Brinquedos disponíveis para
-              </button>
-              <span className="font-semibold uppercase text-xs px-4 py-2 text-[#12bcc6]">
-                {subdomain}
-              </span>
-            </a>
+              <div className="bg-white rounded-full pr-2">
+                <button className="bg-red-600 font-semibold uppercase text-white px-4 py-2 rounded-full text-xs">
+                  Brinquedos disponíveis para
+                </button>
+                <span className="font-semibold uppercase text-xs px-4 py-2 text-[#12bcc6]">
+                  {subdomain}
+                </span>
+              </div>
+            </Link>
             <div className="flex justify-center gap-2 items-center">
               <a
                 href="https://facilitoyfranquia.com.br/"
@@ -367,7 +370,7 @@ export default function Layout({ children, subdomain }) {
               <button
                 type="button"
                 onClick={() => {
-                  setMobileMenu(!mobileMenu);
+                  setMobileMenu(!mobileMenu)
                 }}
                 className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex xl:hidden items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               >
@@ -456,7 +459,7 @@ export default function Layout({ children, subdomain }) {
               >
                 <Menu.Items className="absolute left-0  mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {data &&
-                    data.data.faixa_etaria.map((value) => {
+                    data.data.faixa_etaria.map(value => {
                       return (
                         <Menu.Item key={value.id}>
                           {({ close }) => (
@@ -483,7 +486,7 @@ export default function Layout({ children, subdomain }) {
                             </Link>
                           )}
                         </Menu.Item>
-                      );
+                      )
                     })}
                 </Menu.Items>
               </Transition>
@@ -661,11 +664,11 @@ export default function Layout({ children, subdomain }) {
         </a>
       )}
     </div>
-  );
+  )
 }
 export async function getServerSideProps(ctx) {
   const subdomain =
-    ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"];
+    ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"]
   if (process.env.NEXT_PUBLIC_PREFIX == "http://")
     if (subdomain.split(".")[1] == undefined)
       return {
@@ -673,7 +676,7 @@ export async function getServerSideProps(ctx) {
           destination: `/selecionar-estado`,
           permanent: false,
         },
-      };
+      }
   if (process.env.NEXT_PUBLIC_PREFIX != "http://")
     if (subdomain.split(".")[3] == undefined)
       return {
@@ -681,6 +684,6 @@ export async function getServerSideProps(ctx) {
           destination: `/selecionar-estado`,
           permanent: false,
         },
-      };
-  return { props: { subdomain: subdomain.split(".")[0] } };
+      }
+  return { props: { subdomain: subdomain.split(".")[0] } }
 }
