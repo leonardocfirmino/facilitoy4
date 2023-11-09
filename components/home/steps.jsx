@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRef } from "react";
-import { Tooltip as ReactTooltip } from "react-tooltip";
-import Xarrow from "react-xarrows";
-import Link from "next/link";
+import { useRef } from "react"
+import { Tooltip as ReactTooltip } from "react-tooltip"
+import Xarrow from "react-xarrows"
+import Link from "next/link"
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ")
 }
-export default function Steps() {
+export default function Steps({ subdomain }) {
   const steps = [
     {
       text: "Escolha os brinquedos",
@@ -33,37 +33,39 @@ export default function Steps() {
       image: "/steps/6.webp",
       tip: "Buscamos os brinquedos em sua casa, ou trocamos por uma nova e inesquecível diversão!",
     },
-  ];
-  const box1 = useRef();
-  const box2 = useRef();
-  const box3 = useRef();
-  const box4 = useRef();
-  const box5 = useRef();
-  const box6 = useRef();
-  const listBoxes = [box1, box2, box3, box4, box5, box6];
+  ]
+  const box1 = useRef()
+  const box2 = useRef()
+  const box3 = useRef()
+  const box4 = useRef()
+  const box5 = useRef()
+  const box6 = useRef()
+  const listBoxes = [box1, box2, box3, box4, box5, box6]
   return (
     <div
       style={{ backgroundImage: "url('/como-funciona.jpg')" }}
       id="como-funciona"
       className="w-full relative bg-cover flex gap-10  flex-col justify-center  items-center "
     >
-      <div className="absolute z-10  -top-1 left-0 right-0 w-full">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1000 100"
-          fill="#fff"
-          preserveAspectRatio="none"
-          style={{ width: "100%" }}
-          className=" h-14 transform "
-        >
-          <path
-            className="elementor-shape-fill"
-            d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
+      {subdomain && (
+        <div className="absolute z-10  -top-1 left-0 right-0 w-full">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1000 100"
+            fill="#fff"
+            preserveAspectRatio="none"
+            style={{ width: "100%" }}
+            className=" h-14 transform "
+          >
+            <path
+              className="elementor-shape-fill"
+              d="M421.9,6.5c22.6-2.5,51.5,0.4,75.5,5.3c23.6,4.9,70.9,23.5,100.5,35.7c75.8,32.2,133.7,44.5,192.6,49.7
 	c23.6,2.1,48.7,3.5,103.4-2.5c54.7-6,106.2-25.6,106.2-25.6V0H0v30.3c0,0,72,32.6,158.4,30.5c39.2-0.7,92.8-6.7,134-22.4
 	c21.2-8.1,52.2-18.2,79.7-24.2C399.3,7.9,411.6,7.5,421.9,6.5z"
-          ></path>
-        </svg>
-      </div>
+            ></path>
+          </svg>
+        </div>
+      )}
       <div className="absolute z-10  -bottom-1 left-0 right-0 w-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +116,7 @@ export default function Steps() {
                 {value.text}
               </h1>
             </div>
-          );
+          )
         })}
       </div>
       <div>
@@ -224,5 +226,5 @@ export default function Steps() {
         </a>
       </Link>
     </div>
-  );
+  )
 }

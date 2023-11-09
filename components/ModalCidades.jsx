@@ -7,15 +7,13 @@ import axios from "axios"
 import useSWR from "swr"
 
 import * as Dialog from "@radix-ui/react-dialog"
-const ModalCidades = ({ subdomain, isOpen, setOpen }) => {
+const ModalCidades = ({ isOpen, setOpen }) => {
   const router = useRouter()
   const [franquias, setFranquias] = useState(null)
   const [estado, setEstado] = useState()
   const fetcher = async query =>
     axios.get(
       process.env.NEXT_PUBLIC_PREFIX +
-        subdomain +
-        "." +
         process.env.NEXT_PUBLIC_SITE_URL +
         "/api/all-franquias",
       query
@@ -52,7 +50,7 @@ const ModalCidades = ({ subdomain, isOpen, setOpen }) => {
     setFranquias(franquiasFormatoDesejado)
   }
   return (
-    <Dialog.Root open={isOpen} onOpenChange={() => setOpen(true)}>
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/30 data-[state=open]:animate-overlayShow fixed inset-0 z-30" />
         <Dialog.Content className="z-40 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-full max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px]    focus:outline-none">
@@ -105,6 +103,28 @@ const ModalCidades = ({ subdomain, isOpen, setOpen }) => {
               </>
             )}
           </div>
+          <Dialog.Close>
+            <div
+              className="text-faciBlue z-30 hover:bg-faciBlue/30 focus:shadow-black absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+              aria-label="Close"
+              onClick={() => setOpen(!isOpen)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 stroke-faciBlue"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

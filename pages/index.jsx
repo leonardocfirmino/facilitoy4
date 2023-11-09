@@ -164,62 +164,64 @@ const Blog = ({ subdomain }) => {
     }
   }
   return (
-    <div onClick={handleClick}>
-      <div className={router.query.modal && !modal && "pointer-events-none"}>
-        <Layout subdomain={subdomain}>
-          <ModalCidades
-            subdomain={subdomain}
-            isOpen={modal}
-            setOpen={setModal}
-          />
-
-          <div className="w-full h-full">
-            <Hero1 />
-            {data && data.data.category?.length > 0 ? (
-              <HomeCarrousel1 data={data.data.category} />
-            ) : (
-              <div className=" h-60 flex justify-center items-center">
-                <SyncLoader color="#ff2336" size={30} />
-              </div>
-            )}
-            {data && data.data.product?.length > 0 ? (
-              <HomeCarrousel2
-                data={data.data.product}
-                vendidos={data.data.home_vendidos}
-              />
-            ) : (
-              <div className=" h-60 flex justify-center items-center">
-                <SyncLoader color="#ff2336" size={30} />
-              </div>
-            )}
-            <Steps />
-            {data && data.data.home_recomendados?.length > 0 && (
-              <HomeCarrousel3 data={data.data.home_recomendados} />
-            )}
-            <AgeBalls subdomain={subdomain} />
-            <Razoes />
-            <Sobre />
-            <EmpresasCarrousel data={empresas} />
-            <Duvidas />
-            <Astrolovers />
-            <Testimonals />
-          </div>
-        </Layout>
+    <>
+      <ModalCidades isOpen={modal} setOpen={setModal} />
+      <div onClick={handleClick}>
+        <div className={router.query.modal && !modal && "pointer-events-none"}>
+          <Layout subdomain={subdomain}>
+            <div className="w-full h-full">
+              <Hero1 />
+              {subdomain && data && data.data.category?.length > 0 ? (
+                <HomeCarrousel1 data={data.data.category} />
+              ) : (
+                subdomain && (
+                  <div className=" h-60 flex justify-center items-center">
+                    <SyncLoader color="#ff2336" size={30} />
+                  </div>
+                )
+              )}
+              {subdomain && data && data.data.product?.length > 0 ? (
+                <HomeCarrousel2
+                  data={data.data.product}
+                  vendidos={data.data.home_vendidos}
+                />
+              ) : (
+                subdomain && (
+                  <div className=" h-60 flex justify-center items-center">
+                    <SyncLoader color="#ff2336" size={30} />
+                  </div>
+                )
+              )}
+              <Steps subdomain={subdomain} />
+              {subdomain && data && data.data.home_recomendados?.length > 0 && (
+                <HomeCarrousel3 data={data.data.home_recomendados} />
+              )}
+              <AgeBalls subdomain={subdomain} />
+              <Razoes />
+              <Sobre />
+              <EmpresasCarrousel data={empresas} />
+              <Duvidas />
+              <Astrolovers />
+              <Testimonals />
+            </div>
+          </Layout>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
 export async function getServerSideProps(ctx) {
   const subdomain =
     ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"]
+
+  if (ctx.req.url.includes("modal")) return { props: { subdomain: "" } }
   if (process.env.NEXT_PUBLIC_PREFIX == "http://")
     if (subdomain.split(".")[1] == undefined)
       return {
         redirect: {
           destination:
             process.env.NEXT_PUBLIC_PREFIX +
-            "sao-paulo." +
             process.env.NEXT_PUBLIC_SITE_URL +
             `/?modal=true`,
           permanent: false,
@@ -231,7 +233,6 @@ export async function getServerSideProps(ctx) {
         redirect: {
           destination:
             process.env.NEXT_PUBLIC_PREFIX +
-            "sao-paulo." +
             process.env.NEXT_PUBLIC_SITE_URL +
             `/?modal=true`,
           permanent: false,
