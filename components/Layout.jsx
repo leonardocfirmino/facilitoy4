@@ -551,8 +551,9 @@ export default function Layout({ children, subdomain }) {
               </ul>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center items-center">
               <img src="/eu-reciclo-trans.png" className=" w-40 h-40" alt="" />
+              <img src="/shark-tank.png" className="invert w-32 h-32" alt="" />
             </div>
             <div className="flex flex-col gap-4">
               <div className="flex h-full   items-center  gap-4 justify-center  ">

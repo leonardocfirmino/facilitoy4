@@ -21,7 +21,7 @@ import Astrolovers from "../components/home/astrolovers"
 import AgeBalls from "../components/home/AgeBalls"
 import { SyncLoader } from "react-spinners"
 import ModalCidades from "../components/ModalCidades"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 const localeInfo = {
   // Options.jsx
@@ -43,16 +43,22 @@ const Blog = ({ subdomain }) => {
   const router = useRouter()
   console.log(router)
   const [ages, setAges] = useState([])
+
   const [modal, setModal] = useState(false)
   const fetcher = async query => axios.get(query, {})
-
+  const isDragging = useRef(false)
   const { data, mutate } = useSWR(
     process.env.NEXT_PUBLIC_PREFIX +
       subdomain +
       "." +
       process.env.NEXT_PUBLIC_SITE_URL +
       "/api/home-data",
-    fetcher
+    fetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   )
 
   const empresas = [
@@ -101,6 +107,49 @@ const Blog = ({ subdomain }) => {
       name: "Vtech",
     },
   ]
+
+  const handleClick = () => {
+    if (!isDragging.current) {
+      setModal(true)
+    }
+  }
+
+  useEffect(() => {
+    const parentElement = document.getElementById("parentElement")
+
+    if (parentElement) {
+      parentElement.addEventListener("mousedown", () => {
+        isDragging.current = true
+      })
+
+      parentElement.addEventListener("mouseup", () => {
+        isDragging.current = false
+      })
+
+      parentElement.addEventListener("click", event => {
+        if (isDragging.current) {
+          event.stopPropagation() // Impede a propagação do evento para os elementos filhos
+        }
+      })
+    }
+
+    return () => {
+      if (parentElement) {
+        parentElement.removeEventListener("mousedown", () => {
+          isDragging.current = true
+        })
+        parentElement.removeEventListener("mouseup", () => {
+          isDragging.current = false
+        })
+        parentElement.removeEventListener("click", event => {
+          if (isDragging.current) {
+            event.stopPropagation()
+          }
+        })
+      }
+    }
+  }, [])
+
   useEffect(() => {
     if (!router.query.modal) {
       setModal(false)
@@ -109,17 +158,13 @@ const Blog = ({ subdomain }) => {
       setModal(true)
     }
   }, [router])
-  if (data)
+  if (data) {
     if (data.data.category == undefined) {
       router.reload()
     }
+  }
   return (
-    <div
-      onClick={e => {
-        e.preventDefault()
-        if (router.query.modal) setModal(true)
-      }}
-    >
+    <div onClick={handleClick}>
       <div className={router.query.modal && !modal && "pointer-events-none"}>
         <Layout subdomain={subdomain}>
           <ModalCidades

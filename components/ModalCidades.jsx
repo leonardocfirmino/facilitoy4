@@ -55,7 +55,7 @@ const ModalCidades = ({ subdomain, isOpen, setOpen }) => {
     <Dialog.Root open={isOpen} onOpenChange={() => setOpen(true)}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/30 data-[state=open]:animate-overlayShow fixed inset-0 z-30" />
-        <Dialog.Content className="z-40 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px]  p-[25px]  focus:outline-none">
+        <Dialog.Content className="z-40 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-full max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px]    focus:outline-none">
           <div className="w-full flex   flex-col justify-center items-center   bg-cover">
             {data && (
               <>
