@@ -109,7 +109,7 @@ const Blog = ({ subdomain }) => {
   ]
 
   const handleClick = () => {
-    if (!isDragging.current) {
+    if (!isDragging.current && !subdomain) {
       setModal(true)
     }
   }

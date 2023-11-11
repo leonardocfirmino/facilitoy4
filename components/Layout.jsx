@@ -54,30 +54,32 @@ export default function Layout({ children, subdomain }) {
   }
   return (
     <div>
-      <CookieConsent
-        location="bottom"
-        buttonText="Permitir cookies"
-        cookieName="cookiepermission"
-        style={{ background: "#3582a3" }}
-        buttonStyle={{
-          backgroundColor: "#12bcc6",
-          fontSize: "1.1rem",
-          color: "white",
-          fontWeight: "bold",
-          paddingRight: "16px",
-          paddingLeft: "16px",
-          paddingTop: "8px",
-          paddingBottom: "8px",
-          borderRadius: "5px",
-        }}
-        expires={150}
-      >
-        Este site utiliza cookies para garantir que você obtenha a melhor
-        experiência em nosso site
-        <a href="#" className="ml-3 text-sm underline">
-          Politica de privacidade
-        </a>
-      </CookieConsent>
+      {subdomain && (
+        <CookieConsent
+          location="bottom"
+          buttonText="Permitir cookies"
+          cookieName="cookiepermission"
+          style={{ background: "#3582a3" }}
+          buttonStyle={{
+            backgroundColor: "#12bcc6",
+            fontSize: "1.1rem",
+            color: "white",
+            fontWeight: "bold",
+            paddingRight: "16px",
+            paddingLeft: "16px",
+            paddingTop: "8px",
+            paddingBottom: "8px",
+            borderRadius: "5px",
+          }}
+          expires={150}
+        >
+          Este site utiliza cookies para garantir que você obtenha a melhor
+          experiência em nosso site
+          <a href="#" className="ml-3 text-sm underline">
+            Politica de privacidade
+          </a>
+        </CookieConsent>
+      )}
       {mobileMenu && (
         <div
           id="mobilemenu"
