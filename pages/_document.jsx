@@ -1,4 +1,4 @@
-import { Html, Main, Head, NextScript } from "next/document";
+import { Html, Main, Head, NextScript } from "next/document"
 
 export default function Document() {
   return (
@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <meta
           name="google-site-verification"
-          content="YYD_AmLJ_z1heOFM0fkbPwDRwr1CmXpIsqdW1Cz3tBY"
+          content="n_n7olF5VcFtA3BPfmYmxRgn5ygnurpZTzXpTxM3dP0"
         />
         <title>Facilitoy</title>
       </Head>
@@ -15,5 +15,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }
