@@ -291,8 +291,6 @@ export default function Layout({ children, subdomain }) {
               <Link
                 href={
                   process.env.NEXT_PUBLIC_PREFIX +
-                  subdomain +
-                  "." +
                   process.env.NEXT_PUBLIC_SITE_URL +
                   "/?modal=true&open=true"
                 }

@@ -1,36 +1,36 @@
-import { useState } from "react";
-import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/router";
-import Layout from "../../components/Layout";
-import axios from "axios";
-import Script from "next/script";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/features/cartSlice";
-import { useMercadopago } from "react-sdk-mercadopago";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import CepChecker from "../../components/CepChecker";
-import useSWR from "swr";
-import request from "graphql-request";
-import { useSession } from "next-auth/react";
-import ReactPlayer from "react-player/youtube";
-import TagManager from "react-gtm-module";
-import { useEffect } from "react";
-import FormAvisarMe from "../../components/FormAvisarMe";
+import { useState } from "react"
+import { Disclosure, RadioGroup, Tab } from "@headlessui/react"
+import { StarIcon } from "@heroicons/react/20/solid"
+import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { useRouter } from "next/router"
+import Layout from "../../components/Layout"
+import axios from "axios"
+import Script from "next/script"
+import { useDispatch } from "react-redux"
+import { addToCart } from "../../redux/features/cartSlice"
+import { useMercadopago } from "react-sdk-mercadopago"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import CepChecker from "../../components/CepChecker"
+import useSWR from "swr"
+import request from "graphql-request"
+import { useSession } from "next-auth/react"
+import ReactPlayer from "react-player/youtube"
+import TagManager from "react-gtm-module"
+import { useEffect } from "react"
+import FormAvisarMe from "../../components/FormAvisarMe"
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ")
 }
 function classOrganizer(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ")
 }
 
 export default function Example({ subdomain }) {
-  const session = useSession();
-  const [uniqueData, setUniqueData] = useState(false);
-  const router = useRouter();
-  const fetcher = async (query) =>
+  const session = useSession()
+  const [uniqueData, setUniqueData] = useState(false)
+  const router = useRouter()
+  const fetcher = async query =>
     axios.post(
       process.env.NEXT_PUBLIC_PREFIX +
         subdomain +
@@ -38,13 +38,13 @@ export default function Example({ subdomain }) {
         process.env.NEXT_PUBLIC_SITE_URL +
         "/api/get-product",
       query
-    );
+    )
 
-  const { data, mutate } = useSWR({ slug: router.query.brinquedo }, fetcher);
+  const { data, mutate } = useSWR({ slug: router.query.brinquedo }, fetcher)
 
-  const dispatch = useDispatch();
-  const addCart = (product) => {
-    dispatch(addToCart(product));
+  const dispatch = useDispatch()
+  const addCart = product => {
+    dispatch(addToCart(product))
     toast.success("Brinquedo adicionado ao carrinho", {
       position: "top-right",
       autoClose: 5000,
@@ -53,8 +53,8 @@ export default function Example({ subdomain }) {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });
-    dataLayer.push({ ecommerce: null });
+    })
+    dataLayer.push({ ecommerce: null })
     dataLayer.push({
       event: "add_to_cart",
       ecommerce: {
@@ -72,23 +72,23 @@ export default function Example({ subdomain }) {
           },
         ],
       },
-    });
-  };
-
-  const [selectedTime, setSelectedTime] = useState(null);
-  let product = {};
-  function calcDesconto(tempo, price, inicial) {
-    const diarioInicial = inicial / 7;
-
-    const valorBruto = tempo * diarioInicial;
-
-    return (valorBruto - price).toFixed(2);
+    })
   }
-  let setPrice = null;
+
+  const [selectedTime, setSelectedTime] = useState(null)
+  let product = {}
+  function calcDesconto(tempo, price, inicial) {
+    const diarioInicial = inicial / 7
+
+    const valorBruto = tempo * diarioInicial
+
+    return (valorBruto - price).toFixed(2)
+  }
+  let setPrice = null
   useEffect(() => {
-    window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || []
     function onProductClick(productObj) {
-      dataLayer.push({ ecommerce: null });
+      dataLayer.push({ ecommerce: null })
       dataLayer.push({
         event: "select_item",
 
@@ -105,7 +105,7 @@ export default function Example({ subdomain }) {
             },
           ],
         },
-      });
+      })
       dataLayer.push({
         event: "view_item",
 
@@ -122,18 +122,18 @@ export default function Example({ subdomain }) {
             },
           ],
         },
-      });
-      setUniqueData(true);
+      })
+      setUniqueData(true)
     }
-    if (data && !uniqueData) onProductClick(data.data.product[0]);
-  });
+    if (data && !uniqueData) onProductClick(data.data.product[0])
+  })
   if (data) {
     if (data.data.product.length == 0) {
-      router.push("/");
+      router.push("/")
     }
     if (data.data.product.length != 0) {
       if (setPrice == null) {
-        setPrice = data.data.product[0];
+        setPrice = data.data.product[0]
         setPrice = {
           ...setPrice,
           precos: [
@@ -161,10 +161,10 @@ export default function Example({ subdomain }) {
               ),
             },
           ],
-        };
+        }
       }
-      product = setPrice;
-      if (selectedTime == null) setSelectedTime(setPrice.precos[0]);
+      product = setPrice
+      if (selectedTime == null) setSelectedTime(setPrice.precos[0])
     }
   }
 
@@ -191,7 +191,7 @@ export default function Example({ subdomain }) {
               {/* Image gallery */}
               <Tab.Group
                 as="div"
-                onChange={(value) => console.log(value)}
+                onChange={value => console.log(value)}
                 className="flex flex-col-reverse"
               >
                 {/* Image selector */}
@@ -241,7 +241,7 @@ export default function Example({ subdomain }) {
                             "https://space-facilitoy.sfo3.cdn.digitaloceanspaces.com/" +
                             image.src
                           }
-                          className="h-full w-full object-cover object-center sm:rounded-lg"
+                          className="h-full w-full object-contain object-center sm:rounded-lg"
                         />
                       </Tab.Panel>
                     ))}
@@ -268,7 +268,7 @@ export default function Example({ subdomain }) {
                       value={selectedTime}
                       defaultChecked={selectedTime}
                       by={"tempo"}
-                      onChange={(e) => setSelectedTime(e)}
+                      onChange={e => setSelectedTime(e)}
                       className="mt-2 flex w-full"
                     >
                       <span className="flex flex-wrap w-full justify-start gap-4">
@@ -328,8 +328,8 @@ export default function Example({ subdomain }) {
                           id: product.id,
                           product: product,
                           time: selectedTime,
-                        });
-                        router.push("/carrinho");
+                        })
+                        router.push("/carrinho")
                       }}
                       className={classOrganizer(
                         product.is_unavailable
@@ -347,7 +347,7 @@ export default function Example({ subdomain }) {
                           id: product.id,
                           product: product,
                           time: selectedTime,
-                        });
+                        })
                       }}
                       className={classOrganizer(
                         product.is_unavailable
@@ -445,11 +445,11 @@ export default function Example({ subdomain }) {
         </div>
       </Layout>
     )
-  );
+  )
 }
 export async function getServerSideProps(ctx) {
   const subdomain =
-    ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"];
+    ctx.req.headers["x-forwarded-host"] || ctx.req.headers["host"]
   if (process.env.NEXT_PUBLIC_PREFIX == "http://")
     if (subdomain.split(".")[1] == undefined)
       return {
@@ -457,7 +457,7 @@ export async function getServerSideProps(ctx) {
           destination: `/selecionar-estado`,
           permanent: false,
         },
-      };
+      }
   if (process.env.NEXT_PUBLIC_PREFIX != "http://")
     if (subdomain.split(".")[3] == undefined)
       return {
@@ -465,6 +465,6 @@ export async function getServerSideProps(ctx) {
           destination: `/selecionar-estado`,
           permanent: false,
         },
-      };
-  return { props: { subdomain: subdomain.split(".")[0] } };
+      }
+  return { props: { subdomain: subdomain.split(".")[0] } }
 }

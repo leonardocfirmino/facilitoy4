@@ -1,9 +1,13 @@
-import axios from "axios";
+import axios from "axios"
 
 export default async function handler(req, res) {
   const viaCep = await axios.get(
     `https://viacep.com.br/ws/${req.body.cep}/json/`
-  );
+  )
+
+  if (viaCep.data.bairro == "Freguesia (Jacarepaguá)") {
+    viaCep.data.bairro = "Freguesia de Jacarepaguá"
+  }
   const cepBanco = await axios.post(
     process.env.HASURA_URL,
     {
@@ -22,16 +26,14 @@ export default async function handler(req, res) {
         "x-hasura-admin-secret": process.env.HASURA_ADMIN,
       },
     }
-  );
-  console.log(cepBanco.data);
+  )
+  console.log(cepBanco.data)
   if (cepBanco.data.data.cep_user.length == 0)
-    return res.status(200).json({ isNull: true });
+    return res.status(200).json({ isNull: true })
 
-  return res
-    .status(200)
-    .json({
-      cep: cepBanco.data.data.cep_user[0],
-      logradouro: viaCep.data.logradouro,
-      isNull: false,
-    });
+  return res.status(200).json({
+    cep: cepBanco.data.data.cep_user[0],
+    logradouro: viaCep.data.logradouro,
+    isNull: false,
+  })
 }
