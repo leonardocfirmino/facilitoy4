@@ -1,23 +1,27 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import randomName from "../../helpers/randomName";
-import multer from "multer";
-import axios from "axios";
-import _ from "lodash";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
+import randomName from "../../helpers/randomName"
+import multer from "multer"
+import axios from "axios"
+import _ from "lodash"
 export const config = {
   api: {
     bodyParser: false,
   },
-};
-var storage = multer.memoryStorage();
+}
+var storage = multer.memoryStorage()
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage })
 function slugify(text) {
-  return _.deburr(text.toString().toLowerCase())
+  const baseSlug = _.deburr(text.toString().toLowerCase())
     .replace(/\s+/g, "-") // Substitui espaços em branco por hífen
     .replace(/[^\w\-]+/g, "") // Remove caracteres especiais
     .replace(/\-\-+/g, "-") // Substitui dois ou mais hífens consecutivos por um único hífen
     .replace(/^-+/, "") // Remove hífens do início do texto
-    .replace(/-+$/, ""); // Remove hífens do final do texto
+    .replace(/-+$/, "") // Remove hífens do final do texto
+
+  const randomChars = Math.random().toString(36).substring(2, 12) // Gera uma sequência de 8 caracteres alfanuméricos
+  const finalSlug = `${baseSlug}-${randomChars}`
+  return finalSlug
 }
 export default async function handler(req, res) {
   const s3Client = new S3Client({
@@ -28,32 +32,32 @@ export default async function handler(req, res) {
       accessKeyId: process.env.SPACES_KEY,
       secretAccessKey: process.env.SPACES_SECRET,
     },
-  });
+  })
 
-  upload.array("images")(req, {}, async (err) => {
-    const link = slugify(req.body.name);
+  upload.array("images")(req, {}, async err => {
+    const link = slugify(req.body.name)
     if (req.files != undefined) {
-      let imageNames = "[";
-      const promises = req.files.map(async (fileMap) => {
-        const imageName = randomName();
+      let imageNames = "["
+      const promises = req.files.map(async fileMap => {
+        const imageName = randomName()
         const params = {
           Bucket: process.env.BUCKET_NAME,
           Key: `${imageName}.${fileMap.originalname.split(".")[1]}`,
           Body: fileMap.buffer,
           ACL: "public-read",
           ContentType: fileMap.mimetype,
-        };
+        }
 
-        const data = await s3Client.send(new PutObjectCommand(params));
+        const data = await s3Client.send(new PutObjectCommand(params))
         if (data.$metadata.httpStatusCode == 200)
-          return `{src: "${imageName}.${fileMap.originalname.split(".")[1]}"},`;
-      });
-      const arrayImages = await Promise.all(promises);
-      arrayImages.map((value) => {
-        imageNames += value;
-      });
-      imageNames += "]";
-      console.log(imageNames);
+          return `{src: "${imageName}.${fileMap.originalname.split(".")[1]}"},`
+      })
+      const arrayImages = await Promise.all(promises)
+      arrayImages.map(value => {
+        imageNames += value
+      })
+      imageNames += "]"
+      console.log(imageNames)
       if (req.method == "POST") {
         const result = await axios.post(
           `${process.env.HASURA_URL}`,
@@ -71,12 +75,12 @@ export default async function handler(req, res) {
               authorization: req.headers.authorization,
             },
           }
-        );
-        console.log(result.config);
+        )
+        console.log(result.config)
         if (result.data.errors != undefined) {
-          return res.status(500).json(req.body.name);
+          return res.status(500).json(req.body.name)
         }
-        return res.status(200).json(result.data.data);
+        return res.status(200).json(result.data.data)
       }
     }
     if (req.file == undefined) {
@@ -97,12 +101,12 @@ export default async function handler(req, res) {
             authorization: req.headers.authorization,
           },
         }
-      );
+      )
       if (result.data.errors != undefined) {
-        console.log(result.config);
-        return res.status(500).json(result.data.errors);
+        console.log(result.config)
+        return res.status(500).json(result.data.errors)
       }
-      return res.status(200).json(req.body.name);
+      return res.status(200).json(req.body.name)
     }
-  });
+  })
 }

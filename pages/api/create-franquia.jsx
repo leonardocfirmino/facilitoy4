@@ -196,6 +196,9 @@ async function createFranquia(
       },
     }
   )
+  if (response.data.errors) {
+    console.log(response.data.errors)
+  }
   return response.data.data.insert_franquia_one.id
 }
 export default async function handler(req, res) {
@@ -216,6 +219,7 @@ export default async function handler(req, res) {
     form.estado,
     form.subdomain
   )
+  console.log(franquia_id)
   const products = await productDuplicate(user_id)
   return res.status(200).json("oi")
 }
