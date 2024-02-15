@@ -101,7 +101,7 @@ export default function CreateBanner({ sessions }) {
       <div className="w-full h-screen flex justify-center overflow-auto  items-center">
         <div className="flex flex-col w-2/5 ">
           <div className="w-full text-3xl font-bold mt-6 flex justify-center pb-4">
-            <h1>Novo CEP</h1>
+            <h1>Adicionar Bairro e Cidade</h1>
           </div>
           <form
             onSubmit={(form) => sendBanner(form)}
@@ -110,7 +110,7 @@ export default function CreateBanner({ sessions }) {
             <div className="w-full  items-start">
               <div className="w-full   flex flex-col justify-center pb-4">
                 <h1 className="text-xl font-semibold px-1 pb-2">
-                  Novo bairro (Apenas bairros)
+                  Digite aqui o Bairro e Cidade
                 </h1>
                 <Autocomplete
                   apiKey={"AIzaSyCLodMWPB7zeP4Xk2WJnZN5gfuQ7CpO5hk"}
@@ -169,7 +169,7 @@ export default function CreateBanner({ sessions }) {
               >
                 <MoonLoader size={20} color="#fff" loading={loading} />
                 <span className={loading ? "pl-2" : "pl-0"}>
-                  {loading ? "Cadastrando" : "Criar CEP"}
+                  {loading ? "Cadastrando" : "Salvar"}
                 </span>
               </button>
             </div>
