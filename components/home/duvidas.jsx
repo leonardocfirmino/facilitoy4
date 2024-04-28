@@ -25,7 +25,7 @@ const faqs = [
   {
     question: "E se meu filho se apegar ao brinquedo?",
     answer:
-      "Não precisa se preocupar. Se o seu filho gostar muito do brinquedo, você pode renovar o aluguel por quanto tempo quiser ou ainda comprar o brinquedo com a gente.  ",
+      "Não precisa se preocupar. Se o seu filho gostar muito do brinquedo, você pode renovar o aluguel por quanto tempo quiser.",
   },
   {
     question: "A facilitoy é uma loja de aluguel para brinquedos de festa?",
