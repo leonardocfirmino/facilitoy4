@@ -30,6 +30,7 @@ const Config = ({ sessions }) => {
       franquia {
         name
         id
+        pixel_google
         contato
         endereco_completo
         frete_gratis_min
