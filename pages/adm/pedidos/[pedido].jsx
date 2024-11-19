@@ -53,6 +53,9 @@ export default function CreateBanner({ sessions }) {
             }
           }
         }
+        franquium {
+          frete_gratis_min
+        }
         user {
           phone_number
           name
@@ -215,7 +218,14 @@ export default function CreateBanner({ sessions }) {
                     <h1 className="text-xl font-semibold  pb-2">
                       Total do pedido
                     </h1>
-                    <p>R$: {data.user_carrinho[0].total}</p>
+                    <p>
+                      R$:{" "}
+                      {data.user_carrinho[0].franquium.frete_gratis_min <=
+                      data.user_carrinho[0].total
+                        ? data.user_carrinho[0].total -
+                          data.user_carrinho[0].frete_value
+                        : data.user_carrinho[0].total}
+                    </p>
                   </div>
                 </div>
               </div>
